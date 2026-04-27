@@ -1,0 +1,1 @@
+from eve_analytics.core.client import EveAnalytics

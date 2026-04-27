@@ -1,0 +1,51 @@
+ {
+    "damage": {
+      "incoming": "in_dmg",
+      "outgoing": "out_dmg",
+      "incoming_drones": "in_dmg_drones",
+      "outgoing_drones": "out_dmg_drones",
+      "incoming_pods": "in_dmg_pods",
+      "outgoing_pods": "out_dmg_pods"
+  },
+    "colors": {
+      "damage_out_hex": "#117733",
+      "damage_in_hex": "#CC6677",
+      "reps_in_hex": "#88CCEE",
+      "reps_out_hex": "#332288",
+      "drone_damage_in_hex": "#DDCC77",
+      "drone_damage_out_hex": "#44AA99",
+      "pod_damage_in_hex": "#FF8B00",
+      "pod_damage_out_hex": "#4DE082",
+      "nos_in_hex": "#009EFF",
+      "nos_out_hex": "#AA4499",
+      "neuts_in_hex": "#2BF7D0",
+      "neuts_out_hex": "#882255"
+    },
+
+    "icons": {
+      "cap_url": "https://images.evetech.net/types/577/icon",
+      "links_url": "https://images.evetech.net/types/42530/icon",
+      "reload_url": "https://images.evetech.net/types/181/icon",
+      "being_scrammed_url": "https://images.evetech.net/types/28654/icon",
+      "ecm_url": "https://images.evetech.net/types/1958/icon",
+      "drone_url": "https://images.evetech.net/types/24395/icon",
+      "scram_url": "https://images.evetech.net/types/447/icon",
+      "base_url": "https://images.evetech.net/types/EVE_ID/icon"
+    },
+   "markers": {
+     "cap_y": 50
+   },
+   "flags": {
+     "dps_summed": true,
+     "drones_dps_separated": true,
+     "breacher_pod_dps_separated": true,
+     "gj_scatter": true,
+     "hp_scatter": false,
+     "offensive_fleet_diagrams": true,
+     "defensive_fleet_diagrams": true,
+     "pilot_diagrams": false
+   },
+   "query_vars": {
+     "dps_secs": 10
+   }
+  }

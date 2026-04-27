@@ -1,0 +1,1 @@
+::: eve_analytics.classes.parser.Parser
