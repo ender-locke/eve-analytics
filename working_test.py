@@ -9,6 +9,10 @@ if __name__ == "__main__":
     ea.parse_logs()
     ea.load_db()
     # todo load the sde data
+    #  groups.yaml = invgroups table
+    #  categories.yaml = invcategoires table
+    #  types.yaml = invtypes table
+    #  typedogma.yaml appears to be dmgtypesattribs <- idk why i need this
     #ea.generate_analytics()
     #ea.save_analytics(save_location)
     pass

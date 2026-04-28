@@ -4,15 +4,19 @@ from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from datetime import datetime, timezone
 import uuid
+import os
+import wget
+import yaml
+import zipfile
 
 class Database:
 
     def __init__(self, ea, db_path=None):
         self.ea = ea
         if db_path is None:
-            base = Path.home() / ".eveanalytics"
-            base.mkdir(exist_ok=True)
-            self.db_path = base / "combat_logs.db"
+            self.base = Path.home() / ".eveanalytics"
+            self.base.mkdir(exist_ok=True)
+            self.db_path = self.base / "combat_logs.db"
         else:
             self.db_path = db_path
 
@@ -146,6 +150,23 @@ class Database:
             print(sql)
             self.cursor.execute(sql)
         self.conn.commit()
+
+
+    def _download_sde_zip(self):
+        sde_url = "https://developers.eveonline.com/static-data/eve-online-static-data-latest-yaml.zip"
+        zip_path = f"{self.base}/sde.zip"
+        unzip_path = f"{self.base}/sde"
+
+        try:
+            os.unlink(zip_path)
+            os.unlink(unzip_path)
+        except Exception as e:
+            print(e)
+
+        wget.download(sde_url, zip_path)
+        with zipfile.ZipFile(zip_path, 'r') as z:
+            z.extractall(unzip_path)
+
 
     def close(self):
         self.conn.close()
