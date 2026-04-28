@@ -7,6 +7,8 @@ if __name__ == "__main__":
     # todo only takes 1 rn
     ea = EveAnalytics(logs_test_path)
     ea.parse_logs()
-
+    ea.load_db()
+    #ea.generate_analytics()
+    #ea.save_analytics(save_location)
     pass
 

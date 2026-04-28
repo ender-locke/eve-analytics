@@ -32,7 +32,7 @@ class Database:
         ]
         self._build_schema()
 
-    def insert_combat_logs(self, rows):
+    def insert_combat_logs(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT INTO combat_data (
@@ -44,10 +44,18 @@ class Database:
               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
               """
         rows = []
-        for key, value in self.ea.parsed_logs.items():
-            # todo rn we still don't have the log type id
 
-            rows.extend(value)
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_cap_warnings])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_cap_reps])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_dmg])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_drones])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_jams])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_links])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_neuts])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_nos])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_reloads])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_reps])
+        rows.extend([self.process_json_record(log) for log in self.ea.parsed_logs.all_scrams])
 
         values = [
             (
@@ -79,8 +87,14 @@ class Database:
     # -------------------------
     # Utility
     # -------------------------
-    def convert_ms_to_bq_timestamp(self, ms):
-        return datetime.fromtimestamp(ms / 1000, tz=timezone.utc).isoformat()
+    def convert_ms_to_timestamp(self, value):
+        if isinstance(value, datetime):
+            return value.isoformat()
+
+        if isinstance(value, (int, float)):
+            return datetime.fromtimestamp(value / 1000, tz=timezone.utc).isoformat()
+
+        return None
 
     def process_json_record(self, record):
         record["id"] = str(uuid.uuid4())
@@ -98,7 +112,7 @@ class Database:
             record['action_from'] = "unknown"
 
         if "time" in record:
-            record["action_timestamp"] = self.convert_ms_to_bq_timestamp(record["time"])
+            record["action_timestamp"] = self.convert_ms_to_timestamp(record["time"])
 
         record["create_ts"] = datetime.now(timezone.utc).isoformat()
         record["update_ts"] = datetime.now(timezone.utc).isoformat()
