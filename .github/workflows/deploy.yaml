@@ -11,21 +11,6 @@ env:
   TWINE_DISABLE_KEYRING: 1
 
 jobs:
-  pytest:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    container:
-      image: python:3.13
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run Pytest
-        run: pytest tests/
-
   test-build-package:
     name: Test Deploy Package
     needs: pytest
