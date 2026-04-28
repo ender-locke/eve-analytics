@@ -1,7 +1,7 @@
 [project]
 name = "eve-analytics"
 version = "0.1.0"
-description = "Add your description here"
+description = "Analytics package for eve online"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
