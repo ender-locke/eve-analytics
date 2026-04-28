@@ -48,6 +48,10 @@ class EveAnalytics:
         else:
             raise LogDirectoryNotSetError()
 
+    @property
+    def parsed_logs(self):
+        return self._parsed_logs
+
     def _parsing_logs(self):
         parsed_logs = Parser(self.log_dir_location)
         self._parsed_logs = parsed_logs
