@@ -6,7 +6,7 @@ import uuid
 import pandas as pd
 
 
-class Parser:
+class ParsedLogs:
 
     def __init__(self, folder):
         self.folder = folder
@@ -36,7 +36,7 @@ class Parser:
         :return:
         """
 
-        return f"<Parser> {self.folder} | logs parsed -> {self.logs_parsed}"
+        return f"<ParsedLogs> {self.folder} | logs parsed -> {self.logs_parsed}"
 
     @property
     def log_dfs(self):

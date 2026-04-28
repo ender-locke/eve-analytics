@@ -1,6 +1,7 @@
 from pathlib import Path
 from eve_analytics.exceptions.file_errors import LogLocationError, LogDirectoryNotSetError
-from eve_analytics.classes.parser import Parser
+from eve_analytics.classes.parsed_logs import ParsedLogs
+from eve_analytics.classes.db import Database
 
 class EveAnalytics:
     """
@@ -18,6 +19,7 @@ class EveAnalytics:
             self._log_location(path=log_directory)
         else:
             self.log_dir_location = None
+        self.__init_db()
 
 
     def __repr__(self) -> str:
@@ -44,13 +46,30 @@ class EveAnalytics:
 
     def parse_logs(self):
         if self.log_dir_location is not None:
-            self._parsing_logs()
+            self.__parsing_logs()
         else:
             raise LogDirectoryNotSetError()
 
-    def _parsing_logs(self):
-        parsed_logs = Parser(self.log_dir_location)
+    def __init_db(self):
+        self.__create_ea_db()
+
+    def __create_ea_db(self):
+        self._db = Database(self)
+
+    @property
+    def db(self):
+        return self._db
+
+    @property
+    def parsed_logs(self):
+        return self._parsed_logs
+
+    def __parsing_logs(self):
+        parsed_logs = ParsedLogs(self.log_dir_location)
         self._parsed_logs = parsed_logs
 
-
+    def load_db(self):
+        self.db.insert_combat_logs()
+        #self.db.load_json(table=,
+        #                  data=)
 
