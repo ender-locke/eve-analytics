@@ -125,7 +125,7 @@ def get_unique_pilots(db, match_id):
 
     rows = db.cursor.execute(query, (match_id,)).fetchall()
 
-    return [row["pilot"] for row in rows]
+    return [row[0] for row in rows]
 
 
 def get_pilots_and_ships(db, match_id):
