@@ -2,6 +2,8 @@ from pathlib import Path
 from eve_analytics.exceptions.file_errors import LogLocationError, LogDirectoryNotSetError
 from eve_analytics.classes.parsed_logs import ParsedLogs
 from eve_analytics.classes.db import Database
+from eve_analytics.classes.analytics import MatchAnalytics
+from eve_analytics.classes.flight_context import FlightContext
 
 class EveAnalytics:
     """
@@ -15,6 +17,8 @@ class EveAnalytics:
 
     def __init__(self, log_directory=None):
         self._parsed_logs = None
+        self._match_analytics = []
+        self._ctx = FlightContext()
         if log_directory:
             self._log_location(path=log_directory)
         else:
@@ -64,6 +68,10 @@ class EveAnalytics:
     def parsed_logs(self):
         return self._parsed_logs
 
+    @property
+    def match_analytics(self):
+        return self._match_analytics
+
     def __parsing_logs(self):
         parsed_logs = ParsedLogs(self.log_dir_location)
         self._parsed_logs = parsed_logs
@@ -74,3 +82,7 @@ class EveAnalytics:
         #self.db.load_json(table=,
         #                  data=)
 
+    def generate_analytics(self, match_id):
+        self._match_analytics.append(MatchAnalytics(ea=self,
+                                                    match_id=match_id,
+                                                    fc=self._ctx))
