@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS users (
 """
 
 create_invtypes_sql = """
-CREATE TABLE IF NOT EXISTS invtypes (
+CREATE TABLE if not exists invtypes (
     typeId INTEGER PRIMARY KEY,
     raceId INTEGER,
     metaGroupId INTEGER,

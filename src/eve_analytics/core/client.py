@@ -69,7 +69,8 @@ class EveAnalytics:
         self._parsed_logs = parsed_logs
 
     def load_db(self):
-        self.db.insert_combat_logs()
+        self._db.insert_combat_logs()
+        self._db.load_eve_data()
         #self.db.load_json(table=,
         #                  data=)
 

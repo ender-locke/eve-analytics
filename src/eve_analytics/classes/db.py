@@ -151,7 +151,8 @@ class Database:
 
     def _build_schema(self):
         for sql in self.create_tables:
-            self.cursor.execute(sql)
+            for statement in sql.split(';'):
+                self.cursor.execute(statement)
         self.conn.commit()
 
 
@@ -241,8 +242,15 @@ class Database:
             for r in self.inv_values if r
         ]
 
-        self.cursor.executemany(sql, values)
-        self.conn.commit()
+        #self.cursor.executemany(sql, values)
+        for v in values:
+            try:
+                self.cursor.execute(sql, v)
+            except Exception as e:
+                print("FAILED ROW:", v)
+                print("ERROR:", e)
+                break
+                self.conn.commit()
 
     def _load_invcategories(self):
         with open(f'{self.sde_location}/categories.yaml', 'r') as f:
@@ -303,7 +311,6 @@ class Database:
                     'update_ts': now,
                     'retired': False
                 })
-            pass
         self.group_values = group_list
         self._insert_invgroups()
 
@@ -311,9 +318,9 @@ class Database:
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT INTO invgroups (
-                  groupId, name, categroryId,
+                  groupId, name, categoryId,
                   create_ts, update_ts, retired
-              ) VALUES (?, ?, ?, ?, ?)
+              ) VALUES (?, ?, ?, ?, ?, ?)
               """
 
         values = [

@@ -5,6 +5,7 @@ description = "Analytics package for eve online"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "ijson>=3.5.0",
     "matplotlib>=3.10.8",
     "pandas>=3.0.1",
     "pillow>=12.1.1",
