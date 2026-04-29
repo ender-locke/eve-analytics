@@ -72,6 +72,7 @@ class ParsedLogs:
             matches.append({
                 "idx": match_num,
                 "id": hashlib.sha256(f"{start}:{end}".encode()).hexdigest(),
+                "countdown": start - timedelta(seconds=15),
                 "start": start,
                 "end": end,
                 "description": f"match {match_num}",

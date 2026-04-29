@@ -59,15 +59,16 @@ class Database:
         now = datetime.now(timezone.utc).isoformat()
         sql = """
             INSERT OR IGNORE INTO matches (
-                id, description, match_start_ts,
-                match_end_ts,
+                id, description, countdown_start_ts, 
+                match_start_ts, match_end_ts,
                 create_ts, update_ts, retired
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
         values = [
             (
                 r.get("id", 0),
                 r.get('description', ""),
+                r.get('countdown'),
                 r.get('start'),
                 r.get('end'),
                 r.get("create_ts", now),
