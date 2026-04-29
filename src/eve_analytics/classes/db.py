@@ -197,6 +197,7 @@ class Database:
             inv_list = []
             for key, value in types_data.items():
                 type_id = key
+                mass = value.get("mass", 0)
                 group_id = value.get('groupId', 0)
                 type_name = value['name'].get('en')
                 race_id = value.get('raceId', 0)
@@ -206,6 +207,7 @@ class Database:
                     'group_id': group_id,
                     'type_id': type_id,
                     'race_id': race_id,
+                    'mass': mass,
                     'meta_group_id': meta_group_id,
                     'market_group_id': market_group_id,
                     'type_name': type_name,
@@ -222,7 +224,8 @@ class Database:
         sql = """
               INSERT INTO invtypes (
                   typeId, raceId, metaGroupId,
-                  marketGroupId, typeName, groupId,
+                  marketGroupId, typeName, 
+                  mass, groupId,
                   create_ts, update_ts, retired
               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) \
               """
@@ -234,6 +237,7 @@ class Database:
                 r.get("meta_group_id", 0),
                 r.get("market_group_id", 0),
                 r.get("type_name", ""),
+                r.get("mass", 0),
                 r.get("group_id"),
                 r.get("create_ts", now),
                 r.get("update_ts", now),

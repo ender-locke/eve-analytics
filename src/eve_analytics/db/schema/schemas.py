@@ -74,6 +74,7 @@ CREATE TABLE if not exists invtypes (
     metaGroupId INTEGER,
     marketGroupID INTEGER,
     typeName TEXT,
+    mass FLOAT,
      groupId INTEGER,
     create_ts TEXT,
     update_ts TEXT,
