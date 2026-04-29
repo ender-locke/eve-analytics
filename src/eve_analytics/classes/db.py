@@ -189,12 +189,60 @@ class Database:
         self._load_invgroups()
 
     def _load_invtypes(self):
-        with open(f'{self.sde_location}/types.yaml', 'r') as f:
-            for key, value in ijson.kvitems(f, ""):
-                print(key)
-                pass
+        with open(f'{self.sde_location}/types.yaml', 'rb') as f:
+            types_data = yaml.load(f, Loader=yaml.CSafeLoader)
+
+            now = datetime.now(timezone.utc).isoformat()
+            inv_list = []
+            for key, value in types_data.items():
+                type_id = key
+                group_id = value.get('groupId', 0)
+                type_name = value['name'].get('en')
+                race_id = value.get('raceId', 0)
+                meta_group_id = value.get("metaGroupId", 0)
+                market_group_id = value.get("marketGroupId", 0)
+                inv_list.append({
+                    'group_id': group_id,
+                    'type_id': type_id,
+                    'race_id': race_id,
+                    'meta_group_id': meta_group_id,
+                    'market_group_id': market_group_id,
+                    'type_name': type_name,
+                    'create_ts': now,
+                    'update_ts': now,
+                    'retired': False
+                })
+
             pass
-        pass
+        self.inv_values = inv_list
+
+    def _insert_invtypes(self):
+        now = datetime.now(timezone.utc).isoformat()
+        sql = """
+              INSERT INTO invtypes (
+                  typeId, raceId, metaGroupId,
+                  marketGroupId, typeName, groupId,
+                  create_ts, update_ts, retired
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
+              """
+
+        values = [
+            (
+                r.get("type_id"),
+                r.get('race_id', 0),
+                r.get("meta_group_id", 0),
+                r.get("market_group_id", 0),
+                r.get("type_name", ""),
+                r.get("group_id"),
+                r.get("create_ts", now),
+                r.get("update_ts", now),
+                int(r.get("retired", False))
+            )
+            for r in self.inv_values if r
+        ]
+
+        self.cursor.executemany(sql, values)
+        self.conn.commit()
 
     def _load_invcategories(self):
         with open(f'{self.sde_location}/categories.yaml', 'r') as f:
