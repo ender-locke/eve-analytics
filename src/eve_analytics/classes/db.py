@@ -3,6 +3,7 @@ from pathlib import Path
 from eve_analytics.exceptions.db_errors import MissingSDEError
 from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
+from eve_analytics.data.eve_sde import sde_url
 from datetime import datetime, timezone
 import hashlib
 import shutil
@@ -195,7 +196,6 @@ class Database:
 
 
     def _download_sde_zip(self):
-        sde_url = "https://developers.eveonline.com/static-data/eve-online-static-data-latest-yaml.zip"
         zip_path = f"{self.base}/sde.zip"
         unzip_path = f"{self.base}/sde"
 
