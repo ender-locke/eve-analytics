@@ -1,5 +1,6 @@
 import sqlite3
 from pathlib import Path
+from eve_analytics.exceptions.db_errors import MissingSDEError
 from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from datetime import datetime, timezone
@@ -13,6 +14,7 @@ class Database:
 
     def __init__(self, ea, db_path=None):
         self.ea = ea
+        self.sde_location = None
         if db_path is None:
             self.base = Path.home() / ".eveanalytics"
             self.base.mkdir(exist_ok=True)
@@ -167,6 +169,27 @@ class Database:
         with zipfile.ZipFile(zip_path, 'r') as z:
             z.extractall(unzip_path)
 
+        self.sde_location = unzip_path
+
+    def _load_sde_data(self):
+        if self.sde_location is None:
+            raise MissingSDEError(location=self.base)
+
+        self._load_invtypes()
+        self._load_invcategories()
+        self._load_invgroups()
+
+    def _load_invtypes(self):
+        with open(self.sde_location, 'r') as f:
+            types_data = yaml.load(f, Loader=yaml.FullLoader)
+            pass
+        pass
+
+    def _load_invcategories(self):
+        pass
+
+    def _load_invgroups(self):
+        pass
 
     def close(self):
         self.conn.close()
