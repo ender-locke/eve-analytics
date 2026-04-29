@@ -10,7 +10,7 @@ from collections import defaultdict
 from PIL import Image
 import numpy as np
 import random
-
+from datetime import datetime
 
 illegal_color = (0.3, 0, 0, 0.3)   # dark red with 30% opacity
 LEFT = 0.15
@@ -51,17 +51,19 @@ def generate_fleet_diagrams(
     figures = []
     for match in matches:
         start = match["start"]
-        cd_start = (start - timedelta(seconds=15))
+        start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+        cd_start = (start_dt - timedelta(seconds=15))
         end = match["end"]
+        end_dt = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
         this_match_id = match['id']
-        match_minutes = int((end - start).total_seconds() // 60) + 1
+        match_minutes = int((end_dt - start_dt).total_seconds() // 60) + 1
         label = match.get("description", f"Match {this_match_id}")
 
         pilot_dmg_output = defaultdict(dict)
 
         for dmg in dmg_stats:
-            if dmg.get('match_id') == this_match_id:
-                pilot_dmg_output[dmg.get('pilot')] = dmg
+            if dmg['match_id'] == this_match_id:
+                pilot_dmg_output[dmg['pilot']] = dmg
 
         reload_x = 95
         jam_x = 35
@@ -71,10 +73,10 @@ def generate_fleet_diagrams(
 
         match_first_actions = []
         for action in first_actions_list:
-            if action.get('match_id') == this_match_id:
+            if action['match_id'] == this_match_id:
                 match_first_actions.append({
-                    "pilot": action.get('pilot'),
-                    "ts": action.get("action_timestamp")
+                    "pilot": action['pilot'],
+                    "ts": action["action_timestamp"]
                 })
 
         fig, ax_hp = plt.subplots(figsize=(14, 8))
@@ -96,13 +98,14 @@ def generate_fleet_diagrams(
                         "name": ship,
                         "id": ship_id,
                         "pilot": pilot_name,
-                        "mass": ship_mass,
+                        "mass": ship_mass if ship_mass else 0,
                         "img": get_eve_icon(ctx.icons["base"], ship_id, ship)
                     })
-
+        # todo this errors. we dont have any match compsdata
+        #  or users
         match_comp = sorted(
             match_comp,
-            key=lambda s: (s["name"].lower(), s["pilot"].lower())
+            key=lambda s: (s.get("name","").lower(), s["pilot"].lower())
         )
 
         fleet_dps_by_ts = defaultdict(float)
@@ -194,7 +197,7 @@ def generate_fleet_diagrams(
             # add in first actions for this pilot
             this_pilots_first_action = []
             for first_actions in match_first_actions:
-                if first_actions.get('pilot') == pilot:
+                if first_actions['pilot'] == pilot:
                     this_pilots_first_action.append(first_actions.get('ts'))
 
             # sort and get values for dmg
@@ -299,8 +302,8 @@ def generate_fleet_diagrams(
             alpha=0.95
         )
 
-        ax_hp.set_xlim(cd_start, end)
-        ax_x2.set_xlim(cd_start, end)
+        ax_hp.set_xlim(cd_start, end_dt)
+        ax_x2.set_xlim(cd_start, end_dt)
 
         ax_hp.set_ylim(0, (hp_max * 1.1))
         ax_x2.set_ylim(0, 100)
@@ -383,11 +386,15 @@ def generate_fleet_diagrams(
         match_comp.sort(key=lambda x: x["mass"], reverse=True)
 
         for ship in match_comp:
-            ship_img = ship["img"]
-            if ship_img.any():
-                # Ship image
-                ship_box = OffsetImage(ship_img, zoom=1.1)
-                ship_box.set_alpha(0.95)
+            if ship.get("ship", None):
+                ship_img = ship["img"]
+                if ship_img.any():
+                    # Ship image
+                    ship_box = OffsetImage(ship_img, zoom=1.1)
+                    ship_box.set_alpha(0.95)
+                else:
+                    blank = np.zeros((10, 10, 4))
+                    ship_box = OffsetImage(blank, zoom=1.1)
 
                 ship_ab = AnnotationBbox(
                     ship_box,
@@ -411,7 +418,7 @@ def generate_fleet_diagrams(
                     alpha=0.9
                 )
 
-                stats = pilot_dmg_output.get(ship["pilot"])
+                stats = pilot_dmg_output[ship["pilot"]]
                 if stats:
                     box_style = dict(
                         boxstyle="round,pad=0.35",
