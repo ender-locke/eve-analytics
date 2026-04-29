@@ -5,10 +5,12 @@ from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from datetime import datetime, timezone
 import uuid
+import shutil
 import os
 import wget
 import yaml
 import zipfile
+import ijson
 
 class Database:
 
@@ -149,7 +151,6 @@ class Database:
 
     def _build_schema(self):
         for sql in self.create_tables:
-            print(sql)
             self.cursor.execute(sql)
         self.conn.commit()
 
@@ -160,18 +161,26 @@ class Database:
         unzip_path = f"{self.base}/sde"
 
         try:
-            os.unlink(zip_path)
-            os.unlink(unzip_path)
-        except Exception as e:
-            print(e)
+            if os.path.isfile(zip_path):
+                os.unlink(zip_path)
 
-        wget.download(sde_url, zip_path)
+            if os.path.isdir(unzip_path):
+                shutil.rmtree(unzip_path)
+
+        except Exception as e:
+            print(f"Cleanup error: {e}")
+
+        wget.download(sde_url, str(zip_path))
         with zipfile.ZipFile(zip_path, 'r') as z:
             z.extractall(unzip_path)
 
         self.sde_location = unzip_path
 
+    def load_eve_data(self):
+        self._load_sde_data()
+
     def _load_sde_data(self):
+        self._download_sde_zip()
         if self.sde_location is None:
             raise MissingSDEError(location=self.base)
 
@@ -180,16 +189,50 @@ class Database:
         self._load_invgroups()
 
     def _load_invtypes(self):
-        with open(self.sde_location, 'r') as f:
-            types_data = yaml.load(f, Loader=yaml.FullLoader)
+        with open(f'{self.sde_location}/types.yaml', 'r') as f:
+            for key, value in ijson.kvitems(f, ""):
+                print(key)
+                pass
             pass
         pass
 
     def _load_invcategories(self):
-        pass
+        with open(f'{self.sde_location}/categories.yaml', 'r') as f:
+            cat_data = yaml.safe_load(f)
+            category_list = []
+            now = datetime.now(timezone.utc).isoformat()
+            for key, value in cat_data.items():
+                category_id = key
+                name_en = value['name']['en']
+                category_list.append({
+                    'category_id': category_id,
+                    'name': name_en,
+                    'create_ts': now,
+                    'update_ts': now,
+                    'retired': False
+                })
+            pass
+        self.category_values = category_list
 
     def _load_invgroups(self):
-        pass
+        with open(f'{self.sde_location}/groups.yaml', 'r') as f:
+            groups_data = yaml.safe_load(f)
+            now = datetime.now(timezone.utc).isoformat()
+            group_list = []
+            for key, value in groups_data.items():
+                category_id = value.get('categoryId', 0)
+                name_en = value['name'].get('en')
+                group_id = key
+                group_list.append({
+                    'group_id': group_id,
+                    'category_id': category_id,
+                    'name': name_en,
+                    'create_ts': now,
+                    'update_ts': now,
+                    'retired': False
+                })
+            pass
+        self.group_values = group_list
 
     def close(self):
         self.conn.close()
