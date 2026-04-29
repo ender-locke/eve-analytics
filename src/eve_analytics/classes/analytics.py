@@ -58,10 +58,6 @@ class MatchAnalytics:
         self.fleet_reps = get_fleet_rolling_reps(db, seconds=self._fc.query_vars['dps_secs'], match_id=self._match_id)
         self.pilot_deaths = get_match_last_action_by_pilot(db=db, match_id=self._match_id)
 
-
-        pass
-
-
     def __build_pilot_n_ships(self):
         self.pilots_w_ships = defaultdict(list)
 
