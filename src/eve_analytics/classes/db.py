@@ -213,8 +213,8 @@ class Database:
                     'retired': False
                 })
 
-            pass
         self.inv_values = inv_list
+        self._insert_invtypes()
 
     def _insert_invtypes(self):
         now = datetime.now(timezone.utc).isoformat()
@@ -223,7 +223,7 @@ class Database:
                   typeId, raceId, metaGroupId,
                   marketGroupId, typeName, groupId,
                   create_ts, update_ts, retired
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) \
               """
 
         values = [
@@ -261,6 +261,30 @@ class Database:
                 })
             pass
         self.category_values = category_list
+        self._insert_invcategories()
+
+    def _insert_invcategories(self):
+        now = datetime.now(timezone.utc).isoformat()
+        sql = """
+              INSERT INTO invcategories (
+                  categoryId, name,
+                  create_ts, update_ts, retired
+              ) VALUES (?, ?, ?, ?, ?)
+              """
+
+        values = [
+            (
+                r.get("category_id", 0),
+                r.get('name_en', ""),
+                r.get("create_ts", now),
+                r.get("update_ts", now),
+                int(r.get("retired", False))
+            )
+            for r in self.category_values if r
+        ]
+
+        self.cursor.executemany(sql, values)
+        self.conn.commit()
 
     def _load_invgroups(self):
         with open(f'{self.sde_location}/groups.yaml', 'r') as f:
@@ -281,6 +305,31 @@ class Database:
                 })
             pass
         self.group_values = group_list
+        self._insert_invgroups()
+
+    def _insert_invgroups(self):
+        now = datetime.now(timezone.utc).isoformat()
+        sql = """
+              INSERT INTO invgroups (
+                  groupId, name, categroryId,
+                  create_ts, update_ts, retired
+              ) VALUES (?, ?, ?, ?, ?)
+              """
+
+        values = [
+            (
+                r.get("group_id", 0),
+                r.get('name_en', ""),
+                r.get("category_id", 0),
+                r.get("create_ts", now),
+                r.get("update_ts", now),
+                int(r.get("retired", False))
+            )
+            for r in self.group_values if r
+        ]
+
+        self.cursor.executemany(sql, values)
+        self.conn.commit()
 
     def close(self):
         self.conn.close()
