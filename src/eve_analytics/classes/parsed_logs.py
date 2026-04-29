@@ -2,7 +2,7 @@ from eve_analytics.ingest.splicer import parse_combat_log
 from eve_analytics.ingest.matches import parse_match_intervals
 from eve_analytics.exceptions.file_errors import MissingFilesError
 from eve_analytics.classes.json_log_data import JSONLogData
-import uuid
+import hashlib
 import pandas as pd
 
 
@@ -69,7 +69,7 @@ class ParsedLogs:
             match_num = idx + 1
             matches.append({
                 "idx": match_num,
-                "id": str(uuid.uuid4()),
+                "id": hashlib.sha256(f"{start}:{end}".encode()).hexdigest(),
                 "start": start,
                 "end": end,
                 "description": f"match {match_num}",

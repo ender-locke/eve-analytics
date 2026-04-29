@@ -4,7 +4,7 @@ from eve_analytics.exceptions.db_errors import MissingSDEError
 from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from datetime import datetime, timezone
-import uuid
+import hashlib
 import shutil
 import os
 import wget
@@ -55,7 +55,7 @@ class Database:
     def __insert_matches(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
-            INSERT INTO matches (
+            INSERT OR IGNORE INTO matches (
                 id, description, match_start_ts,
                 match_end_ts,
                 create_ts, update_ts, retired
@@ -71,7 +71,7 @@ class Database:
                 r.get("update_ts", now),
                 int(r.get("retired", False))
             )
-            for r in self.category_values if r
+            for r in self.ea.parsed_logs.matches if r
         ]
 
         self.cursor.executemany(sql, values)
@@ -80,7 +80,7 @@ class Database:
     def __insert_combat_logs(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
-              INSERT INTO combat_data (
+              INSERT OR IGNORE INTO combat_data (
                   id, match_id, pilot, action_timestamp,
                   amount, action_to, action_from, direction,
                   module, log_type_id, hit_quality,
@@ -142,7 +142,8 @@ class Database:
         return None
 
     def process_json_record(self, record):
-        record["id"] = str(uuid.uuid4())
+        raw = f"{record['action_timestamp']}:{record['pilot']}:{record['direction']}:{record['log_type_id']}:{record['cleaned_line']}".encode()
+        record["id"] = hashlib.sha256(raw).hexdigest()
 
         record['log_type_id'] = self.get_log_type_id(this_type=record['row_type'])
 
