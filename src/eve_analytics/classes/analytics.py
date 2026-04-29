@@ -34,7 +34,8 @@ class MatchAnalytics:
         self._match_details = {
             "id": self._match_id,
             "start": match_details[0][0],
-            "end": match_details[0][1]
+            "end": match_details[0][1],
+            "cd_start": match_details[0][2]
         }
 
     def __build_match_datasets(self):
