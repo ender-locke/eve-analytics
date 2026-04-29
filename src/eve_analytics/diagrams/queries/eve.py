@@ -1,624 +1,394 @@
-from google.cloud import bigquery
 
-def get_drones():
+def get_drones(db):
     """
     Runs the Drone types query against BigQuery and returns results as a list of dicts.
     """
-    client = bigquery.Client()
-
     query = """
             SELECT
                 it.typeName,
-            FROM `sde.invtypes` it
-                     JOIN `sde.invgroups` ig
-                          ON it.groupID = ig.groupID
-                     JOIN `sde.invcategories` ic
-                          ON ig.categoryID = ic.categoryID
+            FROM invtypes it
+             JOIN invgroups ig
+                  ON it.groupID = ig.groupID
+             JOIN invcategories ic
+                  ON ig.categoryID = ic.categoryID
             WHERE ic.name = 'Drone'
             ORDER BY it.typeName 
             """
 
-    rows = client.query(query).result()
+    rows = db.query(query) # could be execute
 
     return [row.typeName for row in rows]
 
 
-def get_damage_output_stats(match_ids, direction="outgoing"):
-    client = bigquery.Client()
-    dmg_query = """
+def get_damage_output_stats(db, match_id, direction="outgoing"):
+    query = """
+            SELECT
+                cd.pilot,
+                cd.match_id,
+                SUM(cd.amount) AS total_damage,
+                MIN(cd.action_timestamp) AS min_ts,
+                MAX(cd.action_timestamp) AS max_ts,
+                (strftime('%s', MAX(cd.action_timestamp)) - strftime('%s', MIN(cd.action_timestamp))) AS duration_seconds,
+                ROUND(
+                        SUM(cd.amount) * 1.0 /
+                        NULLIF((strftime('%s', MAX(cd.action_timestamp)) - strftime('%s', MIN(cd.action_timestamp))), 0),
+                        2
+                ) AS dps
+            FROM combat_data cd
+            WHERE cd.log_type_id = 1
+              AND cd.direction LIKE ?
+              AND cd.match_id = ?
+            GROUP BY cd.pilot, cd.match_id \
+            """
+
+    params = (f"{direction}%", match_id)
+
+    rows = db.query(query, params)
+
+    return rows
+
+def get_first_actions(db, match_id):
+    query = """
+            SELECT action_timestamp, pilot, match_id
+            FROM (
+                     SELECT
+                         cd.action_timestamp,
+                         cd.pilot,
+                         cd.match_id,
+                         ROW_NUMBER() OVER (
+                    PARTITION BY cd.match_id, cd.pilot
+                    ORDER BY cd.action_timestamp
+                ) AS rn
+                     FROM combat_data cd
+                     WHERE cd.log_type_id NOT IN (3, 10)
+                       AND cd.direction = 'outgoing'
+                       AND cd.match_id = ?
+                 ) t
+            WHERE rn = 1
+            ORDER BY match_id, pilot \
+            """
+
+    rows = db.query(query, (match_id,))
+
+    return rows
+
+def get_log_data(db, log_type: str, match_id):
+    query = """
+            SELECT
+                cd.match_id,
+                cd.pilot,
+                cd.action_timestamp,
+                cd.amount,
+                cd.action_to,
+                cd.action_from,
+                cd.direction,
+                clt.name
+            FROM combat_data cd
+                     LEFT JOIN combat_log_types clt
+                               ON cd.log_type_id = clt.id
+            WHERE clt.name = ?
+              AND cd.match_id = ? \
+            """
+
+    params = (log_type, match_id)
+
+    rows = db.query(query, params)
+
+    return rows
+
+def get_matches(db, start_date, end_date):
+    query = """
+            SELECT
+                m.match_start_ts AS start,
+                m.match_end_ts AS end,
+            m.id,
+            m.description
+            FROM matches m
+            WHERE m.match_start_ts <= ?
+              AND m.match_end_ts >= ?
+              AND m.retired = 0 \
+            """
+
+    params = (end_date, start_date)
+
+    rows = db.query(query, params)
+
+    return rows
+
+def get_unique_pilots(db, match_id):
+    query = """
+            SELECT cd.pilot
+            FROM combat_data cd
+            WHERE cd.match_id = ?
+            GROUP BY cd.pilot 
+            """
+
+    rows = db.query(query, (match_id,))
+
+    return [row["pilot"] for row in rows]
+
+
+def get_pilots_and_ships(db, match_id):
+    query = """
+            SELECT
+                cd.pilot,
+                pms.ship_id,
+                inv.typeName,
+                cd.match_id,
+                ig.name,
+                inv.mass AS ship_mass
+            FROM combat_data cd
+             LEFT JOIN users u
+                       ON cd.pilot = u.character_name
+             LEFT JOIN pilot_to_match_to_ship_bridge pms
+                       ON cd.match_id = pms.match_id
+                           AND u.id = pms.pilot_id
+             LEFT JOIN invtypes inv
+                       ON pms.ship_id = inv.typeID
+             LEFT JOIN invgroups ig
+                       ON inv.groupID = ig.groupID
+            WHERE cd.match_id = ?
+            GROUP BY
+                cd.pilot,
+                pms.ship_id,
+                inv.typeName,
+                cd.match_id,
+                ig.name,
+                ta.value
+            ORDER BY
+                ta.value,
+                cd.pilot ASC,
+                inv.typeName ASC 
+            """
+
+    rows = db.query(query, (match_id,))
+
+    return rows
+
+def get_fleet_rolling_dps(db, seconds, match_id):
+    query = """
+            WITH filtered AS (
                 SELECT
-                    cd.pilot,
                     cd.match_id,
-                    SUM(cd.amount) AS total_damage,
-                    MIN(cd.action_timestamp) AS min_ts,
-                    MAX(cd.action_timestamp) AS max_ts,
-                    TIMESTAMP_DIFF(
-                            MAX(cd.action_timestamp),
-                            MIN(cd.action_timestamp),
-                        SECOND
-    ) AS duration_seconds,
-            ROUND(
-                SAFE_DIVIDE(
-                        SUM(cd.amount),
-                        TIMESTAMP_DIFF(
-                                MAX(cd.action_timestamp),
-                                MIN(cd.action_timestamp),
-                            SECOND
+                    cd.direction,
+                    cd.amount,
+                    strftime('%s', cd.action_timestamp) AS ts_sec,
+                    (LOWER(cd.module) LIKE '%breacher pod%') AS is_breacher_pod,
+                    clt.name
+                FROM combat_data cd
+                         LEFT JOIN combat_log_types clt
+                                   ON cd.log_type_id = clt.id
+                WHERE cd.amount IS NOT NULL
+                  AND clt.name = 'damage'
+                  AND cd.match_id = ?
             )
-                ),
-                            2) AS dps
-                FROM `combat_logs.combat_data` cd
-                WHERE cd.log_type_id = 1
-                  AND cd.direction like CONCAT(@direction, "%")
-                  AND cd.match_id IN unnest(@match_ids)
-                GROUP BY cd.pilot, cd.match_id 
 
-                """
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
+            SELECT
+                f1.match_id,
+                f1.direction,
+                datetime(f1.ts_sec, 'unixepoch') AS action_timestamp,
+                f1.is_breacher_pod,
+
+                SUM(f2.amount) * 1.0 / ? AS rolling_dps
+
+            FROM filtered f1
+             JOIN filtered f2
+                  ON f1.match_id = f2.match_id
+                      AND f1.direction = f2.direction
+                      AND f1.is_breacher_pod = f2.is_breacher_pod
+                      AND f2.ts_sec BETWEEN (f1.ts_sec - ?) AND f1.ts_sec
+
+            GROUP BY
+                f1.match_id,
+                f1.direction,
+                f1.ts_sec,
+                f1.is_breacher_pod
+
+            ORDER BY f1.ts_sec; \
+            """
+
+    params = (match_id, seconds, seconds)
+
+    return db.query(query, params)
+
+
+def get_rolling_dps_w_pilots(db, seconds):
+    query = """
+            WITH all_drones AS (
+                SELECT it.typeName
+                FROM invtypes it
+                         JOIN invgroups ig ON it.groupID = ig.groupID
+                         JOIN invcategories ic ON ig.categoryID = ic.categoryID
+                WHERE ic.name = 'Drone'
             ),
-            bigquery.ScalarQueryParameter(
-                "direction", "STRING", direction
+
+                 normalized_damage AS (
+                     SELECT
+                         cd.match_id,
+                         cd.action_from AS "from",
+                         cd.action_to AS "to",
+                         cd.direction,
+                         cd.amount AS damage,
+                         strftime('%s', cd.action_timestamp) AS ts_sec,
+                         cd.action_timestamp AS ts,
+                         (ad.typeName IS NOT NULL) AS is_drone
+                     FROM combat_data cd
+                              LEFT JOIN combat_log_types clt
+                                        ON clt.id = cd.log_type_id
+                              LEFT JOIN all_drones ad
+                                        ON LOWER(cd.module) = LOWER(ad.typeName)
+                     WHERE cd.amount IS NOT NULL
+                       AND clt.name = 'damage'
+                 )
+
+            SELECT
+                f1.match_id,
+                f1."from",
+                f1."to",
+                f1.direction,
+                f1.ts AS action_timestamp,
+                f1.is_drone,
+
+                SUM(f2.damage) * 1.0 / ? AS rolling_dps
+
+            FROM normalized_damage f1
+                     JOIN normalized_damage f2
+                          ON f1.match_id = f2.match_id
+                              AND f1."from" = f2."from"
+                              AND f1."to" = f2."to"
+                              AND f1.direction = f2.direction
+                              AND f1.is_drone = f2.is_drone
+                              AND f2.ts_sec BETWEEN (f1.ts_sec - ?) AND f1.ts_sec
+
+            GROUP BY
+                f1.match_id,
+                f1."from",
+                f1."to",
+                f1.direction,
+                f1.ts_sec,
+                f1.is_drone
+
+            ORDER BY f1.ts_sec; \
+            """
+
+    params = (seconds, seconds)
+
+    return db.query(query, params)
+
+
+def get_rolling_dps_bp(db, seconds, match_id):
+    query = """
+            WITH all_drones AS (
+                SELECT it.typeName
+                FROM invtypes it
+                         JOIN invgroups ig ON it.groupID = ig.groupID
+                         JOIN invcategories ic ON ig.categoryID = ic.categoryID
+                WHERE ic.name = 'Drone'
             ),
-        ]
-    )
 
-    rows = client.query(dmg_query, job_config=job_config).result()
+                 normalized_damage AS (
+                     SELECT
+                         cd.match_id,
+                         cd.amount AS damage,
+                         strftime('%s', cd.action_timestamp) AS ts_sec,
+                         cd.action_timestamp AS ts,
 
-    return list(rows)
+                         CASE
+                             WHEN cd.direction = 'incoming' THEN cd.action_to
+                             ELSE cd.action_from
+                             END AS pilot,
 
+                         cd.direction,
+                         (ad.typeName IS NOT NULL) AS is_drone,
+                         (LOWER(cd.module) LIKE '%breacher pod%') AS is_breacher_pod
 
-def get_first_actions(match_ids):
-    client = bigquery.Client()
-    actions_query = """
-        SELECT *
-        FROM (
-         SELECT
-             cd.action_timestamp,
-             cd.pilot,
-             cd.match_id,
-             ROW_NUMBER() OVER (
-        PARTITION BY cd.match_id, cd.pilot
-        ORDER BY cd.action_timestamp
-        ) AS rn
-        FROM `combat_logs.combat_data` cd
-         WHERE cd.log_type_id NOT IN (3, 10)
-            AND cd.direction = "outgoing"
-             ) t
-        WHERE rn = 1
-          and match_id in unnest(@match_ids)
-        ORDER BY match_id, pilot
-            
-        """
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
+                     FROM combat_data cd
+                              LEFT JOIN combat_log_types clt
+                                        ON clt.id = cd.log_type_id
+                              LEFT JOIN all_drones ad
+                                        ON LOWER(cd.module) = LOWER(ad.typeName)
 
-    rows = client.query(actions_query, job_config=job_config).result()
+                     WHERE cd.amount IS NOT NULL
+                       AND clt.name = 'damage'
+                       AND cd.match_id = ?
+                 )
 
-    return list(rows)
+            SELECT
+                f1.match_id,
+                f1.direction,
+                f1.pilot,
+                datetime(f1.ts_sec, 'unixepoch') AS action_timestamp,
+                f1.is_drone,
+                f1.is_breacher_pod,
 
+                SUM(f2.damage) * 1.0 / ? AS rolling_dps
 
+            FROM normalized_damage f1
+                     JOIN normalized_damage f2
+                          ON f1.match_id = f2.match_id
+                              AND f1.pilot = f2.pilot
+                              AND f1.direction = f2.direction
+                              AND f1.is_drone = f2.is_drone
+                              AND f1.is_breacher_pod = f2.is_breacher_pod
+                              AND f2.ts_sec BETWEEN (f1.ts_sec - ?) AND f1.ts_sec
 
-def get_log_data(log_type: str, match_ids):
-    client = bigquery.Client()
+            GROUP BY
+                f1.match_id,
+                f1.direction,
+                f1.pilot,
+                f1.ts_sec,
+                f1.is_drone,
+                f1.is_breacher_pod
 
-    log_query = """
-        select cd.match_id, cd.pilot, cd.action_timestamp,
-           cd.amount, cd.action_to, cd.action_from, cd.direction,
-           clt.name
-        from combat_logs.combat_data cd
-        left join combat_logs.combat_log_types clt
-            on cd.log_type_id = clt.id
-        where clt.name = @log_type
-            and cd.match_id in unnest(@match_ids)
-        """
+            ORDER BY f1.ts_sec; \
+            """
 
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter(
-                "log_type", "STRING", log_type
-            ),
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
+    params = (match_id, seconds, seconds)
 
-    rows = client.query(log_query, job_config=job_config).result()
+    return db.query(query, params)
 
-    return list(rows)
-
-
-def get_matches(start_date, end_date):
-    client = bigquery.Client()
-
-    match_query = """
-      SELECT
-          m.match_start_ts AS start,
-          m.match_end_ts AS `end`,
-          m.id,
-          m.description
-      FROM matches.matches m
-      WHERE m.match_start_ts <= @end_date
-        AND m.match_end_ts >= @start_date
-        AND m.retired = false 
-      """
-
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter("start_date", "TIMESTAMP", start_date),
-            bigquery.ScalarQueryParameter("end_date", "TIMESTAMP", end_date),
-        ]
-    )
-
-    rows = client.query(match_query, job_config=job_config).result()
-
-    return list(rows)
-
-def get_unique_pilots(match_ids):
-    client = bigquery.Client()
-
-    pilot_query = """
-      select cd.pilot,
-      from combat_logs.combat_data cd
-      where cd.match_id in unnest(@match_ids)
-      group by cd.pilot
-    
+def get_fleet_rolling_reps(db, seconds, match_id):
+    """
+    SQLite version of rolling reps calculation.
     """
 
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
-
-    rows = client.query(pilot_query, job_config=job_config).result()
-
-    return [row for row in rows]
-
-
-def get_pilots_and_ships(match_ids):
-    client = bigquery.Client()
-
-    pilot_query = """
-      select cd.pilot, pms.ship_id, inv.typeName, cd.match_id, ig.name, ta.value as ship_mass
-      from combat_logs.combat_data cd
-               left join users.users u
-                         on cd.pilot = u.character_name
-               left join matches.pilot_to_match_to_ship_bridge pms
-                         on cd.match_id = pms.match_id
-                             and u.id = pms.pilot_id
-               left join sde.invtypes inv
-                         on pms.ship_id = inv.typeID
-               left join sde.invgroups ig
-                         on inv.groupID = ig.groupID
-               left join sde.dgmtypeattribs ta
-                         on inv.typeID = ta.typeID
-                             and ta.attributeID = 4
-      where cd.match_id in unnest(@match_ids)
-      group by cd.pilot, pms.ship_id, inv.typeName, cd.match_id, ig.name, ta.value
-      order by ta.value, cd.pilot asc, inv.typeName asc
-          """
-
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
-
-    rows = client.query(pilot_query, job_config=job_config).result()
-
-    return [row for row in rows]
-
-def get_fleet_rolling_dps(seconds, match_ids):
-
-    client = bigquery.Client()
     seconds = seconds - 1
 
     query = """
             WITH all_drones AS (
                 SELECT it.typeName
-                FROM `sde.invtypes` it
-                         JOIN `sde.invgroups` ig
-                              ON it.groupID = ig.groupID
-                         JOIN `sde.invcategories` ic
-                              ON ig.categoryID = ic.categoryID
+                FROM invtypes it
+                         JOIN invgroups ig ON it.groupID = ig.groupID
+                         JOIN invcategories ic ON ig.categoryID = ic.categoryID
                 WHERE ic.name = 'Drone'
-            ),
-
--- 1 Raw damage normalized to 1-second buckets
-                 normalized_damage AS (
-                     SELECT
-                         cd.match_id,
-                         TIMESTAMP_SECONDS(UNIX_SECONDS(cd.action_timestamp)) AS ts,
-                         UNIX_SECONDS(cd.action_timestamp) AS ts_sec,
-                         cd.direction,
-                         ad.typeName IS NOT NULL AS is_drone,
-                         CONTAINS_SUBSTR(LOWER(cd.module), "breacher pod") AS is_breacher_pod,
-                         SUM(cd.amount) AS damage
-                     FROM `combat_logs.combat_data` cd
-                              LEFT JOIN combat_logs.combat_log_types clt
-                                        ON clt.id = cd.log_type_id
-                              LEFT JOIN all_drones ad
-                                        ON LOWER(cd.module) = LOWER(ad.typeName)
-                     WHERE cd.amount IS NOT NULL
-                       AND clt.name = "damage"
-                       AND cd.match_id IN UNNEST(@match_ids)
-            GROUP BY
-                cd.match_id,
-                ts,
-                ts_sec,
-                cd.direction,
-                is_drone,
-                is_breacher_pod
-                ),
-
--- 2 Get min/max second per partition
-                bounds AS (
-            SELECT
-                match_id,
-                direction,
-                is_drone,
-                is_breacher_pod,
-                MIN(ts_sec) AS min_sec,
-                MAX(ts_sec) AS max_sec
-            FROM normalized_damage
-            GROUP BY match_id, direction, is_drone, is_breacher_pod
-                ),
-
--- 3 Generate full second grid
-                second_grid AS (
-            SELECT
-                b.match_id,
-                b.direction,
-                b.is_drone,
-                b.is_breacher_pod,
-                sec AS ts_sec,
-                TIMESTAMP_SECONDS(sec) AS ts
-            FROM bounds b,
-                UNNEST(GENERATE_ARRAY(b.min_sec, b.max_sec)) AS sec
-                ),
-
--- 4 Left join damage onto full second grid
-                filled_seconds AS (
-            SELECT
-                g.match_id,
-                g.direction,
-                g.is_drone,
-                g.is_breacher_pod,
-                g.ts,
-                g.ts_sec,
-                IFNULL(n.damage, 0) AS damage
-            FROM second_grid g
-                LEFT JOIN normalized_damage n
-            ON g.match_id = n.match_id
-                AND g.direction = n.direction
-                AND g.is_drone = n.is_drone
-                AND g.is_breacher_pod = n.is_breacher_pod
-                AND g.ts_sec = n.ts_sec
-                )
-
--- 5 Rolling DPS over true N seconds
-            SELECT
-                match_id,
-                direction,
-                ts AS action_timestamp,
-                is_drone,
-                is_breacher_pod,
-                SUM(damage) OVER (
-        PARTITION BY match_id, direction, is_drone, is_breacher_pod
-        ORDER BY ts_sec
-        ROWS BETWEEN @seconds PRECEDING AND CURRENT ROW
-    ) / CAST(@seconds AS FLOAT64) AS rolling_dps
-            FROM filled_seconds
-            ORDER BY ts, match_id, direction;
-
-            """
-
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter("seconds", "INT64", seconds),
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
-
-    rows = client.query(query, job_config=job_config).result()
-
-    return list(rows)
-
-
-def get_rolling_dps_w_pilots(seconds):
-
-    client = bigquery.Client()
-
-    query = """
-            WITH all_drones as (
-                SELECT
-                    it.typeName,
-                FROM `sde.invtypes` it
-                         JOIN `sde.invgroups` ig
-                              ON it.groupID = ig.groupID
-                         JOIN `sde.invcategories` ic
-                              ON ig.categoryID = ic.categoryID
-                WHERE ic.name = 'Drone'
-                ORDER BY it.typeName
             ),
 
                  normalized_damage AS (
                      SELECT
                          cd.match_id,
                          cd.action_timestamp AS ts,
-                         UNIX_SECONDS(cd.action_timestamp) AS ts_sec,
-                         cd.action_from AS `from`,
-                         cd.action_to   AS `to`,
+                         CAST(strftime('%s', cd.action_timestamp) AS INTEGER) AS ts_sec,
                          cd.direction,
-                         cd.amount AS damage,
-                         ad.typeName IS NOT NULL AS is_drone
-                     FROM `combat_logs.combat_data` cd
-                              LEFT JOIN combat_logs.combat_log_types clt
+                         CASE WHEN ad.typeName IS NOT NULL THEN 1 ELSE 0 END AS is_drone,
+                         CASE WHEN lower(cd.module) LIKE '%breacher pod%' THEN 1 ELSE 0 END AS is_breacher_pod,
+                         SUM(cd.amount) AS rep_amount
+                     FROM combat_data cd
+                              LEFT JOIN combat_log_types clt
                                         ON clt.id = cd.log_type_id
                               LEFT JOIN all_drones ad
-                                        ON LOWER(cd.module) = LOWER(ad.typeName)
+                                        ON lower(cd.module) = lower(ad.typeName)
                      WHERE cd.amount IS NOT NULL
-                       AND clt.name = "damage"
+                       AND clt.name = 'reps'
+                       AND cd.match_id = :match_id
+                     GROUP BY
+                         cd.match_id,
+                         ts,
+                         ts_sec,
+                         cd.direction,
+                         is_drone,
+                         is_breacher_pod
                  )
 
-            SELECT
-                match_id,
-                `from`,
-                `to`,
-                direction,
-                ts AS action_timestamp,
-                is_drone,
-                SUM(damage) OVER (
-    PARTITION BY match_id, `from`, `to`, direction, is_drone
-    ORDER BY ts_sec
-    RANGE BETWEEN @seconds PRECEDING AND CURRENT ROW
-    ) / CAST(@seconds AS FLOAT64) AS rolling_dps
-            FROM normalized_damage
-            ORDER BY ts asc, match_id, `from`, `to`, direction
-            """
-
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter("seconds", "INT64", seconds)
-        ]
-    )
-
-    rows = client.query(query, job_config=job_config).result()
-
-    return list(rows)
-
-
-def get_rolling_dps_bp(seconds, match_ids):
-    client = bigquery.Client()
-    seconds = seconds - 1
-    query = """
-            WITH all_drones AS (
-                SELECT it.typeName
-                FROM `sde.invtypes` it
-                         JOIN `sde.invgroups` ig
-                              ON it.groupID = ig.groupID
-                         JOIN `sde.invcategories` ic
-                              ON ig.categoryID = ic.categoryID
-                WHERE ic.name = 'Drone'
-            ),
-
--- 1 Raw damage normalized to 1-second buckets
-                 normalized_damage AS (
-                     SELECT
-                         cd.match_id,
-                         TIMESTAMP_SECONDS(UNIX_SECONDS(cd.action_timestamp)) AS ts,
-                         UNIX_SECONDS(cd.action_timestamp) AS ts_sec,
-                         cd.direction,
-                         ad.typeName IS NOT NULL AS is_drone,
-                         CONTAINS_SUBSTR(LOWER(cd.module), "breacher pod") AS is_breacher_pod,
-                         SUM(cd.amount) AS damage,
-                         case when cd.direction = "incoming" then
-                                  cd.action_to
-                              else
-                                  cd.action_from end as pilot,
-                     FROM `combat_logs.combat_data` cd
-                              LEFT JOIN combat_logs.combat_log_types clt
-                                        ON clt.id = cd.log_type_id
-                              LEFT JOIN all_drones ad
-                                        ON LOWER(cd.module) = LOWER(ad.typeName)
-                     WHERE cd.amount IS NOT NULL
-                       AND clt.name = "damage"
-                       AND cd.match_id IN UNNEST(@match_ids)
-            GROUP BY
-                cd.match_id,
-                ts,
-                pilot,
-                ts_sec,
-                cd.direction,
-                is_drone,
-                is_breacher_pod
-                ),
-
--- 2 Get min/max second per partition
-                bounds AS (
-            SELECT
-                match_id,
-                pilot,
-                direction,
-                is_drone,
-                is_breacher_pod,
-                MIN(ts_sec) AS min_sec,
-                MAX(ts_sec) AS max_sec
-            FROM normalized_damage
-            GROUP BY match_id, direction, is_drone, is_breacher_pod, pilot
-                ),
-
--- 3 Generate full second grid
-                second_grid AS (
-            SELECT
-                b.match_id,
-                b.direction,
-                b,pilot,
-                b.is_drone,
-                b.is_breacher_pod,
-                sec AS ts_sec,
-                TIMESTAMP_SECONDS(sec) AS ts
-            FROM bounds b,
-                UNNEST(GENERATE_ARRAY(b.min_sec, b.max_sec)) AS sec
-                ),
-
--- 4 Left join damage onto full second grid
-                filled_seconds AS (
-            SELECT
-                g.match_id,
-                g.direction,
-                g.is_drone,
-                g.pilot,
-                g.is_breacher_pod,
-                g.ts,
-                g.ts_sec,
-                IFNULL(n.damage, 0) AS damage
-            FROM second_grid g
-                LEFT JOIN normalized_damage n
-            ON g.match_id = n.match_id
-                AND g.direction = n.direction
-                AND g.is_drone = n.is_drone
-                AND g.is_breacher_pod = n.is_breacher_pod
-                AND g.ts_sec = n.ts_sec
-                AND g.pilot = n.pilot
-                )
-
--- 5 Rolling DPS over true N seconds
-            SELECT
-                match_id,
-                direction,
-                pilot,
-                ts AS action_timestamp,
-                is_drone,
-                is_breacher_pod,
-                SUM(damage) OVER (
-        PARTITION BY match_id, direction, pilot, is_drone, is_breacher_pod
-        ORDER BY ts_sec
-        ROWS BETWEEN @seconds PRECEDING AND CURRENT ROW
-    ) / CAST(@seconds AS FLOAT64) AS rolling_dps
-            FROM filled_seconds
-            ORDER BY ts, match_id, direction;
-            """
-
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter(
-                "seconds", "INT64", seconds
-            ),
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ],
-    )
-
-    rows = client.query(query, job_config=job_config).result()
-
-    return list(rows)
-
-def get_fleet_rolling_reps(seconds, match_ids):
-
-    client = bigquery.Client()
-    seconds = seconds - 1
-
-    query = """
-            WITH all_drones AS (
-                SELECT it.typeName
-                FROM `sde.invtypes` it
-                         JOIN `sde.invgroups` ig
-                              ON it.groupID = ig.groupID
-                         JOIN `sde.invcategories` ic
-                              ON ig.categoryID = ic.categoryID
-                WHERE ic.name = 'Drone'
-            ),
-
--- 1 Raw damage normalized to 1-second buckets
-                 normalized_damage AS (
-                     SELECT
-                         cd.match_id,
-                         TIMESTAMP_SECONDS(UNIX_SECONDS(cd.action_timestamp)) AS ts,
-                         UNIX_SECONDS(cd.action_timestamp) AS ts_sec,
-                         cd.direction,
-                         ad.typeName IS NOT NULL AS is_drone,
-                         CONTAINS_SUBSTR(LOWER(cd.module), "breacher pod") AS is_breacher_pod,
-                         SUM(cd.amount) AS rep_amount
-                     FROM `combat_logs.combat_data` cd
-                              LEFT JOIN combat_logs.combat_log_types clt
-                                        ON clt.id = cd.log_type_id
-                              LEFT JOIN all_drones ad
-                                        ON LOWER(cd.module) = LOWER(ad.typeName)
-                     WHERE cd.amount IS NOT NULL
-                       AND clt.name = "reps"
-                       AND cd.match_id IN UNNEST(@match_ids)
-            GROUP BY
-                cd.match_id,
-                ts,
-                ts_sec,
-                cd.direction,
-                is_drone,
-                is_breacher_pod
-                ),
-
--- 2 Get min/max second per partition
-                bounds AS (
-            SELECT
-                match_id,
-                direction,
-                is_drone,
-                is_breacher_pod,
-                MIN(ts_sec) AS min_sec,
-                MAX(ts_sec) AS max_sec
-            FROM normalized_damage
-            GROUP BY match_id, direction, is_drone, is_breacher_pod
-                ),
-
--- 3 Generate full second grid
-                second_grid AS (
-            SELECT
-                b.match_id,
-                b.direction,
-                b.is_drone,
-                b.is_breacher_pod,
-                sec AS ts_sec,
-                TIMESTAMP_SECONDS(sec) AS ts
-            FROM bounds b,
-                UNNEST(GENERATE_ARRAY(b.min_sec, b.max_sec)) AS sec
-                ),
-
--- 4 Left join damage onto full second grid
-                filled_seconds AS (
-            SELECT
-                g.match_id,
-                g.direction,
-                g.is_drone,
-                g.is_breacher_pod,
-                g.ts,
-                g.ts_sec,
-                IFNULL(n.rep_amount, 0) AS rep_amount
-            FROM second_grid g
-                LEFT JOIN normalized_damage n
-            ON g.match_id = n.match_id
-                AND g.direction = n.direction
-                AND g.is_drone = n.is_drone
-                AND g.is_breacher_pod = n.is_breacher_pod
-                AND g.ts_sec = n.ts_sec
-                )
-
--- 5 Rolling DPS over true N seconds
             SELECT
                 match_id,
                 direction,
@@ -626,60 +396,46 @@ def get_fleet_rolling_reps(seconds, match_ids):
                 is_drone,
                 is_breacher_pod,
                 SUM(rep_amount) OVER (
-        PARTITION BY match_id, direction, is_drone, is_breacher_pod
-        ORDER BY ts_sec
-        ROWS BETWEEN @seconds PRECEDING AND CURRENT ROW
-    ) / CAST(@seconds AS FLOAT64) AS rolling_reps
-            FROM filled_seconds
-            ORDER BY ts, match_id, direction;
-
+            PARTITION BY match_id, direction, is_drone, is_breacher_pod
+            ORDER BY ts_sec
+            ROWS BETWEEN :seconds PRECEDING AND CURRENT ROW
+        ) * 1.0 / :seconds AS rolling_reps
+            FROM normalized_damage
+            ORDER BY ts, match_id, direction; \
             """
 
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter("seconds", "INT64", seconds),
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
+    params = {
+        "match_id": match_id,
+        "seconds": seconds
+    }
 
-    rows = client.query(query, job_config=job_config).result()
+    return db.query(query, params)
 
-    return list(rows)
-
-
-def get_match_last_action_by_pilot(match_ids):
-    client = bigquery.Client()
-    actions_query = f"""
-        SELECT
-            cd.pilot,
-            m.id as match_id,
-            MAX(cd.action_timestamp) AS last_action_ts,
-            ANY_VALUE(m.match_end_ts) AS match_end_ts,
-            TIMESTAMP_DIFF(
-                ANY_VALUE(m.match_end_ts),
-                MAX(cd.action_timestamp),
-                SECOND
-            ) AS seconds_before_match_end
-        FROM `combat_logs.combat_data` cd
-        LEFT JOIN `matches.matches` m
-          ON cd.match_id = m.id
-        WHERE cd.match_id in Unnest(@match_ids)
-          AND cd.action_timestamp <= m.match_end_ts
-        GROUP BY cd.match_id, cd.pilot, m.id
-        ORDER BY cd.match_id, last_action_ts DESC
+def get_match_last_action_by_pilot(db, match_id):
+    """
+    SQLite version: last action per pilot for a single match_id.
     """
 
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ArrayQueryParameter(
-                "match_ids", "STRING", match_ids
-            ),
-        ]
-    )
+    query = """
+            SELECT
+                cd.pilot,
+                cd.match_id,
+                MAX(cd.action_timestamp) AS last_action_ts,
+                MAX(m.match_end_ts) AS match_end_ts,
+                (
+                    CAST(strftime('%s', MAX(m.match_end_ts)) AS INTEGER)
+                        -
+                    CAST(strftime('%s', MAX(cd.action_timestamp)) AS INTEGER)
+                    ) AS seconds_before_match_end
+            FROM combat_data cd
+                     LEFT JOIN matches m
+                               ON cd.match_id = m.id
+            WHERE cd.match_id = ?
+              AND cd.action_timestamp <= m.match_end_ts
+            GROUP BY cd.match_id, cd.pilot
+            ORDER BY last_action_ts DESC \
+            """
 
-    rows = client.query(actions_query, job_config=job_config).result()
+    return db.query(query, (match_id, ))
 
-    return list(rows)
 
