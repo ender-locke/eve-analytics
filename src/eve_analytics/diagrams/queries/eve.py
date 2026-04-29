@@ -154,9 +154,9 @@ def get_pilots_and_ships(db, match_id):
                 inv.typeName,
                 cd.match_id,
                 ig.name,
-                ta.value
+                inv.mass
             ORDER BY
-                ta.value,
+                inv.mass,
                 cd.pilot ASC,
                 inv.typeName ASC 
             """
