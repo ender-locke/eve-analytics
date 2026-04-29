@@ -26,7 +26,9 @@ class Database:
 
         self.conn = sqlite3.connect(self.db_path)
         self.conn.execute("PRAGMA foreign_keys = ON;")
+        self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
+
         self.create_tables = [
             create_combat_data_sql,
             create_combat_log_types_sql,
