@@ -4,7 +4,10 @@ from eve_analytics.diagrams.queries.eve import (get_drones, get_damage_output_st
                                                 get_fleet_rolling_reps, get_fleet_rolling_dps, get_rolling_dps_bp,
                                                 get_rolling_dps_w_pilots)
 from collections import defaultdict
-
+from eve_analytics.diagrams.fleet_diagrams import generate_fleet_diagrams
+from eve_analytics.diagrams.flight_diagram import generate_pilot_flight_diagrams
+from eve_analytics.diagrams.queries.client import get_match_timestamps
+from eve_analytics.classes.pilot import Pilot
 
 class MatchAnalytics:
 
@@ -12,14 +15,27 @@ class MatchAnalytics:
         self._ea = ea
         self._fc = fc
         self._match_id = match_id
+        self.__get_match_details()
+        self._fleet_diagrams = []
+        self._pilot_diagrams = []
         self.__build_match_datasets()
         self.__build_out_damage()
         self.__build_pilot_n_ships()
+        self.__build_fleet_digrams()
+        self.__build_pilot_diagrams()
         pass
 
     @property
     def match_id(self):
         return self._match_id
+
+    def __get_match_details(self):
+        match_details = get_match_timestamps(self._ea.db, self._match_id)
+        self._match_details = {
+            "match_id": self._match_id,
+            "start": match_details[0][0],
+            "end": match_details[0][1]
+        }
 
     def __build_match_datasets(self):
         db = self._ea.db
@@ -47,10 +63,10 @@ class MatchAnalytics:
 
 
     def __build_pilot_n_ships(self):
-        pilots_w_ships = defaultdict(list)
+        self.pilots_w_ships = defaultdict(list)
 
         for pilot_row in self.ships_and_pilots:
-            pilots_w_ships[pilot_row['pilot']].append(pilot_row)
+            self.pilots_w_ships[pilot_row['pilot']].append(pilot_row)
 
     def __build_out_damage(self):
         new_all_dmg = []
@@ -68,9 +84,66 @@ class MatchAnalytics:
 
         self.all_dmg = new_all_dmg
 
-
     def __build_fleet_digrams(self):
+        if self._fc.generate_defensive_pilot_diagrams:
+            pilot_graphs = generate_fleet_diagrams(
+                diagram_type="defensive",
+                unique_pilots=self.unique_pilots,
+                matches=[self._match_details],
+                damage_list=self.all_dmg,
+                drone_list=self.all_drones,
+                reload_list=self.all_reloads,
+                first_actions_list=self.first_actions,
+                pilot_dmg=self.dmg_output_stats,
+                pilot_dmg_taken=self.dmg_input_stats,
+                fleet_dmg=self.fleet_dps,
+                fleet_reps=self.fleet_reps,
+                pilot_deaths=self.pilot_deaths,
+                fleet_jams=self.all_jams,
+                ctx=self._fc,
+                pilots_ships=self.pilots_w_ships
+            )
+            self._fleet_diagrams.extend(pilot_graphs)
+        if self._fc.generate_offensive_pilot_diagrams:
+            pilot_graphs = generate_fleet_diagrams(
+                diagram_type="offensive",
+                unique_pilots=self.unique_pilots,
+                matches=[self._match_details],
+                damage_list=self.all_dmg,
+                drone_list=self.all_drones,
+                reload_list=self.all_reloads,
+                first_actions_list=self.first_actions,
+                pilot_dmg=self.dmg_output_stats,
+                pilot_dmg_taken=self.dmg_input_stats,
+                fleet_dmg=self.fleet_dps,
+                fleet_reps=self.fleet_reps,
+                pilot_deaths=self.pilot_deaths,
+                fleet_jams=self.all_jams,
+                ctx=self._fc,
+                pilots_ships=self.pilots_w_ships
+            )
+            self._fleet_diagrams.extend(pilot_graphs)
         pass
 
     def __build_pilot_diagrams(self):
+        if self._fc.generate_pilot_diagrams:
+            for pilot in self.unique_pilots:
+                this_pilot = pilot[0]
+                pilot_graphs = generate_pilot_flight_diagrams(
+                    pilot_name=this_pilot,
+                    matches=[self._match_details],
+                    damage_list=self.all_dmg,
+                    reps_list=self.all_reps,
+                    nos_list=self.all_nos,
+                    neut_list=self.all_neuts,
+                    cap_warnings_list=self.all_cap_warnings,
+                    scram_list=self.all_scrams,
+                    jam_list=self.all_jams,
+                    drone_list=self.all_drones,
+                    links_list=self.all_links,
+                    reload_list=self.all_reloads,
+                    ctx=self._fc,
+                    pilots_ships=self.pilots_w_ships[this_pilot]
+                )
+                self._pilot_diagrams.extend(pilot_graphs)
         pass
