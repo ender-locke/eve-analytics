@@ -2,7 +2,9 @@ from eve_analytics.ingest.splicer import parse_combat_log
 from eve_analytics.ingest.matches import parse_match_intervals
 from eve_analytics.exceptions.file_errors import MissingFilesError
 from eve_analytics.classes.json_log_data import JSONLogData
+from eve_analytics.data.logs import log_keys
 import hashlib
+from datetime import timedelta, timezone
 import pandas as pd
 
 
@@ -79,6 +81,24 @@ class ParsedLogs:
         self.matches = matches
         self.export_date = matches[0]['start']
 
+    def __to_utc(self, dt):
+        if dt.tzinfo is None:
+            return dt.replace(tzinfo=timezone.utc)  # assume it's UTC
+        return dt.astimezone(timezone.utc)
+
+    def __get_match_id(self, ts):
+        timestamp = self.__to_utc(ts)
+        TOLERANCE = timedelta(seconds=15)
+
+        for m in self.matches:
+            start = self.__to_utc(m["start"])
+            end = self.__to_utc(m["end"])
+
+            if (start - TOLERANCE) <= timestamp <= (end + TOLERANCE):
+                return m["id"]
+
+        return "unknown"
+
 
     def __parse_combat_logs(self):
         all_neuts = []
@@ -96,6 +116,13 @@ class ParsedLogs:
         unique_pilots = []
         for path in self.combat_logs:
             combat_logs = parse_combat_log(path)
+
+            for key in log_keys:
+                for entry in combat_logs[key]:
+                    try:
+                        entry["match_id"] = self.__get_match_id(entry["time"])
+                    except KeyError as e:
+                        print(e)
 
             all_nos.extend(combat_logs["nos"])
             all_neuts.extend(combat_logs['neut'])

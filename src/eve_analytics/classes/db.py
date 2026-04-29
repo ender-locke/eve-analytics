@@ -143,10 +143,10 @@ class Database:
         return None
 
     def process_json_record(self, record):
-        raw = f"{record['action_timestamp']}:{record['pilot']}:{record['direction']}:{record['log_type_id']}:{record['cleaned_line']}".encode()
-        record["id"] = hashlib.sha256(raw).hexdigest()
-
         record['log_type_id'] = self.get_log_type_id(this_type=record['row_type'])
+
+        raw = f"{record['time'].astimezone(timezone.utc).isoformat()}:{record['pilot']}:{record['direction']}:{record['log_type_id']}:{record['cleaned_line']}".encode()
+        record["id"] = hashlib.sha256(raw).hexdigest()
 
         if "to" in record:
             record['action_to'] = record['to'] if record['to'] else "unknown"
