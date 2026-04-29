@@ -5,7 +5,7 @@ def get_drones(db):
     """
     query = """
             SELECT
-                it.typeName,
+                it.typeName
             FROM invtypes it
              JOIN invgroups ig
                   ON it.groupID = ig.groupID
@@ -15,7 +15,7 @@ def get_drones(db):
             ORDER BY it.typeName 
             """
 
-    rows = db.query(query) # could be execute
+    rows = db.cursor.execute(query).fetchall() # could be execute
 
     return [row.typeName for row in rows]
 
@@ -43,7 +43,7 @@ def get_damage_output_stats(db, match_id, direction="outgoing"):
 
     params = (f"{direction}%", match_id)
 
-    rows = db.query(query, params)
+    rows = db.cursor.execute(query, params).fetchall()
 
     return rows
 
@@ -68,7 +68,7 @@ def get_first_actions(db, match_id):
             ORDER BY match_id, pilot \
             """
 
-    rows = db.query(query, (match_id,))
+    rows = db.cursor.execute(query, (match_id,)).fetchall()
 
     return rows
 
@@ -92,7 +92,7 @@ def get_log_data(db, log_type: str, match_id):
 
     params = (log_type, match_id)
 
-    rows = db.query(query, params)
+    rows = db.cursor.execute(query, params).fetchall()
 
     return rows
 
@@ -111,7 +111,7 @@ def get_matches(db, start_date, end_date):
 
     params = (end_date, start_date)
 
-    rows = db.query(query, params)
+    rows = db.cursor.execute(query, params).fetchall()
 
     return rows
 
@@ -123,7 +123,7 @@ def get_unique_pilots(db, match_id):
             GROUP BY cd.pilot 
             """
 
-    rows = db.query(query, (match_id,))
+    rows = db.cursor.execute(query, (match_id,)).fetchall()
 
     return [row["pilot"] for row in rows]
 
@@ -161,7 +161,7 @@ def get_pilots_and_ships(db, match_id):
                 inv.typeName ASC 
             """
 
-    rows = db.query(query, (match_id,))
+    rows = db.cursor.execute(query, (match_id,)).fetchall()
 
     return rows
 
@@ -209,7 +209,7 @@ def get_fleet_rolling_dps(db, seconds, match_id):
 
     params = (match_id, seconds, seconds)
 
-    return db.query(query, params)
+    return db.cursor.execute(query, params).fetchall()
 
 
 def get_rolling_dps_w_pilots(db, seconds):
@@ -273,7 +273,7 @@ def get_rolling_dps_w_pilots(db, seconds):
 
     params = (seconds, seconds)
 
-    return db.query(query, params)
+    return db.cursor.execute(query, params).fetchall()
 
 
 def get_rolling_dps_bp(db, seconds, match_id):
@@ -345,7 +345,7 @@ def get_rolling_dps_bp(db, seconds, match_id):
 
     params = (match_id, seconds, seconds)
 
-    return db.query(query, params)
+    return db.cursor.execute(query, params).fetchall()
 
 def get_fleet_rolling_reps(db, seconds, match_id):
     """
@@ -409,7 +409,7 @@ def get_fleet_rolling_reps(db, seconds, match_id):
         "seconds": seconds
     }
 
-    return db.query(query, params)
+    return db.cursor.execute(query, params).fetchall()
 
 def get_match_last_action_by_pilot(db, match_id):
     """
@@ -436,6 +436,6 @@ def get_match_last_action_by_pilot(db, match_id):
             ORDER BY last_action_ts DESC \
             """
 
-    return db.query(query, (match_id, ))
+    return db.cursor.execute(query, (match_id, )).fetchall()
 
 

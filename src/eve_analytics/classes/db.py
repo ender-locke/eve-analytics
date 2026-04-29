@@ -10,7 +10,6 @@ import os
 import wget
 import yaml
 import zipfile
-import ijson
 
 class Database:
 
@@ -40,7 +39,45 @@ class Database:
         ]
         self._build_schema()
 
-    def insert_combat_logs(self):
+    def __repr__(self) -> str:
+        """
+
+        :return:
+        """
+
+        return f"<Database> | {self.db_path}"
+
+    def default_db_load(self):
+        self.__insert_matches()
+        self.__insert_combat_logs()
+        self.__load_eve_data()
+
+    def __insert_matches(self):
+        now = datetime.now(timezone.utc).isoformat()
+        sql = """
+            INSERT INTO matches (
+                id, description, match_start_ts,
+                match_end_ts,
+                create_ts, update_ts, retired
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        """
+        values = [
+            (
+                r.get("id", 0),
+                r.get('description', ""),
+                r.get('start'),
+                r.get('end'),
+                r.get("create_ts", now),
+                r.get("update_ts", now),
+                int(r.get("retired", False))
+            )
+            for r in self.category_values if r
+        ]
+
+        self.cursor.executemany(sql, values)
+        self.conn.commit()
+
+    def __insert_combat_logs(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT INTO combat_data (
@@ -177,7 +214,7 @@ class Database:
 
         self.sde_location = unzip_path
 
-    def load_eve_data(self):
+    def __load_eve_data(self):
         self._load_sde_data()
 
     def _load_sde_data(self):
@@ -222,7 +259,7 @@ class Database:
     def _insert_invtypes(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
-              INSERT INTO invtypes (
+              INSERT OR IGNORE INTO invtypes (
                   typeId, raceId, metaGroupId,
                   marketGroupId, typeName, 
                   mass, groupId,
@@ -271,14 +308,13 @@ class Database:
                     'update_ts': now,
                     'retired': False
                 })
-            pass
         self.category_values = category_list
         self._insert_invcategories()
 
     def _insert_invcategories(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
-              INSERT INTO invcategories (
+              INSERT OR IGNORE INTO invcategories (
                   categoryId, name,
                   create_ts, update_ts, retired
               ) VALUES (?, ?, ?, ?, ?)
@@ -321,7 +357,7 @@ class Database:
     def _insert_invgroups(self):
         now = datetime.now(timezone.utc).isoformat()
         sql = """
-              INSERT INTO invgroups (
+              INSERT OR IGNORE INTO invgroups (
                   groupId, name, categoryId,
                   create_ts, update_ts, retired
               ) VALUES (?, ?, ?, ?, ?, ?)
@@ -341,6 +377,9 @@ class Database:
 
         self.cursor.executemany(sql, values)
         self.conn.commit()
+
+    def execute(self, sql, params=None):
+        return self.cursor.execute(sql, params).fetchall()
 
     def close(self):
         self.conn.close()

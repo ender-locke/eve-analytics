@@ -8,7 +8,7 @@ from collections import defaultdict
 
 class MatchAnalytics:
 
-    def __int__(self, ea, match_id, fc):
+    def __init__(self, ea, match_id, fc):
         self._ea = ea
         self._fc = fc
         self._match_id = match_id

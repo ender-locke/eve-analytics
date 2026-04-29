@@ -145,7 +145,6 @@ class ParsedLogs:
                 "key": key
             })
 
-
     def __generate_log_dfs(self):
         """
         if there's nothing here just re run it
