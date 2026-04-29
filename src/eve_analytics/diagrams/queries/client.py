@@ -12,4 +12,4 @@ def get_match_timestamps(db, match_id):
 
     rows = db.cursor.execute(query, (match_id,)).fetchall() # could be execute
 
-    return [row for row in rows]
+    return rows
