@@ -32,7 +32,7 @@ class MatchAnalytics:
     def __get_match_details(self):
         match_details = get_match_timestamps(self._ea.db, self._match_id)
         self._match_details = {
-            "match_id": self._match_id,
+            "id": self._match_id,
             "start": match_details[0][0],
             "end": match_details[0][1]
         }
