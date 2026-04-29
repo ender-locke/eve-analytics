@@ -70,6 +70,9 @@ CREATE TABLE IF NOT EXISTS users (
 create_invtypes_sql = """
 CREATE TABLE IF NOT EXISTS invtypes (
     typeId INTEGER PRIMARY KEY,
+    raceId INTEGER,
+    metaGroupId INTEGER,
+    marketGroupID INTEGER,
     typeName TEXT,
      groupId INTEGER,
     create_ts TEXT,
@@ -77,7 +80,6 @@ CREATE TABLE IF NOT EXISTS invtypes (
     retired INTEGER
 ) 
 """
-
 
 create_invgroups_sql = """
 CREATE TABLE IF NOT EXISTS invgroups (
