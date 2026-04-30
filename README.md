@@ -1,6 +1,6 @@
 # eve-analytics
 
-[![documentation](https://img.shields.io/badge/docs-eve--analytics-blue.svg?style=flat)](https://ender-locke.github.io/eve-analytics/)
+[![Docs](https://img.shields.io/badge/docs-EVE_Analytics-blue?style=flat)](https://ender-locke.github.io/eve-analytics/)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ender-locke/eve-analytics/deploy.yml)
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/eve-analytics)
