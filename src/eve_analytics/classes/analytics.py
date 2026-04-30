@@ -5,7 +5,7 @@ from eve_analytics.diagrams.queries.eve import (get_drones, get_damage_output_st
                                                 get_rolling_dps_w_pilots)
 from collections import defaultdict
 from eve_analytics.diagrams.fleet_diagrams import generate_fleet_diagrams
-from eve_analytics.diagrams.flight_diagram import generate_pilot_flight_diagrams
+from eve_analytics.diagrams.flight_diagrams import generate_pilot_flight_diagrams
 from eve_analytics.diagrams.queries.client import get_match_timestamps
 from eve_analytics.classes.pilot import Pilot
 from pathlib import Path
