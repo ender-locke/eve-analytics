@@ -164,11 +164,13 @@ def generate_fleet_diagrams(
 
                 # get drone engagementsf
                 for e in drone_list:
+                    action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
+
                     if (
-                        cd_start <= e["action_timestamp"] <= end_dt
+                        cd_start <= action_ts <= end_dt
                         and is_involving_pilot(e, pilot)
                     ):
-                        pilot_drone_engagements.append(e["action_timestamp"])
+                        pilot_drone_engagements.append(action_ts)
 
             if is_offensive:
                 # todo add in when we got jams/ incoming jams
