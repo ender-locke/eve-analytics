@@ -164,7 +164,7 @@ def generate_fleet_diagrams(
 
                 # get drone engagementsf
                 for e in drone_list:
-                    action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
+                    action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
 
                     if (
                         cd_start <= action_ts <= end_dt
