@@ -11,13 +11,17 @@ nav:
     - Database Errors: exceptions/db.md
     - File Errors: exceptions/file.md
   - Functions:
-    - Flight Diagrams: funcs/pilot_diagrams.md
-    - Fleet Diagrams: funcs/fleet_diagrams.md
+    - Log Parsing:
+      - Combat Logs: funcs/combat_logs.md
+      - Matches: funcs/matches.md
+    - Diagrams:
+      - Flight Diagrams: funcs/pilot_diagrams.md
+      - Fleet Diagrams: funcs/fleet_diagrams.md
 
 theme:
   name: material
   favicon: img/favicon.ico
-  logo: img/eve-analytics.png
+  logo: img/ea-logo.png
   palette:
     - scheme: default
       primary: indigo
