@@ -35,10 +35,10 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   build-package:
     name: Deploy to PyPI
-    needs: pytest
     runs-on: ubuntu-latest
     environment: prod
     if: github.ref == 'refs/heads/prod'
@@ -58,7 +58,8 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   test-mkdocs:
     name: Test Build mkdocs

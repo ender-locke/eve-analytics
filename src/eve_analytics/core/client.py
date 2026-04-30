@@ -85,3 +85,8 @@ class EveAnalytics:
         self._match_analytics.append(MatchAnalytics(ea=self,
                                                     match_id=match_id,
                                                     fc=self._ctx))
+
+    def save_analytics(self, save_dir):
+        for match_analytics in self._match_analytics:
+            match_analytics.save_analytics(save_dir)
+            pass
