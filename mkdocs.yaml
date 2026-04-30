@@ -6,9 +6,13 @@ nav:
     - ParsedLogs: classes/parser.md
     - Database: classes/db.md
     - EveAnalytics: classes/client.md
+    - MatchAnalytics: classes/match_analytics.md
   - Exceptions:
     - Database Errors: exceptions/db.md
     - File Errors: exceptions/file.md
+  - Functions:
+    - Flight Diagrams: funcs/pilot_diagrams.md
+    - Fleet Diagrams: funcs/fleet_diagrams.md
 
 theme:
   name: material
