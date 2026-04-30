@@ -13,8 +13,45 @@ import yaml
 import zipfile
 
 class Database:
+    """
+    SQLite-based persistence layer for EVE Analytics.
 
+    This class is responsible for:
+    - Creating and managing a local SQLite database
+    - Inserting parsed combat log data into structured tables
+    - Managing match metadata and combat event records
+    - Downloading and loading EVE Static Data Export (SDE)
+    - Transforming parsed logs into normalized database entries
+
+    It acts as the bridge between in-memory parsed log data
+    and long-term structured storage.
+
+    Attributes:
+        ea: Main EVE Analytics application context (provides parsed logs).
+        db_path (Path): Path to SQLite database file.
+        base (Path): Base directory for local storage.
+        conn (sqlite3.Connection): Active SQLite connection.
+        cursor (sqlite3.Cursor): Database cursor for queries.
+        sde_location (Path): Extracted SDE directory path.
+        create_tables (list[str]): SQL schema creation statements.
+    """
     def __init__(self, ea, db_path=None):
+        """
+        Initializes the database connection and builds schema.
+
+        If no database path is provided, a default local directory
+        (~/.eveanalytics) is created and used.
+
+        Workflow:
+        - Creates SQLite connection
+        - Enables foreign key support
+        - Builds schema tables
+        - Prepares cursor for queries
+
+        Args:
+            ea: EVE Analytics application instance containing parsed logs.
+            db_path (Path | None): Optional custom database file path.
+        """
         self.ea = ea
         self.sde_location = None
         if db_path is None:
@@ -44,18 +81,37 @@ class Database:
 
     def __repr__(self) -> str:
         """
+        Returns a string representation of the database instance.
 
-        :return:
+        Returns:
+            str: Database path summary.
         """
 
         return f"<Database> | {self.db_path}"
 
     def default_db_load(self):
+        """
+        Executes the full default ingestion pipeline.
+
+        Steps:
+        - Inserts match metadata
+        - Inserts parsed combat logs
+        - Loads EVE SDE data into database tables
+        """
         self.__insert_matches()
         self.__insert_combat_logs()
         self.__load_eve_data()
 
     def __insert_matches(self):
+        """
+        Inserts parsed match metadata into the database.
+
+        Each match includes:
+        - Match ID (hashed)
+        - Start/end timestamps
+        - Countdown start timestamp
+        - Description and metadata flags
+        """
         now = datetime.now(timezone.utc).isoformat()
         sql = """
             INSERT OR IGNORE INTO matches (
@@ -82,6 +138,15 @@ class Database:
         self.conn.commit()
 
     def __insert_combat_logs(self):
+        """
+        Inserts all parsed combat log events into the combat_data table.
+
+        This method:
+        - Flattens all event categories (damage, reps, neuts, etc.)
+        - Normalizes each record via process_json_record()
+        - Assigns match IDs and log type IDs
+        - Bulk inserts into SQLite
+        """
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT OR IGNORE INTO combat_data (
@@ -146,6 +211,23 @@ class Database:
         return None
 
     def process_json_record(self, record):
+        """
+        Normalizes a parsed combat log record for database insertion.
+
+        Responsibilities:
+        - Assigns log type ID
+        - Generates deterministic unique ID (SHA256 hash)
+        - Normalizes "from" and "to" fields
+        - Converts timestamps to UTC ISO format
+        - Adds audit fields (create_ts, update_ts)
+        - Cleans unused keys
+
+        Args:
+            record (dict): Raw parsed log entry.
+
+        Returns:
+            dict: Normalized database-ready record.
+        """
         record['log_type_id'] = self.get_log_type_id(this_type=record['row_type'])
 
         raw = f"{record['time'].astimezone(timezone.utc).isoformat()}:{record['pilot']}:{record['direction']}:{record['log_type_id']}:{record['cleaned_line']}".encode()
@@ -179,9 +261,13 @@ class Database:
 
     def get_log_type_id(self, this_type):
         """
-        all_types: list of dicts, each with 'id' and 'name'
-        this_type: string to match against the 'name' field
-        Returns: matching id or None if not found
+        Resolves a log type string to its corresponding database ID.
+
+        Args:
+            this_type (str): Log type name (e.g., 'dmg', 'reps').
+
+        Returns:
+            int: Log type ID, or 0 if not found.
         """
         if this_type == "dmg":
             this_type = "damage"
@@ -192,6 +278,11 @@ class Database:
         return 0
 
     def _build_schema(self):
+        """
+        Creates database tables defined in schema files.
+
+        Executes all SQL schema creation statements sequentially.
+        """
         for sql in self.create_tables:
             for statement in sql.split(';'):
                 self.cursor.execute(statement)
@@ -199,6 +290,17 @@ class Database:
 
 
     def _download_sde_zip(self):
+        """
+        Downloads and extracts the EVE Static Data Export (SDE).
+
+        Process:
+        - Removes existing SDE zip and extracted folder (if present)
+        - Downloads fresh SDE archive
+        - Extracts contents into local directory
+
+        Raises:
+            MissingSDEError: If extraction fails or path is invalid.
+        """
         zip_path = f"{self.base}/sde.zip"
         unzip_path = f"{self.base}/sde"
 
@@ -219,9 +321,20 @@ class Database:
         self.sde_location = unzip_path
 
     def __load_eve_data(self):
+        """
+        Entry point for loading EVE SDE data into the database.
+        """
         self._load_sde_data()
 
     def _load_sde_data(self):
+        """
+        Loads and processes EVE SDE data into database tables.
+
+        Includes:
+        - invtypes
+        - invcategories
+        - invgroups
+        """
         self._download_sde_zip()
         if self.sde_location is None:
             raise MissingSDEError(location=self.base)
@@ -231,6 +344,17 @@ class Database:
         self._load_invgroups()
 
     def _load_invtypes(self):
+        """
+        Loads invtypes data from SDE YAML into memory.
+
+        Extracts:
+        - type IDs
+        - group IDs
+        - race and meta data
+        - market grouping
+
+        Then triggers database insertion.
+        """
         with open(f'{self.sde_location}/types.yaml', 'rb') as f:
             types_data = yaml.load(f, Loader=yaml.CSafeLoader)
 
@@ -261,6 +385,11 @@ class Database:
         self._insert_invtypes()
 
     def _insert_invtypes(self):
+        """
+        Inserts processed invtypes data into the database.
+
+        Each row represents a ship/item type definition from SDE.
+        """
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT OR IGNORE INTO invtypes (
@@ -298,6 +427,12 @@ class Database:
                 self.conn.commit()
 
     def _load_invcategories(self):
+        """
+        Loads inventory categories from SDE YAML file.
+
+        Builds structured category records for database insertion.
+        """
+
         with open(f'{self.sde_location}/categories.yaml', 'r') as f:
             cat_data = yaml.safe_load(f)
             category_list = []
@@ -316,6 +451,9 @@ class Database:
         self._insert_invcategories()
 
     def _insert_invcategories(self):
+        """
+        Inserts inventory category records into the database.
+        """
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT OR IGNORE INTO invcategories (
@@ -339,6 +477,11 @@ class Database:
         self.conn.commit()
 
     def _load_invgroups(self):
+        """
+        Loads inventory groups from SDE YAML file.
+
+        Groups are linked to categories and represent item classifications.
+        """
         with open(f'{self.sde_location}/groups.yaml', 'r') as f:
             groups_data = yaml.safe_load(f)
             now = datetime.now(timezone.utc).isoformat()
@@ -359,6 +502,9 @@ class Database:
         self._insert_invgroups()
 
     def _insert_invgroups(self):
+        """
+        Inserts inventory group records into the database.
+        """
         now = datetime.now(timezone.utc).isoformat()
         sql = """
               INSERT OR IGNORE INTO invgroups (
@@ -383,7 +529,20 @@ class Database:
         self.conn.commit()
 
     def execute(self, sql, params=None):
+        """
+        Executes a raw SQL query and returns results.
+
+        Args:
+            sql (str): SQL query string.
+            params (tuple | list | None): Optional query parameters.
+
+        Returns:
+            list[sqlite3.Row]: Query results.
+        """
         return self.cursor.execute(sql, params).fetchall()
 
     def close(self):
+        """
+        Closes the SQLite database connection.
+        """
         self.conn.close()

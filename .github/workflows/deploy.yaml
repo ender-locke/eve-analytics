@@ -88,6 +88,8 @@ jobs:
     name: Deploy mkdocs
     needs: build-package
     environment: prod
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/prod'
     steps:
@@ -108,13 +110,4 @@ jobs:
         run: mkdocs build
 
       - name: Deploy to GitHub Pages
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/EnderLocke/pyespn.git
-          git checkout --orphan gh-pages
-          git add .
-          git commit -m "Deploy MkDocs site"
-          git push origin gh-pages --force
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: mkdocs gh-deploy --force

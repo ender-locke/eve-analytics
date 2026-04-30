@@ -94,7 +94,7 @@ def get_log_data(db, log_type: str, match_id):
 
     rows = db.cursor.execute(query, params).fetchall()
 
-    return rows
+    return [dict(row) for row in rows]
 
 def get_matches(db, start_date, end_date):
     query = """

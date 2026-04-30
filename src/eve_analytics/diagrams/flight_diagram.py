@@ -4,6 +4,7 @@ from datetime import timedelta
 import urllib.request
 from PIL import Image
 import numpy as np
+from datetime import datetime
 from collections import defaultdict
 from .helpers.icons import get_eve_icon
 from .helpers.math import compute_ema, compute_ema_logic
@@ -56,6 +57,7 @@ def generate_pilot_flight_diagrams(
     figures = []
 
     def is_involving_pilot(event):
+        event = dict(event)
         return (event.get("from") == pilot_name or event.get("to") == pilot_name
                     or event.get("action_from") == pilot_name or event.get("action_to") == pilot_name
                     or event.get("pilot") == pilot_name)
@@ -69,9 +71,11 @@ def generate_pilot_flight_diagrams(
         in_dmg_pods = defaultdict(list)
         out_dmg_pods = defaultdict(list)
         start = match["start"]
-        cd_start = (start - timedelta(seconds=15))
+        start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+        cd_start = datetime.strptime(match['cd_start'], "%Y-%m-%d %H:%M:%S")
         end = match["end"]
-        match_minutes = int((end - start).total_seconds() // 60) + 1
+        end_dt = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+        match_minutes = int((end_dt - start_dt).total_seconds() // 60) + 1
         label = match.get("description", f"Match {match['id']}")
         this_ship = None
 
@@ -83,7 +87,8 @@ def generate_pilot_flight_diagrams(
                 }
 
         for e in damage_list:
-            if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e):
+            action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
+            if cd_start <= action_ts <= end_dt and is_involving_pilot(e):
                 if e['direction'] == "outgoing-drones-drones":
                     e['direction'] = "outgoing-drones"
                 if e['direction'] == "incoming-drones-drones":
@@ -105,15 +110,15 @@ def generate_pilot_flight_diagrams(
                 if e['rolling_dps'] > hp_max:
                     hp_max = e['rolling_dps']
 
-        reps = [e for e in reps_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        nos = [e for e in nos_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        neuts = [e for e in neut_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        scrams = [e for e in scram_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        jams = [e for e in jam_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        drones = [e for e in drone_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        reloads = [e for e in reload_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        links = [e for e in links_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
-        cap_warnings = [e for e in cap_warnings_list if cd_start <= e["action_timestamp"] <= end and is_involving_pilot(e)]
+        reps = [e for e in reps_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        nos = [e for e in nos_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        neuts = [e for e in neut_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        scrams = [e for e in scram_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        jams = [e for e in jam_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        drones = [e for e in drone_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        reloads = [e for e in reload_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        links = [e for e in links_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
+        cap_warnings = [e for e in cap_warnings_list if cd_start <= datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') <= end_dt and is_involving_pilot(e)]
 
         if all(len(lst) == 0 for lst in [in_dmg, in_dmg_drones, out_dmg, out_dmg_drones,
                                          reps, nos, neuts, scrams, cap_warnings]):
@@ -132,6 +137,9 @@ def generate_pilot_flight_diagrams(
 
         fig, ax_hp = plt.subplots(figsize=(14, 6))
         ax_gj = ax_hp.twinx()
+
+        ax_hp.xaxis_date()
+        ax_gj.xaxis_date()
 
         ax_hp.set_facecolor("#0c0c1a")  # deep space navy
         fig.patch.set_facecolor("#0c0c1a")  # figure background
@@ -176,7 +184,7 @@ def generate_pilot_flight_diagrams(
                 all_directions = []
                 for (pilot, direction), points in dmg_dict.items():
                     for p in points:
-                        ts = p["action_timestamp"]
+                        ts = datetime.strptime(p["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
                         dps_by_ts[(ts, direction)] += p["rolling_dps"]
                         if direction not in all_directions:
                             all_directions.append(direction)
@@ -198,7 +206,7 @@ def generate_pilot_flight_diagrams(
 
             else:
                 for (frm, to, direction), points in dmg_dict.items():
-                    points.sort(key=lambda e: e["action_timestamp"])
+                    points.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
 
                     ax_hp.plot(
                         [p["action_timestamp"] for p in points],
@@ -208,7 +216,7 @@ def generate_pilot_flight_diagrams(
                         alpha=0.85
                     )
         # todo ender here
-        reps_in.sort(key=lambda e: e["action_timestamp"])
+        reps_in.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
 
         ema_in, ts_in = compute_ema_logic(reps_in, alpha)
 
@@ -221,7 +229,7 @@ def generate_pilot_flight_diagrams(
             alpha=0.95
         )
 
-        reps_out.sort(key=lambda e: e["action_timestamp"])
+        reps_out.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
 
         ema_out, ts_out = compute_ema_logic(reps_out, alpha)
 
@@ -234,10 +242,10 @@ def generate_pilot_flight_diagrams(
             alpha=0.95
         )
 
-        neuts_in.sort(key=lambda e: e["action_timestamp"])
-        neuts_out.sort(key=lambda e: e["action_timestamp"])
-        nos_out.sort(key=lambda e: e["action_timestamp"])
-        nos_in.sort(key=lambda e: e["action_timestamp"])
+        neuts_in.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
+        neuts_out.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
+        nos_out.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
+        nos_in.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
 
         if ctx.gj_scatter:
 
@@ -299,7 +307,7 @@ def generate_pilot_flight_diagrams(
                 label="Nos Out"
             )
 
-            nos_in.sort(key=lambda e: e["action_timestamp"])
+            nos_in.sort(key=lambda e: datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'))
             ax_gj.plot(
                 [ni['action_timestamp'] for ni in nos_in],
                 [abs(ni['amount']) for ni in nos_in],
@@ -321,13 +329,13 @@ def generate_pilot_flight_diagrams(
 
         for scram in scrams:
             if scram['direction'] == "incoming":
-                time = scram["action_timestamp"]
+                time = datetime.strptime(scram["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
                 img = OffsetImage(being_scrammed_img, zoom=0.5)  # zoom controls size
                 ab = AnnotationBbox(img, (time, 20), frameon=False, xycoords='data')
                 ax_hp.add_artist(ab)
 
             elif scram['direction'] == "outgoing":
-                time = scram["action_timestamp"]  # x-axis coordinate
+                time = datetime.strptime(scram["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') # x-axis coordinate
                 img = OffsetImage(scram_img, zoom=0.5)  # zoom controls size
                 ab = AnnotationBbox(img, (time, 20), frameon=False, xycoords='data')
                 ax_hp.add_artist(ab)
@@ -335,36 +343,36 @@ def generate_pilot_flight_diagrams(
         for jam in jams:
             if jam['direction'] == "outgoing":
                 img_box = OffsetImage(ecm_img, zoom=.5)  # adjust zoom as needed
-                ab = AnnotationBbox(img_box, (jam["action_timestamp"], 30), frameon=False)
+                ab = AnnotationBbox(img_box, (datetime.strptime(jam["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 30), frameon=False)
                 ax_hp.add_artist(ab)
 
         for link in links:
             if link['direction'] == "outgoing":
                 img = OffsetImage(links_img, zoom=.5)
-                ab = AnnotationBbox(img, (link['action_timestamp'], 60), frameon=False)
+                ab = AnnotationBbox(img, (datetime.strptime(link["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 60), frameon=False)
                 ax_hp.add_artist(ab)
 
         for reload in reloads:
             if reload['direction'] == "outgoing":
                 img = OffsetImage(reload_img, zoom=.5)
-                ab = AnnotationBbox(img, (reload['action_timestamp'], 60), frameon=False)
+                ab = AnnotationBbox(img, (datetime.strptime(reload["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 60), frameon=False)
                 ax_hp.add_artist(ab)
 
         for drone in drones:
             if drone['direction'] == "outgoing":
                 img = OffsetImage(drone_img, zoom=.5)
-                ab = AnnotationBbox(img, (drone["action_timestamp"], 50), frameon=False)
+                ab = AnnotationBbox(img, (datetime.strptime(drone["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 50), frameon=False)
                 ax_hp.add_artist(ab)
 
         # Cap Warnings
         for warning in cap_warnings:
-            time = warning["action_timestamp"]
+            time = datetime.strptime(warning["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
             img = OffsetImage(cap_img, zoom=.5)
             ab = AnnotationBbox(img, (time, cap_warning_marker))
             ax_gj.add_artist(ab)
 
-        ax_hp.set_xlim(cd_start, end)
-        ax_gj.set_xlim(cd_start, end)
+        ax_hp.set_xlim(cd_start, end_dt)
+        ax_gj.set_xlim(cd_start, end_dt)
 
         ax_hp.set_ylim(0, (hp_max * 1.1))
         ax_gj.set_ylim(0, (max_gj * 1.1))
@@ -372,7 +380,7 @@ def generate_pilot_flight_diagrams(
         ax_hp.tick_params(colors="white")
         ax_gj.tick_params(colors="white")
 
-        ax_hp.set_title(f"{start.strftime("%m/%d")} {pilot_name} — {this_ship['name'] if this_ship else '-'} — {label}", color="white", pad=20)
+        ax_hp.set_title(f"{start_dt.strftime("%m/%d")} {pilot_name} — {this_ship['name'] if this_ship else '-'} — {label}", color="white", pad=20)
 
         ax_hp.legend(
             loc="upper left",
@@ -394,11 +402,11 @@ def generate_pilot_flight_diagrams(
 
         ax_hp.grid(True, linestyle='--', alpha=0.3, color="white")
 
-        ax_hp.axvspan(cd_start, start, facecolor=illegal_color, edgecolor=None)
-        ax_gj.axvspan(cd_start, start, facecolor=illegal_color, edgecolor=None)
+        ax_hp.axvspan(cd_start, start_dt, facecolor=illegal_color, edgecolor=None)
+        ax_gj.axvspan(cd_start, start_dt, facecolor=illegal_color, edgecolor=None)
 
         for i in range(match_minutes):
-            x = start + timedelta(minutes=i)
+            x = start_dt + timedelta(minutes=i)
 
             ax_gj.axvline(
                 x,
