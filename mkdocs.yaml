@@ -2,6 +2,12 @@ site_name: eve-analytics
 
 nav:
   - Home: index.md
+  - Classes:
+    - Parser: classes/parser.md
+  - Exceptions:
+    - Database Errors: exceptions/db.md
+    - File Errors: exceptions/file.md
+
 theme:
   name: material
   favicon: img/favicon.ico
