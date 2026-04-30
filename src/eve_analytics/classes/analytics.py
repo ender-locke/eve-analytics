@@ -35,10 +35,10 @@ class MatchAnalytics:
         folder.mkdir(parents=True, exist_ok=True)
 
         for i, fig in enumerate(self._fleet_diagrams):
-            fig.savefig(folder / f"fleet_{i}.png", bbox_inches="tight")
+            fig.get('fig').savefig(folder / f"{fig.get("name", f"fleet_{i}")}.png", bbox_inches="tight")
 
         for i, fig in enumerate(self._pilot_diagrams):
-            fig.savefig(folder / f"pilot_{i}.png", bbox_inches="tight")
+            fig.get('fig').savefig(folder /  f"{fig.get("name", f"pilot_{i}")}.png", bbox_inches="tight")
 
     def __get_match_details(self):
         match_details = get_match_timestamps(self._ea.db, self._match_id)
