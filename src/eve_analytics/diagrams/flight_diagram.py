@@ -6,6 +6,7 @@ from PIL import Image
 import numpy as np
 from collections import defaultdict
 from .helpers.icons import get_eve_icon
+from .helpers.math import compute_ema, compute_ema_logic
 
 illegal_color = (0.3, 0, 0, 0.3)   # dark red with 30% opacity
 alpha = 0.15
@@ -59,14 +60,14 @@ def generate_pilot_flight_diagrams(
                     or event.get("action_from") == pilot_name or event.get("action_to") == pilot_name
                     or event.get("pilot") == pilot_name)
 
-    in_dmg = defaultdict(list)
-    out_dmg = defaultdict(list)
-    in_dmg_drones = defaultdict(list)
-    out_dmg_drones = defaultdict(list)
-    in_dmg_pods = defaultdict(list)
-    out_dmg_pods = defaultdict(list)
-
     for match in matches:
+
+        in_dmg = defaultdict(list)
+        out_dmg = defaultdict(list)
+        in_dmg_drones = defaultdict(list)
+        out_dmg_drones = defaultdict(list)
+        in_dmg_pods = defaultdict(list)
+        out_dmg_pods = defaultdict(list)
         start = match["start"]
         cd_start = (start - timedelta(seconds=15))
         end = match["end"]
@@ -120,6 +121,8 @@ def generate_pilot_flight_diagrams(
 
         reps_in = [e for e in reps if e['direction'] == "incoming"]
         reps_out = [e for e in reps if e['direction'] == "outgoing"]
+        cap_reps_in = []
+        cap_reps_out = []
 
         nos_in = [e for e in nos if e['direction'] == "incoming"]
         nos_out = [e for e in nos if e['direction'] == "outgoing"]
@@ -135,19 +138,20 @@ def generate_pilot_flight_diagrams(
 
         if this_ship:
             ship_img = get_eve_icon(ctx.icons["base"], str(this_ship['id']))
-            ship_box = OffsetImage(ship_img, zoom=1.20)
-            ship_box.set_alpha(0.12)
+            if ship_img is not None:
+                ship_box = OffsetImage(ship_img, zoom=1.20)
+                ship_box.set_alpha(0.12)
 
-            ship_ab = AnnotationBbox(
-                ship_box,
-                (0.175, 0.50),
-                xycoords=fig.transFigure,
-                frameon=False,
-                box_alignment=(0.5, 0.5),
-                zorder=0
-            )
+                ship_ab = AnnotationBbox(
+                    ship_box,
+                    (0.175, 0.50),
+                    xycoords=fig.transFigure,
+                    frameon=False,
+                    box_alignment=(0.5, 0.5),
+                    zorder=0
+                )
 
-            ax_hp.add_artist(ship_ab)
+                ax_hp.add_artist(ship_ab)
 
 
         damage_series = {
@@ -181,17 +185,12 @@ def generate_pilot_flight_diagrams(
                     ts_sorted = sorted(ts for ts, d in dps_by_ts if d == direction)
                     dps_values = [dps_by_ts[ts, direction] for ts in ts_sorted]
 
-                    ema = []
-                    for i, value in enumerate(dps_values):
-                        if i == 0:
-                            ema.append(value)
-                        else:
-                            ema.append(alpha * value + (1 - alpha) * ema[i-1])
+                    ema = compute_ema(dps_values, alpha)
 
                     ax_hp.plot(
                         ts_sorted,
                         ema,
-                        label=f"{direction.capitalize()}",
+                        label=f"{direction.capitalize()} (EMA)",
                         color=color,
                         linewidth=2.5,
                         alpha=0.95
@@ -208,21 +207,31 @@ def generate_pilot_flight_diagrams(
                         label=f"{dmg_key}: {frm} → {to}",
                         alpha=0.85
                     )
-
+        # todo ender here
         reps_in.sort(key=lambda e: e["action_timestamp"])
+
+        ema_in, ts_in = compute_ema_logic(reps_in, alpha)
+
         ax_hp.plot(
-            [ri['action_timestamp'] for ri in reps_in],
-            [ri['amount'] for ri in reps_in],
+            ts_in,
+            ema_in,
             color=ctx.colors['incoming_reps_hex'],
-            label="Reps In"
+            label="Reps In (EMA)",
+            linewidth=2.5,
+            alpha=0.95
         )
 
         reps_out.sort(key=lambda e: e["action_timestamp"])
+
+        ema_out, ts_out = compute_ema_logic(reps_out, alpha)
+
         ax_hp.plot(
-            [ro['action_timestamp'] for ro in reps_out],
-            [ro['amount'] for ro in reps_out],
+            ts_out,
+            ema_out,
             color=ctx.colors['outgoing_reps_hex'],
-            label="Reps Out"
+            label="Reps Out (EMA)",
+            linewidth=2.5,
+            alpha=0.95
         )
 
         neuts_in.sort(key=lambda e: e["action_timestamp"])
@@ -363,7 +372,7 @@ def generate_pilot_flight_diagrams(
         ax_hp.tick_params(colors="white")
         ax_gj.tick_params(colors="white")
 
-        ax_hp.set_title(f"Flight Diagram: {pilot_name} — {this_ship['name'] if this_ship else '-'} — {label}", color="white", pad=20)
+        ax_hp.set_title(f"{start.strftime("%m/%d")} {pilot_name} — {this_ship['name'] if this_ship else '-'} — {label}", color="white", pad=20)
 
         ax_hp.legend(
             loc="upper left",

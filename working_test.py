@@ -8,7 +8,8 @@ if __name__ == "__main__":
     ea = EveAnalytics(logs_test_path)
     ea.parse_logs()
     ea.load_db()
-    # todo load the sde data
+    ea.generate_analytics("")
+    # todo generate analytics
     #ea.generate_analytics()
     #ea.save_analytics(save_location)
     pass
