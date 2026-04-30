@@ -4,6 +4,7 @@ nav:
   - Home: index.md
   - Classes:
     - Parser: classes/parser.md
+    - Database: classes/db.md
   - Exceptions:
     - Database Errors: exceptions/db.md
     - File Errors: exceptions/file.md
