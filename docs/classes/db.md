@@ -1,1 +1,1 @@
-::: eve_analytics.classes.db.Database
+::: src.eve_analytics.classes.db.Database
