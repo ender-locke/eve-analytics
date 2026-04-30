@@ -1,5 +1,6 @@
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from .helpers.icons import get_eve_icon, add_icon_legend, add_bg_leg
+import matplotlib.dates as mdates
 from .helpers.pilots import is_involving_pilot
 from .helpers.math import compute_ema
 from matplotlib.lines import Line2D
