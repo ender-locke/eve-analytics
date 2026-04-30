@@ -82,6 +82,9 @@ def generate_fleet_diagrams(
         fig, ax_hp = plt.subplots(figsize=(14, 8))
         ax_x2 = ax_hp.twinx()
 
+        ax_hp.xaxis_date()
+        ax_x2.xaxis_date()
+
         fig.subplots_adjust(bottom=0.23)
 
         ax_hp.set_facecolor("#0c0c1a")  # deep space navy
