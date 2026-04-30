@@ -1,1 +1,1 @@
-::: eve_analytics.classes.parser.Parser
+::: src.eve_analytics.classes.parser.Parser
