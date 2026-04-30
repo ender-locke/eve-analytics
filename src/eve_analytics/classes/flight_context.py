@@ -28,6 +28,9 @@ class FlightContext:
         with urllib.request.urlopen(self.icons["drone"]) as response:
             self.drone_img = np.array(Image.open(response))
 
+        with urllib.request.urlopen(self.icons["ecm"]) as response:
+            self.jam_img = np.array(Image.open(response))
+
 
     @property
     def damage(self) -> dict:

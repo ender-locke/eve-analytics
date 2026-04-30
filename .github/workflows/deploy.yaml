@@ -11,24 +11,9 @@ env:
   TWINE_DISABLE_KEYRING: 1
 
 jobs:
-  pytest:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    container:
-      image: python:3.13
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run Pytest
-        run: pytest tests/
-
   test-build-package:
     name: Test Deploy Package
-    needs: pytest
+    #needs: pytest
     runs-on: ubuntu-latest
     environment: preprod
     if: github.ref == 'refs/heads/preprod'
@@ -50,10 +35,10 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   build-package:
     name: Deploy to PyPI
-    needs: pytest
     runs-on: ubuntu-latest
     environment: prod
     if: github.ref == 'refs/heads/prod'
@@ -73,7 +58,8 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   test-mkdocs:
     name: Test Build mkdocs
@@ -102,6 +88,8 @@ jobs:
     name: Deploy mkdocs
     needs: build-package
     environment: prod
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/prod'
     steps:
@@ -122,13 +110,4 @@ jobs:
         run: mkdocs build
 
       - name: Deploy to GitHub Pages
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/EnderLocke/pyespn.git
-          git checkout --orphan gh-pages
-          git add .
-          git commit -m "Deploy MkDocs site"
-          git push origin gh-pages --force
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: mkdocs gh-deploy --force

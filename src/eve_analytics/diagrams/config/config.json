@@ -28,6 +28,8 @@
       "reload_url": "https://images.evetech.net/types/181/icon",
       "being_scrammed_url": "https://images.evetech.net/types/28654/icon",
       "ecm_url": "https://images.evetech.net/types/1958/icon",
+      "outgoing_ecm": "https://images.evetech.net/types/1958/icon",
+      "incoming_ecm": "https://images.evetech.net/types/2571/icon",
       "drone_url": "https://images.evetech.net/types/24395/icon",
       "scram_url": "https://images.evetech.net/types/447/icon",
       "base_url": "https://images.evetech.net/types/EVE_ID/icon"
