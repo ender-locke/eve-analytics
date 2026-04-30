@@ -43,7 +43,7 @@
      "hp_scatter": false,
      "offensive_fleet_diagrams": true,
      "defensive_fleet_diagrams": true,
-     "pilot_diagrams": false
+     "pilot_diagrams": true
    },
    "query_vars": {
      "dps_secs": 10
