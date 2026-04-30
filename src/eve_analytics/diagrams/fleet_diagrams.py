@@ -52,7 +52,7 @@ def generate_fleet_diagrams(
     for match in matches:
         start = match["start"]
         start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
-        cd_start = (start_dt - timedelta(seconds=15))
+        cd_start = datetime.strptime(match['cd_start'], "%Y-%m-%d %H:%M:%S")
         end = match["end"]
         end_dt = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
         this_match_id = match['id']
@@ -120,46 +120,48 @@ def generate_fleet_diagrams(
 
             # parse out damage,
             for e in damage_list:
+                action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
                 if (
-                    cd_start <= e["action_timestamp"] <= end
+                    cd_start <= action_ts <= end_dt
                     and is_involving_pilot(e, pilot)
                     and (e["direction"] == dmg_direction or e["direction"] == f"{dmg_direction}-breacher-pods")
                 ):
-                    ts = e["action_timestamp"]
-                    dps_by_ts[ts] += e["rolling_dps"]
-                    hp_max = max(hp_max, e["rolling_dps"], dps_by_ts[ts])
+                    dps_by_ts[action_ts] += e["rolling_dps"]
+                    hp_max = max(hp_max, e["rolling_dps"], dps_by_ts[action_ts])
 
                 if (
-                    cd_start <= e["action_timestamp"] <= end
+                    cd_start <= action_ts <= end_dt
                     and is_involving_pilot(e, pilot)
                     and e["direction"] in (f"{dmg_direction}-drones", f"{dmg_direction}-drones-drones")
                 ):
-                    ts = e["action_timestamp"]
-                    drone_dps_by_ts[ts] += e["rolling_dps"]
-                    hp_max = max(hp_max, e["rolling_dps"], drone_dps_by_ts[ts])
+                    drone_dps_by_ts[action_ts] += e["rolling_dps"]
+                    hp_max = max(hp_max, e["rolling_dps"], drone_dps_by_ts[action_ts])
 
             if is_offensive:
                 # todo add in when we got jams/ incoming jams
                 for e in fleet_jams:
+                    action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
                     if (
-                            cd_start <= e["action_timestamp"] <= end
+                            cd_start <= action_ts <= end_dt
                             and is_involving_pilot(e, pilot)
                             and e["direction"] == "outgoing"
                     ):
-                        pilot_jammed.append(e["action_timestamp"])
+                        pilot_jammed.append(action_ts)
 
                 # get reloads
                 for e in reload_list:
+                    action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
+
                     if (
-                        cd_start <= e["action_timestamp"] <= end
+                        cd_start <= action_ts <= end_dt
                         and is_involving_pilot(e, pilot)
                     ):
-                        pilot_reloads.append(e["action_timestamp"])
+                        pilot_reloads.append(action_ts)
 
                 # get drone engagementsf
                 for e in drone_list:
                     if (
-                        cd_start <= e["action_timestamp"] <= end
+                        cd_start <= e["action_timestamp"] <= end_dt
                         and is_involving_pilot(e, pilot)
                     ):
                         pilot_drone_engagements.append(e["action_timestamp"])
@@ -167,12 +169,13 @@ def generate_fleet_diagrams(
             if is_offensive:
                 # todo add in when we got jams/ incoming jams
                 for e in fleet_jams:
+                    action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
                     if (
-                            cd_start <= e["action_timestamp"] <= end
+                            cd_start <= action_ts <= end_dt
                             and is_involving_pilot(e, pilot)
                             and e["direction"] == "incoming"
                     ):
-                        pilot_jammed.append(e["action_timestamp"])
+                        pilot_jammed.append(action_ts)
 
                 for reload in pilot_reloads:
                     img = OffsetImage(ctx.reload_img, zoom=.5)
@@ -211,7 +214,8 @@ def generate_fleet_diagrams(
 
             drone_ems = compute_ema(drone_values, alpha)
 
-            # Guns / pods DPS — solid
+            ts_sorted = [datetime.fromisoformat(str(t)) for t in ts_sorted]            # Guns / pods DPS — solid
+
             ax_hp.plot(
                 ts_sorted,
                 dps_ems,
@@ -245,10 +249,10 @@ def generate_fleet_diagrams(
 
         if is_defensive:
             for e in fleet_reps:
-                if cd_start <= e["action_timestamp"] <= end and e["direction"] == "incoming":
-                    ts = e["action_timestamp"]
-                    fleet_reps_by_ts[ts] += e["rolling_reps"]
-                    hp_max = max(hp_max, e["rolling_reps"], fleet_reps_by_ts[ts])
+                action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
+                if cd_start <= action_ts <= end_dt and e["direction"] == "incoming":
+                    fleet_reps_by_ts[action_ts] += e["rolling_reps"]
+                    hp_max = max(hp_max, e["rolling_reps"], fleet_reps_by_ts[action_ts])
 
             fleet_reps_sorted = sorted(fleet_reps_by_ts.keys())
             fleet_reps_values = [fleet_reps_by_ts[ts] for ts in fleet_reps_sorted]
@@ -267,8 +271,10 @@ def generate_fleet_diagrams(
             )
 
         for e in fleet_dmg:
+            action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
+
             if (
-                cd_start <= e["action_timestamp"] <= end
+                cd_start <= action_ts <= end_dt
                 and (e["direction"] in [dmg_direction, f"{dmg_direction}-breacher-pods", f"{dmg_direction}-drones"])
             ):
                 ts = e["action_timestamp"]
@@ -277,6 +283,8 @@ def generate_fleet_diagrams(
 
         fleet_dps_sorted = sorted(fleet_dps_by_ts.keys())
         fleet_dps_values = [fleet_dps_by_ts[ts] for ts in fleet_dps_sorted]
+
+        fleet_dps_sorted = [datetime.fromisoformat(f) for f in fleet_dps_sorted]
 
         ema = compute_ema(fleet_dps_values, alpha)
 
