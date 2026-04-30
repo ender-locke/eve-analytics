@@ -1,1 +1,1 @@
-::: src.eve_analytics.core.client:EveAnalytics
+::: src.eve_analytics.core.client.EveAnalytics

@@ -29,7 +29,81 @@ def generate_pilot_flight_diagrams(
         pilots_ships
 ):
     """
-    Returns a list of matplotlib figures, one per match, for a single pilot.
+    Generates per-pilot combat flight diagrams across one or more matches.
+
+    This function creates detailed time-series visualizations of a single
+    pilot’s combat activity, including damage, repairs, capacitor warfare,
+    and key combat events. Each match produces a separate matplotlib figure.
+
+    Features:
+    - Incoming and outgoing DPS (with EMA smoothing)
+    - Drone and pod damage tracking
+    - Incoming/outgoing repairs (EMA)
+    - Capacitor warfare (neuts and nos)
+    - Event overlays:
+        - Scrams (incoming/outgoing)
+        - ECM (jams)
+        - Links
+        - Reloads
+        - Drone engagements
+        - Capacitor warnings
+    - Optional scatter or line plots for capacitor activity
+    - Ship overlay visualization for the pilot
+    - Match timeline segmentation and countdown highlighting
+
+    Args:
+        pilot_name (str): Name of the pilot to generate diagrams for.
+
+        matches (list[dict]): Match metadata objects, each containing:
+            - id (str): Match ID
+            - start (str): Match start timestamp
+            - end (str): Match end timestamp
+            - cd_start (str): Countdown start timestamp
+            - description (str, optional): Match label
+
+        damage_list (list[dict]): Damage events with rolling DPS values.
+
+        reps_list (list[dict]): Repair (remote/local) events.
+
+        nos_list (list[dict]): Energy transfer (NOS) events.
+
+        neut_list (list[dict]): Energy neutralizer events.
+
+        cap_warnings_list (list[dict]): Capacitor warning events.
+
+        scram_list (list[dict]): Warp scrambler events.
+
+        jam_list (list[dict]): ECM/jamming events.
+
+        drone_list (list[dict]): Drone engagement events.
+
+        links_list (list[dict]): Fleet link/module activation events.
+
+        reload_list (list[dict]): Reload events.
+
+        ctx (FlightContext): Context object providing:
+            - visualization configuration (colors, flags)
+            - icon URLs
+            - damage display settings
+            - plotting behavior (EMA, scatter vs line, etc.)
+
+        pilots_ships (list[dict]): Ship metadata for the pilot, including:
+            - match_id
+            - ship_id
+            - typeName
+
+    Returns:
+        list[dict]: A list of diagram objects, one per match:
+            - "fig" (matplotlib.figure.Figure): Generated figure
+            - "name" (str): Suggested filename for saving
+            - "pilot" (str): Pilot name
+
+    Notes:
+        - Timestamps are expected in '%Y-%m-%d %H:%M:%S' or ISO format.
+        - EMA smoothing is applied to DPS and repair values.
+        - Diagram styling is optimized for dark backgrounds.
+        - Icon assets are loaded dynamically from URLs in the context object.
+        - Function behavior is heavily driven by ctx configuration flags.
     """
 
     with urllib.request.urlopen(ctx.icons["cap"]) as response:

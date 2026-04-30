@@ -1,1 +1,1 @@
-::: eve_analytics.exceptions.db_errors
+::: src.eve_analytics.exceptions.db_errors
