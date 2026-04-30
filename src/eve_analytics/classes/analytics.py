@@ -135,9 +135,8 @@ class MatchAnalytics:
     def __build_pilot_diagrams(self):
         if self._fc.generate_pilot_diagrams:
             for pilot in self.unique_pilots:
-                this_pilot = pilot[0]
                 pilot_graphs = generate_pilot_flight_diagrams(
-                    pilot_name=this_pilot,
+                    pilot_name=pilot,
                     matches=[self._match_details],
                     damage_list=self.all_dmg,
                     reps_list=self.all_reps,
@@ -150,6 +149,6 @@ class MatchAnalytics:
                     links_list=self.all_links,
                     reload_list=self.all_reloads,
                     ctx=self._fc,
-                    pilots_ships=self.pilots_w_ships[this_pilot]
+                    pilots_ships=self.pilots_w_ships[pilot]
                 )
                 self._pilot_diagrams.extend(pilot_graphs)
