@@ -1,1 +1,1 @@
-::: src.eve_analytics.classes.parser.Parser
+::: src.eve_analytics.classes.parsed_logs.ParsedLogs
