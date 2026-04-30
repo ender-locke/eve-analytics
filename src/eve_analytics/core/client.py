@@ -89,4 +89,3 @@ class EveAnalytics:
     def save_analytics(self, save_dir):
         for match_analytics in self._match_analytics:
             match_analytics.save_analytics(save_dir)
-            pass
