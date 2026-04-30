@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "eve-analytics"
-version = "0.0.15"
+version = "0.0.16"
 authors = [{ name = "Ender Locke", email = "enderlocke.eve@gmail.com" }]
 description = "Analytics package for eve online"
 readme = "README.md"

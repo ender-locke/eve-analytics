@@ -1,1 +1,0 @@
-#todo map ships to ids here
