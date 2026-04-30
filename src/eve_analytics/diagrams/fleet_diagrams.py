@@ -108,12 +108,12 @@ def generate_fleet_diagrams(
         #  or users
         match_comp = sorted(
             match_comp,
-            key=lambda s: (s.get("name","").lower(), s["pilot"].lower())
+            key=lambda s: (s.get("name").lower(), s["pilot"].lower())
         )
 
         fleet_dps_by_ts = defaultdict(float)
         fleet_reps_by_ts = defaultdict(float)
-        for (pilot,) in unique_pilots:
+        for pilot in unique_pilots:
             color = next(colors)
             dps_by_ts = defaultdict(float)
             drone_dps_by_ts = defaultdict(float)
