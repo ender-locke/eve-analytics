@@ -366,7 +366,7 @@ def generate_fleet_diagrams(
             )
 
         for i in range(match_minutes):
-            x = start + timedelta(minutes=i)
+            x = start_dt + timedelta(minutes=i)
 
             ax_x2.axvline(
                 x,
