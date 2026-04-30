@@ -5,6 +5,7 @@ nav:
   - Classes:
     - ParsedLogs: classes/parser.md
     - Database: classes/db.md
+    - EveAnalytics: classes/client.md
   - Exceptions:
     - Database Errors: exceptions/db.md
     - File Errors: exceptions/file.md
