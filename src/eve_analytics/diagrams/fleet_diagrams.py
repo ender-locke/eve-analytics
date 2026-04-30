@@ -390,7 +390,7 @@ def generate_fleet_diagrams(
 
         ax_hp.grid(True, linestyle='--', alpha=0.3, color="white")
 
-        ax_hp.axvspan(cd_start, start, facecolor=illegal_color, edgecolor=None)
+        ax_hp.axvspan(cd_start, start_dt, facecolor=illegal_color, edgecolor=None)
 
         BUFFER = 0.03  # space between ships
         x = LEFT  # starting point
