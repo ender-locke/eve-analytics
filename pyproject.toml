@@ -7,9 +7,13 @@ name = "eve-analytics"
 version = "0.0.1"
 description = "Analytics package for eve online"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "matplotlib>=3.10.8",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.6",
+    "mkdocstrings>=1.0.4",
+    "mkdocstrings-python>=2.0.3",
     "pandas>=3.0.1",
     "pillow>=12.1.1",
     "pyyaml>=6.0.3",
