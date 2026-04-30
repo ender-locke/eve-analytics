@@ -105,8 +105,7 @@ def generate_fleet_diagrams(
                         "mass": ship_mass if ship_mass else 0,
                         "img": get_eve_icon(ctx.icons["base"], ship_id, ship)
                     })
-        # todo this errors. we dont have any match compsdata
-        #  or users
+
         match_comp = sorted(
             match_comp,
             key=lambda s: (s.get("name").lower(), s["pilot"].lower())

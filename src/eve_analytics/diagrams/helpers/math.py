@@ -1,5 +1,5 @@
 from collections import defaultdict
-
+from datetime import datetime
 
 def compute_ema(values, alpha):
     ema = []
@@ -14,7 +14,7 @@ def compute_ema_logic(values, alpha, ts_name="action_timestamp", amount_key="amo
     by_ts = defaultdict(float)
 
     for v in values:
-        ts = v[ts_name]
+        ts = datetime.strptime(v[ts_name].replace("T", " "), '%Y-%m-%d %H:%M:%S')
         by_ts[ts] += v[amount_key]
 
     ts_values = sorted(by_ts.keys())
