@@ -8,6 +8,7 @@ from eve_analytics.diagrams.fleet_diagrams import generate_fleet_diagrams
 from eve_analytics.diagrams.flight_diagram import generate_pilot_flight_diagrams
 from eve_analytics.diagrams.queries.client import get_match_timestamps
 from eve_analytics.classes.pilot import Pilot
+from pathlib import Path
 
 class MatchAnalytics:
 
@@ -29,15 +30,15 @@ class MatchAnalytics:
     def match_id(self):
         return self._match_id
 
-    def save_analytics(self, save_dir):
-        # todo ender finish the save function
-        for f in self._fleet_diagrams:
-            pass
+    def save_analytics(self, path):
+        folder = Path(path)
+        folder.mkdir(parents=True, exist_ok=True)
 
-        for p in self._pilot_diagrams:
-            pass
+        for i, fig in enumerate(self._fleet_diagrams):
+            fig.savefig(folder / f"fleet_{i}.png", bbox_inches="tight")
 
-        pass
+        for i, fig in enumerate(self._pilot_diagrams):
+            fig.savefig(folder / f"pilot_{i}.png", bbox_inches="tight")
 
     def __get_match_details(self):
         match_details = get_match_timestamps(self._ea.db, self._match_id)
@@ -130,7 +131,6 @@ class MatchAnalytics:
                 pilots_ships=self.pilots_w_ships
             )
             self._fleet_diagrams.extend(pilot_graphs)
-        pass
 
     def __build_pilot_diagrams(self):
         if self._fc.generate_pilot_diagrams:
@@ -153,4 +153,3 @@ class MatchAnalytics:
                     pilots_ships=self.pilots_w_ships[this_pilot]
                 )
                 self._pilot_diagrams.extend(pilot_graphs)
-        pass
