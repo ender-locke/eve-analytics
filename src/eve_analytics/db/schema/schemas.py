@@ -49,6 +49,7 @@ create_matches_sql = """
 CREATE TABLE IF NOT EXISTS matches (
       id TEXT PRIMARY KEY,
       description TEXT,
+      countdown_start_ts TEXT,
       match_start_ts TEXT,
       match_end_ts TEXT,
       create_ts TEXT,

@@ -29,12 +29,23 @@ class MatchAnalytics:
     def match_id(self):
         return self._match_id
 
+    def save_analytics(self, save_dir):
+        # todo ender finish the save function
+        for f in self._fleet_diagrams:
+            pass
+
+        for p in self._pilot_diagrams:
+            pass
+
+        pass
+
     def __get_match_details(self):
         match_details = get_match_timestamps(self._ea.db, self._match_id)
         self._match_details = {
-            "match_id": self._match_id,
+            "id": self._match_id,
             "start": match_details[0][0],
-            "end": match_details[0][1]
+            "end": match_details[0][1],
+            "cd_start": match_details[0][2]
         }
 
     def __build_match_datasets(self):
