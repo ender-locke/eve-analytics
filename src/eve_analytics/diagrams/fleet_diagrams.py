@@ -43,6 +43,81 @@ def generate_fleet_diagrams(
         ctx,
         pilots_ships
 ):
+    """
+    Generates fleet-level combat diagrams for one or more matches.
+
+    This function produces time-series visualizations of fleet activity,
+    including DPS, reps, pilot actions, and key combat events. Diagrams
+    can be generated in either offensive or defensive mode.
+
+    Features:
+    - Per-pilot DPS (smoothed via EMA)
+    - Fleet-wide DPS and repair trends
+    - Drone damage (separate dashed lines)
+    - First-action markers per pilot
+    - Reload and drone engagement icons (offensive mode)
+    - Pilot death markers
+    - Fleet composition display (ships, pilots, and stats)
+    - Match timeline segmentation (minute markers and countdown phase)
+
+    Args:
+        diagram_type (str): Type of diagram to generate.
+            Supported values:
+            - "offensive": outgoing damage and actions
+            - "defensive": incoming damage and fleet reps
+
+        unique_pilots (list[str]): List of pilot names in the match.
+
+        matches (list[dict]): Match metadata objects, each containing:
+            - id (str): Match ID
+            - start (str): Match start timestamp
+            - end (str): Match end timestamp
+            - cd_start (str): Countdown start timestamp
+            - description (str, optional): Match label
+
+        damage_list (list[dict]): Damage events with rolling DPS values.
+
+        drone_list (list[dict]): Drone engagement events.
+
+        reload_list (list[dict]): Reload events.
+
+        first_actions_list (list[dict]): First action timestamps per pilot.
+
+        pilot_dmg (list[dict]): Outgoing damage statistics per pilot.
+
+        pilot_dmg_taken (list[dict]): Incoming damage statistics per pilot.
+
+        fleet_dmg (list[dict]): Fleet-level rolling DPS data.
+
+        fleet_reps (list[dict]): Fleet-level rolling repair data.
+
+        pilot_deaths (list[dict]): Pilot death events with timestamps.
+
+        fleet_jams (list[dict]): ECM/jamming events.
+
+        ctx (FlightContext): Context object containing:
+            - configuration flags
+            - icon assets (reload, drones, etc.)
+            - query parameters
+
+        pilots_ships (dict[str, list]): Mapping of pilots to their ships.
+            Each entry contains ship metadata including:
+            - ship ID
+            - ship name
+            - mass
+            - class
+
+    Returns:
+        list[dict]: List of generated diagram objects, where each entry contains:
+            - "fig" (matplotlib.figure.Figure): The generated figure
+            - "name" (str): Suggested filename for saving the figure
+
+    Notes:
+        - Uses exponential moving average (EMA) smoothing for DPS and reps.
+        - Timestamps are expected in ISO or '%Y-%m-%d %H:%M:%S' format.
+        - Diagram styling is optimized for dark backgrounds.
+        - Behavior is influenced by flags in the provided FlightContext.
+    """
     is_offensive = diagram_type == "offensive"
     is_defensive = diagram_type == "defensive"
     dmg_direction = "incoming" if is_defensive else "outgoing"

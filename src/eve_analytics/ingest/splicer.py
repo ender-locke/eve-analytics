@@ -1,5 +1,3 @@
-# combat_log.py
-
 import re
 from datetime import datetime
 import html
@@ -86,6 +84,78 @@ def _clean_lines(lines: str) -> str:
 
 
 def parse_combat_log(combat_path):
+    """
+    Parse an EVE Online combat log file into structured event data.
+
+    This function reads a raw combat log file and extracts relevant combat events
+    such as damage, repairs, capacitor activity, electronic warfare, and utility
+    actions. It normalizes these events into categorized lists of dictionaries
+    that can be used for analytics, visualization, or storage.
+
+    The parser handles both incoming and outgoing interactions for the log owner
+    ("character"), including edge cases such as drones, capacitor warfare, and
+    malformed or partially structured log lines.
+
+    Parameters
+    ----------
+    combat_path : pathlib.Path
+        Path to the combat log file to be parsed.
+
+    Returns
+    -------
+    dict
+        A dictionary containing categorized combat data and metadata:
+
+        - "events" : list[tuple]
+            Raw timeline events (timestamp, type, value, actor, target).
+        - "dmg" : list[dict]
+            Damage events (incoming and outgoing).
+        - "reps" : list[dict]
+            Remote repair and boosting events.
+        - "cap_reps" : list[dict]
+            Capacitor transfer events (currently reserved).
+        - "nos" : list[dict]
+            Energy vampire (NOS) events.
+        - "neut" : list[dict]
+            Energy neutralizer events.
+        - "scrams" : list[dict]
+            Warp scrambler interactions.
+        - "jams" : list[dict]
+            ECM (jamming) events.
+        - "drones" : list[dict]
+            Drone engagement events.
+        - "reloads" : list[dict]
+            Module reload events.
+        - "links" : list[dict]
+            Fleet command burst (link) activations.
+        - "cap_warning" : list[dict]
+            Capacitor warning events (e.g., low/empty cap).
+        - "pilots" : list[str]
+            Unique pilots detected (includes the log owner).
+        - "lowest_log_ts" : datetime
+            Earliest timestamp found in the log.
+        - "skipped" : list[dict]
+            Lines that could not be parsed, including original and cleaned versions.
+
+    Notes
+    -----
+    - The log owner ("character") is inferred from the file header. If not found,
+      it defaults to "Unknown".
+    - All timestamps are parsed into `datetime` objects.
+    - HTML formatting and tags are stripped before parsing.
+    - Some partially matched or unsupported lines are collected in "skipped"
+      for debugging and parser improvement.
+    - Direction fields typically use:
+        - "incoming"  : events affecting the character
+        - "outgoing"  : events caused by the character
+
+    Raises
+    ------
+    IOError
+        If the file cannot be read.
+    ValueError
+        If timestamps cannot be parsed due to unexpected format.
+    """
     damage_list = []
     reps_list = []
     cap_list = []

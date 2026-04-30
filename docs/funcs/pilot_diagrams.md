@@ -1,0 +1,1 @@
+::: src.eve_analytics.diagrams.flight_diagrams
