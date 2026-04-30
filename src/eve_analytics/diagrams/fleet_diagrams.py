@@ -99,7 +99,7 @@ def generate_fleet_diagrams(
             for (pilot_name, ship_id, ship, match_id, ship_class, ship_mass) in pilots_ships[pilot]:
                 if match_id == match['id']:
                     match_comp.append({
-                        "name": ship,
+                        "name": ship if ship else "",
                         "id": ship_id,
                         "pilot": pilot_name,
                         "mass": ship_mass if ship_mass else 0,
