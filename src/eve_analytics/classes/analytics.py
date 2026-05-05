@@ -4,6 +4,7 @@ from eve_analytics.diagrams.queries.eve import (get_drones, get_damage_output_st
                                                 get_fleet_rolling_reps, get_fleet_rolling_dps_pd, get_rolling_dps_bp_pd,
                                                 get_rolling_dps_w_pilots)
 from collections import defaultdict
+import matplotlib.pyplot as plt
 from eve_analytics.diagrams.fleet_diagrams import generate_fleet_diagrams
 from eve_analytics.diagrams.flight_diagrams import generate_pilot_flight_diagrams
 from eve_analytics.diagrams.queries.client import get_match_timestamps
@@ -81,10 +82,14 @@ class MatchAnalytics:
         folder.mkdir(parents=True, exist_ok=True)
 
         for i, fig in enumerate(self._fleet_diagrams):
-            fig.get('fig').savefig(folder / f"{fig.get("name", f"fleet_{i}")}.png", bbox_inches="tight")
+            this_fig = fig.get('fig')
+            this_fig.savefig(folder / f"{fig.get("name", f"fleet_{i}")}.png", bbox_inches="tight")
+            plt.close(this_fig)
 
         for i, fig in enumerate(self._pilot_diagrams):
+            this_fig = fig.get('fig')
             fig.get('fig').savefig(folder /  f"{fig.get("name", f"pilot_{i}")}.png", bbox_inches="tight")
+            plt.close(this_fig)
 
     def __get_match_details(self):
         """
