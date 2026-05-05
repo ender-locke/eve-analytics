@@ -30,7 +30,7 @@ def generate_fleet_diagrams(
         diagram_type,
         unique_pilots,
         matches,
-        damage_list,
+        damage_df,
         drone_list,
         reload_list,
         first_actions_list,
@@ -75,7 +75,7 @@ def generate_fleet_diagrams(
             - cd_start (str): Countdown start timestamp
             - description (str, optional): Match label
 
-        damage_list (list[dict]): Damage events with rolling DPS values.
+        damage_df (list[dict]): Damage events with rolling DPS values.
 
         drone_list (list[dict]): Drone engagement events.
 
@@ -202,34 +202,34 @@ def generate_fleet_diagrams(
             pilot_jammed = []
 
             pilot_mask = (
-                damage_list["pilot"].eq(pilot)
+                damage_df["pilot"].eq(pilot)
             )
 
             dmg_mask = (
-                    (damage_list["ts_sec"] >= cd_start) &
-                    (damage_list["ts_sec"] <= end_dt) &
+                    (damage_df["ts_sec"] >= cd_start) &
+                    (damage_df["ts_sec"] <= end_dt) &
                     pilot_mask &
                     (
-                        damage_list["direction"].eq(dmg_direction) |
-                        damage_list["direction"].eq(f"{dmg_direction}-breacher-pods")
+                        damage_df["direction"].eq(dmg_direction) |
+                        damage_df["direction"].eq(f"{dmg_direction}-breacher-pods")
                     )
             )
 
             drone_mask = (
-                    (damage_list["ts_sec"] >= cd_start) &
-                    (damage_list["ts_sec"] <= end_dt) &
+                    (damage_df["ts_sec"] >= cd_start) &
+                    (damage_df["ts_sec"] <= end_dt) &
                     pilot_mask &
-                    (damage_list["direction"].eq(f"{dmg_direction}-drones-drones"))
+                    (damage_df["direction"].eq(f"{dmg_direction}-drones-drones"))
             )
 
             dps_by_ts = (
-                damage_list.loc[dmg_mask]
+                damage_df.loc[dmg_mask]
                 .groupby("ts_sec")["rolling_dps"]
                 .sum()
             )
 
             drone_dps_by_ts = (
-                damage_list.loc[drone_mask]
+                damage_df.loc[drone_mask]
                 .groupby("ts_sec")["rolling_dps"]
                 .sum()
             )

@@ -15,7 +15,7 @@ alpha = 0.15
 def generate_pilot_flight_diagrams(
         pilot_name,
         matches,
-        damage_list,
+        damage_df,
         reps_list,
         nos_list,
         neut_list,
@@ -61,7 +61,7 @@ def generate_pilot_flight_diagrams(
             - cd_start (str): Countdown start timestamp
             - description (str, optional): Match label
 
-        damage_list (list[dict]): Damage events with rolling DPS values.
+        damage_df (list[dict]): Damage events with rolling DPS values.
 
         reps_list (list[dict]): Repair (remote/local) events.
 
@@ -160,6 +160,13 @@ def generate_pilot_flight_diagrams(
                     "id": ship["ship_id"]
                 }
         # todo ender need to fix this as its a df now not a list :)
+        damage_df["direction"] = damage_df["direction"].replace({
+            "outgoing-drones-drones": "outgoing-drones",
+            "incoming-drones-drones": "incoming-drones",
+        })
+
+        pilot_dmg_mask =
+
         for e in damage_list:
             action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
             if cd_start <= action_ts <= end_dt and is_involving_pilot(e):
