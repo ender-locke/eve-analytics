@@ -166,45 +166,70 @@ def get_pilots_and_ships(db, match_id):
     return rows
 
 def get_fleet_rolling_dps(db, seconds, match_id):
+    seconds -= 1
     query = """
             WITH filtered AS (
                 SELECT
                     cd.match_id,
                     cd.direction,
-                    cd.amount,
-                    strftime('%s', cd.action_timestamp) AS ts_sec,
-                    (LOWER(cd.module) LIKE '%breacher pod%') AS is_breacher_pod,
-                    clt.name
+                    CAST(strftime('%s', cd.action_timestamp) AS INTEGER) AS ts_sec,
+                    SUM(cd.amount) AS damage,
+                    (LOWER(cd.module) LIKE '%breacher pod%') AS is_breacher_pod
                 FROM combat_data cd
-                         LEFT JOIN combat_log_types clt
-                                   ON cd.log_type_id = clt.id
+                         LEFT JOIN combat_log_types clt ON cd.log_type_id = clt.id
                 WHERE cd.amount IS NOT NULL
                   AND clt.name = 'damage'
                   AND cd.match_id = ?
-            )
+                GROUP BY match_id, direction, ts_sec, is_breacher_pod
+            ),
+
+                 bounds AS (
+                     SELECT
+                         match_id, direction, is_breacher_pod,
+                         MIN(ts_sec) AS min_sec,
+                         MAX(ts_sec) AS max_sec
+                     FROM filtered
+                     GROUP BY match_id, direction, is_breacher_pod
+                 ),
+
+                 second_grid AS (
+                     SELECT match_id, direction, is_breacher_pod, min_sec AS ts_sec, max_sec
+                     FROM bounds
+                     UNION ALL
+                     SELECT match_id, direction, is_breacher_pod, ts_sec + 1, max_sec
+                     FROM second_grid
+                     WHERE ts_sec < max_sec
+                 ),
+
+                 filled AS (
+                     SELECT
+                         g.match_id,
+                         g.direction,
+                         g.is_breacher_pod,
+                         g.ts_sec,
+                         COALESCE(f.damage, 0) AS damage
+                     FROM second_grid g
+                              LEFT JOIN filtered f
+                                        ON g.match_id = f.match_id
+                                            AND g.direction = f.direction
+                                            AND g.is_breacher_pod = f.is_breacher_pod
+                                            AND g.ts_sec = f.ts_sec
+                 )
 
             SELECT
-                f1.match_id,
-                f1.direction,
-                datetime(f1.ts_sec, 'unixepoch') AS action_timestamp,
-                f1.is_breacher_pod,
+                match_id,
+                direction,
+                datetime(ts_sec, 'unixepoch') AS action_timestamp,
+                is_breacher_pod,
 
-                SUM(f2.amount) * 1.0 / ? AS rolling_dps
+                SUM(damage) OVER (
+        PARTITION BY match_id, direction, is_breacher_pod
+        ORDER BY ts_sec
+        ROWS BETWEEN ? PRECEDING AND CURRENT ROW
+    ) * 1.0 / ?
 
-            FROM filtered f1
-             JOIN filtered f2
-                  ON f1.match_id = f2.match_id
-                      AND f1.direction = f2.direction
-                      AND f1.is_breacher_pod = f2.is_breacher_pod
-                      AND f2.ts_sec BETWEEN (f1.ts_sec - ?) AND f1.ts_sec
-
-            GROUP BY
-                f1.match_id,
-                f1.direction,
-                f1.ts_sec,
-                f1.is_breacher_pod
-
-            ORDER BY f1.ts_sec; \
+            FROM filled
+            ORDER BY ts_sec;
             """
 
     params = (match_id, seconds, seconds)
