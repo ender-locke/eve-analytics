@@ -45,7 +45,7 @@ ea.save_analytics(save_dir="/path/to/save")
 ```
 
 ## Links
-[EveAnalytics Github](https://github.com/ender-locke/eve-analytics)
+[EveAnalytics Github](https://github.com/ender-locke/eve-analyticsgit)
 
 [pypi](https://pypi.org/project/eve-analytics/)
 
