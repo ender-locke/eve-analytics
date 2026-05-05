@@ -159,7 +159,7 @@ def generate_pilot_flight_diagrams(
                     "name": ship['typeName'],
                     "id": ship["ship_id"]
                 }
-
+        # todo ender need to fix this as its a df now not a list :)
         for e in damage_list:
             action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
             if cd_start <= action_ts <= end_dt and is_involving_pilot(e):

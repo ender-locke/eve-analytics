@@ -210,8 +210,8 @@ def generate_fleet_diagrams(
                     (damage_list["ts_sec"] <= end_dt) &
                     pilot_mask &
                     (
-                        fleet_dmg["direction"].eq(dmg_direction) |
-                        fleet_dmg["direction"].eq(f"{dmg_direction}-breacher-pods")
+                        damage_list["direction"].eq(dmg_direction) |
+                        damage_list["direction"].eq(f"{dmg_direction}-breacher-pods")
                     )
             )
 
@@ -224,13 +224,13 @@ def generate_fleet_diagrams(
 
             dps_by_ts = (
                 damage_list.loc[dmg_mask]
-                .groupby("action_ts")["rolling_dps"]
+                .groupby("ts_sec")["rolling_dps"]
                 .sum()
             )
 
             drone_dps_by_ts = (
                 damage_list.loc[drone_mask]
-                .groupby("action_ts")["rolling_dps"]
+                .groupby("ts_sec")["rolling_dps"]
                 .sum()
             )
 
