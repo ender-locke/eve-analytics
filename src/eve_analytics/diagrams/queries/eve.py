@@ -1,5 +1,5 @@
 import pandas as pd
-from eve_analytics.helpers.dps import fleet_rolling
+from eve_analytics.helpers.dps import fleet_rolling, pilot_rolling
 
 
 def get_drones(db):
@@ -382,6 +382,29 @@ def get_rolling_dps_w_pilots(db, seconds):
 
     return db.cursor.execute(query, params).fetchall()
 
+def get_rolling_dps_bp_pd(db, seconds, match_id):
+    drones = get_drones(db)
+
+    query = """
+            SELECT
+                cd.match_id,
+                cd.pilot,
+                cd.action_timestamp,
+                cd.direction,
+                cd.module,
+                cd.amount,
+                clt.name AS log_type
+            FROM combat_data cd
+             LEFT JOIN combat_log_types clt
+               ON clt.id = cd.log_type_id
+            WHERE cd.match_id = ?
+              AND cd.amount IS NOT NULL
+              AND clt.name = 'damage' \
+            """
+    df = pd.read_sql_query(query, db.conn, params=(match_id,))
+    result = pilot_rolling(df, drones, match_id, seconds)
+
+    return result
 
 def get_rolling_dps_bp(db, seconds, match_id):
     seconds = seconds - 1

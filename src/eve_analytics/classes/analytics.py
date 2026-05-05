@@ -1,7 +1,7 @@
 from eve_analytics.diagrams.queries.eve import (get_drones, get_damage_output_stats,
                                                 get_first_actions, get_log_data, get_pilots_and_ships,
                                                 get_matches, get_unique_pilots, get_match_last_action_by_pilot,
-                                                get_fleet_rolling_reps, get_fleet_rolling_dps_pd, get_rolling_dps_bp,
+                                                get_fleet_rolling_reps, get_fleet_rolling_dps_pd, get_rolling_dps_bp_pd,
                                                 get_rolling_dps_w_pilots)
 from collections import defaultdict
 from eve_analytics.diagrams.fleet_diagrams import generate_fleet_diagrams
@@ -117,7 +117,7 @@ class MatchAnalytics:
         - Ship and pilot mappings
         """
         db = self._ea.db
-        self.all_dmg = get_rolling_dps_bp(seconds=self._fc.query_vars['dps_secs'], match_id=self._match_id, db=db)
+        self.all_dmg = get_rolling_dps_bp_pd(seconds=self._fc.query_vars['dps_secs'], match_id=self._match_id, db=db)
         self.all_neuts = get_log_data(db, "neuts", self._match_id)
         self.all_reps = get_log_data(db,"reps", self._match_id)
         self.all_nos = get_log_data(db,"nos", self._match_id)
@@ -162,20 +162,17 @@ class MatchAnalytics:
         Updates:
             self.all_dmg
         """
-        new_all_dmg = []
+        df = self.all_dmg.copy()
 
-        for dmg in self.all_dmg:
-            dmg_dict = dict(dmg)
-            if self._fc.drone_dps:
-                if dmg_dict.get("is_drone"):
-                    dmg_dict["direction"] = f"{dmg_dict['direction']}-drones"
-            if self._fc.pod_dps:
-                if dmg_dict.get("is_breacher_pod"):
-                    dmg_dict["direction"] = f"{dmg_dict['direction']}-breacher-pods"
+        if self._fc.drone_dps:
+            mask = df["is_drone"].fillna(False).astype(bool)
+            df.loc[mask, "direction"] = df.loc[mask, "direction"] + "-drones"
 
-            new_all_dmg.append(dmg_dict)
+        if self._fc.pod_dps:
+            mask = df["is_breacher_pod"].fillna(False).astype(bool)
+            df.loc[mask, "direction"] = df.loc[mask, "direction"] + "-breacher-pods"
 
-        self.all_dmg = new_all_dmg
+        self.all_dmg = df
 
     def __build_fleet_diagrams(self):
         """

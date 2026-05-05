@@ -125,6 +125,13 @@ def generate_fleet_diagrams(
     dmg_stats = pilot_dmg if is_offensive else pilot_dmg_taken
 
     figures = []
+
+    dmg_hp_max = defaultdict(int)
+    reps_hp_max = defaultdict(int)
+
+    dmg_hp_max[dmg_direction] = 0
+    reps_hp_max[dmg_direction] = 0
+
     for match in matches:
         start = match["start"]
         start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
@@ -167,9 +174,6 @@ def generate_fleet_diagrams(
         fig.patch.set_facecolor("#0c0c1a")  # figure background
         colors = iter(plt.cm.tab10.colors)
 
-        dmg_hp_max = 0
-        reps_hp_max = 0
-
         match_comp = []
         for pilot in pilots_ships:
             for (pilot_name, ship_id, ship, match_id, ship_class, ship_mass) in pilots_ships[pilot]:
@@ -197,24 +201,38 @@ def generate_fleet_diagrams(
             pilot_drone_engagements = []
             pilot_jammed = []
 
-            # parse out damage,
-            for e in damage_list:
-                action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
-                if (
-                    cd_start <= action_ts <= end_dt
-                    and is_involving_pilot(e, pilot)
-                    and (e["direction"] == dmg_direction or e["direction"] == f"{dmg_direction}-breacher-pods")
-                ):
-                    dps_by_ts[action_ts] += e["rolling_dps"]
-                    dmg_hp_max = max(dmg_hp_max, e["rolling_dps"], dps_by_ts[action_ts])
+            pilot_mask = (
+                damage_list["pilot"].eq(pilot)
+            )
 
-                if (
-                    cd_start <= action_ts <= end_dt
-                    and is_involving_pilot(e, pilot)
-                    and e["direction"] in (f"{dmg_direction}-drones", f"{dmg_direction}-drones-drones")
-                ):
-                    drone_dps_by_ts[action_ts] += e["rolling_dps"]
-                    dmg_hp_max = max(dmg_hp_max, e["rolling_dps"], drone_dps_by_ts[action_ts])
+            dmg_mask = (
+                    (damage_list["ts_sec"] >= cd_start) &
+                    (damage_list["ts_sec"] <= end_dt) &
+                    pilot_mask &
+                    (
+                        fleet_dmg["direction"].eq(dmg_direction) |
+                        fleet_dmg["direction"].eq(f"{dmg_direction}-breacher-pods")
+                    )
+            )
+
+            drone_mask = (
+                    (damage_list["ts_sec"] >= cd_start) &
+                    (damage_list["ts_sec"] <= end_dt) &
+                    pilot_mask &
+                    (damage_list["direction"].eq(f"{dmg_direction}-drones-drones"))
+            )
+
+            dps_by_ts = (
+                damage_list.loc[dmg_mask]
+                .groupby("action_ts")["rolling_dps"]
+                .sum()
+            )
+
+            drone_dps_by_ts = (
+                damage_list.loc[drone_mask]
+                .groupby("action_ts")["rolling_dps"]
+                .sum()
+            )
 
             if is_offensive:
                 # todo add in when we got jams/ incoming jams
@@ -333,7 +351,7 @@ def generate_fleet_diagrams(
                 action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
                 if cd_start <= action_ts <= end_dt and e["direction"] == "incoming":
                     fleet_reps_by_ts[action_ts] += e["rolling_reps"]
-                    reps_hp_max = max(reps_hp_max, e["rolling_reps"], fleet_reps_by_ts[action_ts])
+                    reps_hp_max[dmg_direction] = max(reps_hp_max[dmg_direction], e["rolling_reps"], fleet_reps_by_ts[action_ts])
 
             fleet_reps_sorted = sorted(fleet_reps_by_ts.keys())
             fleet_reps_values = [fleet_reps_by_ts[ts] for ts in fleet_reps_sorted]
@@ -351,15 +369,28 @@ def generate_fleet_diagrams(
                 alpha=0.95
             )
 
-        for e in fleet_dmg:
-            action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
+        fleet_mask = (
+                (fleet_dmg["ts_sec"] >= cd_start) &
+                (fleet_dmg["ts_sec"] <= end_dt) &
+                (fleet_dmg["direction"].isin([
+                    dmg_direction,
+                    f"{dmg_direction}-breacher-pods",
+                    f"{dmg_direction}-drones",
+                ]))
+        )
 
-            if (
-                cd_start <= action_ts <= end_dt
-                and (e["direction"] in [dmg_direction, f"{dmg_direction}-breacher-pods", f"{dmg_direction}-drones"])
-            ):
-                fleet_dps_by_ts[action_ts] += e["rolling_dps"]
-                dmg_hp_max = max(dmg_hp_max, e["rolling_dps"], fleet_dps_by_ts[action_ts])
+        filtered = fleet_dmg.loc[fleet_mask]
+
+        fleet_dps_by_ts = (
+            filtered.groupby("ts_sec")["rolling_dps"]
+            .sum()
+        )
+
+        hp_max = max(
+            filtered["rolling_dps"].max(),
+            fleet_dps_by_ts.max(),
+            dmg_hp_max[dmg_direction]
+        )
 
         fleet_dps_sorted = sorted(fleet_dps_by_ts.keys())
         fleet_dps_values = [fleet_dps_by_ts[ts] for ts in fleet_dps_sorted]
@@ -391,7 +422,7 @@ def generate_fleet_diagrams(
         ax_hp.set_xlim(cd_start, end_dt)
         ax_x2.set_xlim(cd_start, end_dt)
 
-        ax_hp.set_ylim(0, (max(dmg_hp_max, reps_hp_max) * 1.1))
+        #ax_hp.set_ylim(0, (max(hp_max, reps_hp_max[dmg_direction]) * 1.1))
         ax_x2.set_ylim(0, 100)
 
         ax_hp.tick_params(colors="white")
