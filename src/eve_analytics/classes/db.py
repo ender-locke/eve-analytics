@@ -363,11 +363,11 @@ class Database:
             for key, value in types_data.items():
                 type_id = key
                 mass = value.get("mass", 0)
-                group_id = value.get('groupId', 0)
+                group_id = value.get('groupID', 0)
                 type_name = value['name'].get('en')
-                race_id = value.get('raceId', 0)
-                meta_group_id = value.get("metaGroupId", 0)
-                market_group_id = value.get("marketGroupId", 0)
+                race_id = value.get('raceID', 0)
+                meta_group_id = value.get("metaGroupID", 0)
+                market_group_id = value.get("marketGroupID", 0)
                 inv_list.append({
                     'group_id': group_id,
                     'type_id': type_id,
@@ -397,7 +397,7 @@ class Database:
                   marketGroupId, typeName, 
                   mass, groupId,
                   create_ts, update_ts, retired
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) \
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) \
               """
 
         values = [
@@ -423,8 +423,7 @@ class Database:
             except Exception as e:
                 print("FAILED ROW:", v)
                 print("ERROR:", e)
-                break
-                self.conn.commit()
+            self.conn.commit()
 
     def _load_invcategories(self):
         """
@@ -433,8 +432,8 @@ class Database:
         Builds structured category records for database insertion.
         """
 
-        with open(f'{self.sde_location}/categories.yaml', 'r') as f:
-            cat_data = yaml.safe_load(f)
+        with open(f'{self.sde_location}/categories.yaml', 'rb') as f:
+            cat_data = yaml.load(f, Loader=yaml.CSafeLoader)
             category_list = []
             now = datetime.now(timezone.utc).isoformat()
             for key, value in cat_data.items():
@@ -465,7 +464,7 @@ class Database:
         values = [
             (
                 r.get("category_id", 0),
-                r.get('name_en', ""),
+                r.get('name', ""),
                 r.get("create_ts", now),
                 r.get("update_ts", now),
                 int(r.get("retired", False))
@@ -482,12 +481,12 @@ class Database:
 
         Groups are linked to categories and represent item classifications.
         """
-        with open(f'{self.sde_location}/groups.yaml', 'r') as f:
-            groups_data = yaml.safe_load(f)
+        with open(f'{self.sde_location}/groups.yaml', 'rb') as f:
+            groups_data = yaml.load(f, Loader=yaml.CSafeLoader)
             now = datetime.now(timezone.utc).isoformat()
             group_list = []
             for key, value in groups_data.items():
-                category_id = value.get('categoryId', 0)
+                category_id = value.get('categoryID', 0)
                 name_en = value['name'].get('en')
                 group_id = key
                 group_list.append({
@@ -516,7 +515,7 @@ class Database:
         values = [
             (
                 r.get("group_id", 0),
-                r.get('name_en', ""),
+                r.get('name', ""),
                 r.get("category_id", 0),
                 r.get("create_ts", now),
                 r.get("update_ts", now),
