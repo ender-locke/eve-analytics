@@ -1,3 +1,6 @@
+import pandas as pd
+from eve_analytics.helpers.dps import fleet_rolling
+
 
 def get_drones(db):
     """
@@ -165,77 +168,156 @@ def get_pilots_and_ships(db, match_id):
 
     return rows
 
-def get_fleet_rolling_dps(db, seconds, match_id):
-    seconds -= 1
+def get_fleet_rolling_dps_pd(db, seconds, match_id):
+
+    drones = get_drones(db)
+
     query = """
-            WITH filtered AS (
-                SELECT
-                    cd.match_id,
-                    cd.direction,
-                    CAST(strftime('%s', cd.action_timestamp) AS INTEGER) AS ts_sec,
-                    SUM(cd.amount) AS damage,
-                    (LOWER(cd.module) LIKE '%breacher pod%') AS is_breacher_pod
-                FROM combat_data cd
-                         LEFT JOIN combat_log_types clt ON cd.log_type_id = clt.id
-                WHERE cd.amount IS NOT NULL
-                  AND clt.name = 'damage'
-                  AND cd.match_id = ?
-                GROUP BY match_id, direction, ts_sec, is_breacher_pod
+            SELECT
+                cd.match_id,
+                cd.action_timestamp,
+                cd.direction,
+                cd.module,
+                cd.amount,
+                clt.name AS log_type
+            FROM combat_data cd
+                     LEFT JOIN combat_log_types clt
+                               ON clt.id = cd.log_type_id
+            WHERE cd.match_id = ?
+              AND cd.amount IS NOT NULL
+              AND clt.name = 'damage' \
+            """
+
+    df = pd.read_sql_query(query, db.conn, params=(match_id,))
+    result = fleet_rolling(df, drones, match_id, seconds)
+
+    return result
+
+def get_fleet_rolling_dps(db, seconds, match_id):
+    query = """
+            WITH all_drones AS (
+                SELECT it.typeName
+                FROM invtypes it
+                         JOIN invgroups ig ON it.groupID = ig.groupID
+                         JOIN invcategories ic ON ig.categoryID = ic.categoryID
+                WHERE ic.name = 'Drone'
             ),
 
-                 bounds AS (
+-- 1 Normalize to per-second buckets
+                 normalized_damage AS (
                      SELECT
-                         match_id, direction, is_breacher_pod,
-                         MIN(ts_sec) AS min_sec,
-                         MAX(ts_sec) AS max_sec
-                     FROM filtered
-                     GROUP BY match_id, direction, is_breacher_pod
+                         cd.match_id,
+                         CAST(strftime('%s', cd.action_timestamp) AS INTEGER) AS ts_sec,
+                         cd.direction,
+                         CASE WHEN ad.typeName IS NOT NULL THEN 1 ELSE 0 END AS is_drone,
+                         CASE WHEN LOWER(cd.module) LIKE '%breacher pod%' THEN 1 ELSE 0 END AS is_breacher_pod,
+                         SUM(cd.amount) AS damage,
+                         CAST(strftime('%s', m.match_start_ts) AS INTEGER) AS start_ts,
+                        CAST(strftime('%s', m.match_end_ts) AS INTEGER) AS end_ts
+                     FROM combat_data cd
+                              LEFT JOIN combat_log_types clt ON clt.id = cd.log_type_id
+                              LEFT JOIN all_drones ad ON LOWER(cd.module) = LOWER(ad.typeName)
+                     LEFT JOIN matches m
+                         ON m.id = cd.match_id
+                     WHERE cd.amount IS NOT NULL
+                       AND clt.name = 'damage'
+                       AND m.id = :match_id
+                     GROUP BY
+                         cd.match_id,
+                         ts_sec,
+                         cd.direction,
+                         is_drone,
+                         is_breacher_pod
                  ),
 
+-- 2 Bounds per partition
+                 bounds AS (
+                     SELECT
+                         match_id,
+                         direction,
+                         is_drone,
+                         is_breacher_pod,
+                         start_ts as min_sec,
+                         end_ts as max_sec
+                         --MIN(ts_sec) AS min_sec,
+                         --MAX(ts_sec) AS max_sec
+                     FROM normalized_damage
+                     GROUP BY match_id, direction, is_drone, is_breacher_pod
+                 ),
+
+-- 3 Generate second grid (recursive CTE)
                  second_grid AS (
-                     SELECT match_id, direction, is_breacher_pod, min_sec AS ts_sec, max_sec
+                     SELECT
+                         match_id,
+                         direction,
+                         is_drone,
+                         is_breacher_pod,
+                         min_sec AS ts_sec,
+                         max_sec
                      FROM bounds
+
                      UNION ALL
-                     SELECT match_id, direction, is_breacher_pod, ts_sec + 1, max_sec
+
+                     SELECT
+                         match_id,
+                         direction,
+                         is_drone,
+                         is_breacher_pod,
+                         ts_sec + 1,
+                         max_sec
                      FROM second_grid
                      WHERE ts_sec < max_sec
                  ),
 
-                 filled AS (
+-- 4 Fill missing seconds with 0
+                 filled_seconds AS (
                      SELECT
                          g.match_id,
                          g.direction,
+                         g.is_drone,
                          g.is_breacher_pod,
                          g.ts_sec,
-                         COALESCE(f.damage, 0) AS damage
+                         COALESCE(n.damage, 0) AS damage
                      FROM second_grid g
-                              LEFT JOIN filtered f
-                                        ON g.match_id = f.match_id
-                                            AND g.direction = f.direction
-                                            AND g.is_breacher_pod = f.is_breacher_pod
-                                            AND g.ts_sec = f.ts_sec
+                              LEFT JOIN normalized_damage n
+                                        ON g.match_id = n.match_id
+                                            AND g.direction = n.direction
+                                            AND g.is_drone = n.is_drone
+                                            AND g.is_breacher_pod = n.is_breacher_pod
+                                            AND g.ts_sec = n.ts_sec
                  )
 
+-- 5 Rolling DPS
             SELECT
                 match_id,
                 direction,
                 datetime(ts_sec, 'unixepoch') AS action_timestamp,
+                is_drone,
                 is_breacher_pod,
 
                 SUM(damage) OVER (
-        PARTITION BY match_id, direction, is_breacher_pod
+        PARTITION BY match_id, direction, is_drone, is_breacher_pod
         ORDER BY ts_sec
-        ROWS BETWEEN ? PRECEDING AND CURRENT ROW
-    ) * 1.0 / ?
+        ROWS BETWEEN :window PRECEDING AND CURRENT ROW
+    ) * 1.0 / :divisor AS rolling_dps
 
-            FROM filled
+            FROM filled_seconds
             ORDER BY ts_sec;
             """
 
-    params = (match_id, seconds, seconds)
+    seconds_input = seconds          # what user passes (e.g. 5)
+    window = seconds_input - 1       # matches BigQuery
+    divisor = seconds_input          # true window size
 
-    return db.cursor.execute(query, params).fetchall()
+    params = {
+        "match_id": match_id,
+        "window": window,
+        "divisor": divisor
+    }
 
+    rows = db.cursor.execute(query, params).fetchall()
+
+    return [dict(row) for row in rows]
 
 def get_rolling_dps_w_pilots(db, seconds):
     query = """

@@ -1,7 +1,7 @@
 from eve_analytics.diagrams.queries.eve import (get_drones, get_damage_output_stats,
                                                 get_first_actions, get_log_data, get_pilots_and_ships,
                                                 get_matches, get_unique_pilots, get_match_last_action_by_pilot,
-                                                get_fleet_rolling_reps, get_fleet_rolling_dps, get_rolling_dps_bp,
+                                                get_fleet_rolling_reps, get_fleet_rolling_dps_pd, get_rolling_dps_bp,
                                                 get_rolling_dps_w_pilots)
 from collections import defaultdict
 from eve_analytics.diagrams.fleet_diagrams import generate_fleet_diagrams
@@ -131,7 +131,7 @@ class MatchAnalytics:
         self.unique_pilots = get_unique_pilots(db, self._match_id)
         self.dmg_output_stats = get_damage_output_stats(db, self._match_id)
         self.dmg_input_stats = get_damage_output_stats(db, self._match_id, direction="incoming")
-        self.fleet_dps = get_fleet_rolling_dps(db, seconds=self._fc.query_vars['dps_secs'], match_id=self._match_id)
+        self.fleet_dps = get_fleet_rolling_dps_pd(db, seconds=self._fc.query_vars['dps_secs'], match_id=self._match_id)
         self.ships_and_pilots = get_pilots_and_ships(db, self._match_id)
         self.fleet_reps = get_fleet_rolling_reps(db, seconds=self._fc.query_vars['dps_secs'], match_id=self._match_id)
         self.pilot_deaths = get_match_last_action_by_pilot(db=db, match_id=self._match_id)
