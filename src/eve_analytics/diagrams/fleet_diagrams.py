@@ -195,43 +195,45 @@ def generate_fleet_diagrams(
         fleet_reps_by_ts = defaultdict(float)
         for pilot in unique_pilots:
             color = next(colors)
-            dps_by_ts = defaultdict(float)
-            drone_dps_by_ts = defaultdict(float)
+
             pilot_reloads = []
             pilot_drone_engagements = []
             pilot_jammed = []
 
+            df = damage_df.copy()
+
             pilot_mask = (
-                damage_df["pilot"].eq(pilot)
+                df["pilot"].eq(pilot)
+            )
+
+            base_mask = (
+                    (df["ts_sec"] >= cd_start) &
+                    (df["ts_sec"] <= end_dt) &
+                    pilot_mask
             )
 
             dmg_mask = (
-                    (damage_df["ts_sec"] >= cd_start) &
-                    (damage_df["ts_sec"] <= end_dt) &
-                    pilot_mask &
-                    (
-                        damage_df["direction"].eq(dmg_direction) |
-                        damage_df["direction"].eq(f"{dmg_direction}-breacher-pods")
-                    )
+                    base_mask &
+                    df["is_drone"].eq(False)
             )
 
             drone_mask = (
-                    (damage_df["ts_sec"] >= cd_start) &
-                    (damage_df["ts_sec"] <= end_dt) &
-                    pilot_mask &
-                    (damage_df["direction"].eq(f"{dmg_direction}-drones-drones"))
+                    base_mask &
+                    (df["is_drone"].eq(True))
             )
 
             dps_by_ts = (
-                damage_df.loc[dmg_mask]
+                df.loc[dmg_mask]
                 .groupby("ts_sec")["rolling_dps"]
                 .sum()
+                .sort_index()
             )
 
             drone_dps_by_ts = (
-                damage_df.loc[drone_mask]
+                df.loc[drone_mask]
                 .groupby("ts_sec")["rolling_dps"]
                 .sum()
+                .sort_index()
             )
 
             if is_offensive:
@@ -302,18 +304,18 @@ def generate_fleet_diagrams(
                 if first_actions['pilot'] == pilot:
                     this_pilots_first_action.append(first_actions.get('ts'))
 
-            # sort and get values for dmg
-            ts_sorted = sorted(dps_by_ts.keys())
-            dps_values = [dps_by_ts[ts] for ts in ts_sorted]
+            ts_sorted = dps_by_ts.index.to_list()
+            dps_values = dps_by_ts.values
 
             dps_ems = compute_ema(dps_values, alpha)
 
-            drones_sorted = sorted(drone_dps_by_ts.keys())
-            drone_values = [drone_dps_by_ts[ts] for ts in drones_sorted]
+            drones_sorted = drone_dps_by_ts.index.to_list()
+            drone_values = drone_dps_by_ts.values
 
             drone_ems = compute_ema(drone_values, alpha)
 
-            ts_sorted = [datetime.fromisoformat(str(t)) for t in ts_sorted]            # Guns / pods DPS — solid
+            ts_sorted = [datetime.fromisoformat(str(t)) for t in ts_sorted]
+            drones_sorted = [datetime.fromisoformat(str(t)) for t in drones_sorted]
 
             ax_hp.plot(
                 ts_sorted,
