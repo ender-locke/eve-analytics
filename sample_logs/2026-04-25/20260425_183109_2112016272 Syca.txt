@@ -1,0 +1,524 @@
+------------------------------------------------------------
+  Gamelog
+  Listener: Sycamoria
+  Session Started: 2026.04.25 18:31:09
+------------------------------------------------------------
+[ 2026.04.25 18:32:52 ] (warning) You are about to throw away 1 x Outrider. <br><br><b>Are you absolutely sure you want to do this?</b>
+[ 2026.04.25 18:38:11 ] (None) Undocking from 6Y-0TW II - Moon 5 - True Creations Shipyard to 6Y-0TW solar system.
+[ 2026.04.25 18:38:23 ] (notify) Ship stopping
+[ 2026.04.25 18:38:40 ] (question) Are you sure you want to join the fleet commanded by <a href="showinfo:1384//2112017068">AxeI</a>?
+<br><br>
+NOTE: Attacking members of your fleet is not a CONCORD sanctioned activity and may result in security status loss and police response.
+[ 2026.04.25 18:38:43 ] (info) You do not appear to be in a fleet.
+[ 2026.04.25 18:42:11 ] (None) Undocking from 6Y-0TW II - Moon 5 - True Creations Shipyard to 6Y-0TW solar system.
+[ 2026.04.25 19:14:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:14:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:15:12 ] (notify) The target <b>Maulus</b> is too far away. It must be within <b>48 km</b>.
+[ 2026.04.25 19:15:42 ] (notify) The target <b>Orthrus</b> is too far away. It must be within <b>48 km</b>.
+[ 2026.04.25 19:15:43 ] (notify) The target <b>Orthrus</b> is too far away. It must be within <b>48 km</b>.
+[ 2026.04.25 19:15:49 ] (notify) Drones engaging 1
+[ 2026.04.25 19:15:49 ] (notify) Drones engaging 1
+[ 2026.04.25 19:15:49 ] (notify) Drones engaging 1
+[ 2026.04.25 19:15:50 ] (notify) Drones engaging 1
+[ 2026.04.25 19:15:50 ] (notify) Drones engaging 1
+[ 2026.04.25 19:15:51 ] (notify) Drones engaging 1
+[ 2026.04.25 19:15:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:15:53 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:15:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:15:54 ] (combat) <color=0xffffffff><b>Warp scramble attempt</b> <color=0x77ffffff><font size=10>from</font> <color=0xffffffff><b><font size=9><color=0xFFFFFFFF><i>Bobb Bobbington</i></color></font> <font size=12><color=0xFF70FF40><b>Devoter</b></color></font></b> <color=0x77ffffff><font size=10>to <b><color=0xffffffff></font><font size=9><color=0xFFFFFFFF><i>Necricia</i></color></font> <font size=12><color=0xFF70FF40><b>Barghest</b></color></font>
+[ 2026.04.25 19:15:56 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:15:59 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:16:02 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:02 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:02 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:02 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:16:02 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:02 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:16:05 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:16:06 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:06 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:06 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:06 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:06 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:08 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:16:10 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:10 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:16:10 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:10 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:10 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:11 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:16:14 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:14 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:14 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:16:14 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:14 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:14 ] (combat) Your group of Heavy Pulse Laser II misses Necricia completely - Heavy Pulse Laser II
+[ 2026.04.25 19:16:17 ] (combat) <color=0xff00ffff><b>83</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:16:18 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:18 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:18 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:18 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:18 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:20 ] (combat) <color=0xff00ffff><b>112</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:16:22 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:22 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:22 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:22 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:22 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:23 ] (combat) <color=0xff00ffff><b>433</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:26 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:26 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:26 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:16:26 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:16:26 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:27 ] (combat) <color=0xff00ffff><b>451</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:30 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:30 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:30 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:30 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:30 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:30 ] (combat) <color=0xff00ffff><b>508</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:33 ] (combat) <color=0xff00ffff><b>382</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:34 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:34 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:34 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:34 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:34 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:36 ] (combat) <color=0xff00ffff><b>451</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:16:38 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:38 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:38 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:38 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:38 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:39 ] (combat) <color=0xff00ffff><b>491</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:42 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:42 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:42 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:42 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:42 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:42 ] (combat) <color=0xff00ffff><b>307</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:16:45 ] (combat) <color=0xff00ffff><b>176</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:16:46 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:46 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:46 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:46 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:46 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:48 ] (combat) <color=0xff00ffff><b>460</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:50 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:50 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:50 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:16:50 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:50 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:51 ] (combat) <color=0xff00ffff><b>666</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Smashes
+[ 2026.04.25 19:16:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>3</b> fleet members.
+[ 2026.04.25 19:16:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>3</b> fleet members.
+[ 2026.04.25 19:16:54 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:54 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:54 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:16:54 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:16:54 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:54 ] (combat) <color=0xff00ffff><b>438</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:57 ] (combat) <color=0xff00ffff><b>474</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:16:58 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:58 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:58 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:16:58 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:16:58 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:01 ] (combat) <color=0xff00ffff><b>544</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:02 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:02 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:02 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:02 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:02 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:04 ] (combat) <color=0xff00ffff><b>454</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:17:06 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:06 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:06 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:06 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:06 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:07 ] (combat) <color=0xff00ffff><b>422</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:17:10 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:10 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:10 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:10 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:10 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:10 ] (combat) <color=0xff00ffff><b>558</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:13 ] (combat) <color=0xff00ffff><b>549</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:14 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:14 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:14 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:14 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:14 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:16 ] (combat) <color=0xff00ffff><b>492</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:18 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:18 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:18 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:18 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:18 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:19 ] (combat) <color=0xff00ffff><b>396</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:17:22 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:22 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:22 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:22 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:22 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:22 ] (combat) <color=0xff00ffff><b>420</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:17:25 ] (combat) <color=0xff00ffff><b>470</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:26 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:26 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:26 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:26 ] (combat) <color=0xff00ffff><b>39</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Wrecks
+[ 2026.04.25 19:17:26 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:28 ] (combat) <color=0xff00ffff><b>727</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:30 ] (combat) <color=0xff00ffff><b>41</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:30 ] (combat) <color=0xff00ffff><b>50</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:30 ] (combat) <color=0xff00ffff><b>24</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:30 ] (combat) <color=0xff00ffff><b>41</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:30 ] (combat) <color=0xff00ffff><b>22</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:31 ] (combat) <color=0xff00ffff><b>593</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:17:34 ] (combat) <color=0xff00ffff><b>46</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:34 ] (combat) <color=0xff00ffff><b>31</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:34 ] (combat) <color=0xff00ffff><b>49</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:34 ] (combat) <color=0xff00ffff><b>43</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:34 ] (combat) <color=0xff00ffff><b>44</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:34 ] (combat) <color=0xff00ffff><b>683</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:17:38 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:38 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:38 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:38 ] (combat) <color=0xff00ffff><b>49</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:38 ] (combat) <color=0xff00ffff><b>36</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:40 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:17:42 ] (combat) <color=0xff00ffff><b>29</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:42 ] (combat) <color=0xff00ffff><b>31</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:42 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:42 ] (combat) <color=0xff00ffff><b>34</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:42 ] (combat) <color=0xff00ffff><b>28</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:43 ] (combat) <color=0xff00ffff><b>325</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:17:46 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:46 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:46 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:46 ] (combat) <color=0xff00ffff><b>33</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:46 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:46 ] (combat) <color=0xff00ffff><b>56</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:17:49 ] (combat) <color=0xff00ffff><b>62</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:17:50 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:50 ] (combat) <color=0xff00ffff><b>31</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:50 ] (combat) <color=0xff00ffff><b>24</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:50 ] (combat) <color=0xff00ffff><b>30</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:50 ] (combat) <color=0xff00ffff><b>29</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:17:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:17:54 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:54 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:54 ] (combat) <color=0xff00ffff><b>26</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:17:54 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:54 ] (combat) <color=0xff00ffff><b>37</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:54 ] (combat) <color=0xff00ffff><b>723</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:57 ] (combat) <color=0xff00ffff><b>720</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:17:58 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:17:58 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:17:58 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:17:58 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:17:58 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Necricia[ALBH](Barghest)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:09 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:10 ] (notify) Drones engaging 1
+[ 2026.04.25 19:18:10 ] (notify) Drones engaging 1
+[ 2026.04.25 19:18:12 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:16 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:19 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:22 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:22 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:22 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:23 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:23 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:23 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:25 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:26 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:26 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:27 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:27 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:27 ] (combat) <color=0xff00ffff><b>6</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:28 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:30 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:30 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:31 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:31 ] (combat) <color=0xff00ffff><b>6</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:31 ] (combat) <color=0xff00ffff><b>6</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:31 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:34 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:34 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:34 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:35 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:35 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:35 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:37 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:38 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:38 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:39 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:39 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:39 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:40 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:42 ] (combat) <color=0xff00ffff><b>46</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:42 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:43 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:43 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:43 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:43 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:44 ] (combat) <color=0xffffffff><b>Warp scramble attempt</b> <color=0x77ffffff><font size=10>from</font> <color=0xffffffff><b><font size=9><color=0xFFFFFFFF><i>Bobb Bobbington</i></color></font> <font size=12><color=0xFF70FF40><b>Devoter</b></color></font></b> <color=0x77ffffff><font size=10>to <b><color=0xffffffff></font><font size=9><color=0xFFFFFFFF><i>big wand</i></color></font> <font size=12><color=0xFF70FF40><b>Outrider</b></color></font>
+[ 2026.04.25 19:18:46 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:46 ] (combat) <color=0xff00ffff><b>5</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:46 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:47 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:47 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:47 ] (combat) Your Caldari Navy Hornet misses big wand completely - Caldari Navy Hornet
+[ 2026.04.25 19:18:49 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:50 ] (combat) <color=0xff00ffff><b>6</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:50 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:51 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:51 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:51 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>5</b> fleet members.
+[ 2026.04.25 19:18:53 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>5</b> fleet members.
+[ 2026.04.25 19:18:54 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:54 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:18:55 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:18:55 ] (combat) <color=0xff00ffff><b>10</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:18:55 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:56 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:18:58 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:58 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:18:59 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:59 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:59 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:18:59 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:02 ] (combat) <color=0xff00ffff><b>31</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:02 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:02 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:03 ] (combat) <color=0xff00ffff><b>31</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:03 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:03 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:05 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:06 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:06 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:19:07 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:07 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:07 ] (combat) <color=0xff00ffff><b>26</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:08 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:10 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:10 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:11 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:11 ] (combat) <color=0xff00ffff><b>22</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:11 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:11 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:14 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:14 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:14 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:15 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:15 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:15 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:17 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:18 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:18 ] (combat) <color=0xff00ffff><b>7</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:19 ] (combat) <color=0xff00ffff><b>9</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:19 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:19 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:20 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:22 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:22 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:23 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:23 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:19:23 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:23 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:26 ] (combat) <color=0xff00ffff><b>26</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:26 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:27 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:27 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:27 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:27 ] (combat) <color=0xff00ffff><b>28</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:30 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:30 ] (combat) <color=0xff00ffff><b>15</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:30 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:31 ] (combat) <color=0xff00ffff><b>40</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:31 ] (combat) <color=0xff00ffff><b>30</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:31 ] (combat) <color=0xff00ffff><b>36</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:33 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:34 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:34 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:35 ] (combat) <color=0xffcc0000><b>75</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:35 ] (combat) <color=0xffcc0000><b>42</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Hits
+[ 2026.04.25 19:19:35 ] (combat) <color=0xffcc0000><b>31</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Grazes
+[ 2026.04.25 19:19:35 ] (combat) <color=0xffcc0000><b>65</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Penetrates
+[ 2026.04.25 19:19:35 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:35 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:35 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:36 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:38 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:38 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:39 ] (combat) <color=0xffcc0000><b>70</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:39 ] (combat) <color=0xffcc0000><b>64</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Penetrates
+[ 2026.04.25 19:19:39 ] (combat) <color=0xffcc0000><b>75</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:39 ] (combat) <color=0xffcc0000><b>34</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Grazes
+[ 2026.04.25 19:19:39 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:39 ] (combat) <color=0xff00ffff><b>18</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:39 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:39 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:42 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:42 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:19:42 ] (combat) <color=0xff00ffff><b>55</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:19:43 ] (combat) <color=0xffcc0000><b>28</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Grazes
+[ 2026.04.25 19:19:43 ] (combat) <color=0xffcc0000><b>61</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Penetrates
+[ 2026.04.25 19:19:43 ] (combat) <color=0xffcc0000><b>66</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Penetrates
+[ 2026.04.25 19:19:43 ] (combat) <color=0xffcc0000><b>72</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:43 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:43 ] (combat) <color=0xff00ffff><b>8</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:19:43 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:45 ] (combat) Your group of Heavy Pulse Laser II misses big wand completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:46 ] (combat) <color=0xff00ffff><b>34</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:46 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:19:47 ] (combat) <color=0xffcc0000><b>72</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:47 ] (combat) <color=0xffcc0000><b>50</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Hits
+[ 2026.04.25 19:19:47 ] (combat) <color=0xffcc0000><b>76</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:47 ] (combat) <color=0xffcc0000><b>72</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Smashes
+[ 2026.04.25 19:19:47 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:47 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:19:47 ] (combat) <color=0xff00ffff><b>39</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>big wand[ALBH](Outrider)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:19:49 ] (combat) <color=0xff00ffff><b>690</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:19:49 ] (notify) Medium F-RX Compact Capacitor Booster has run out of charges
+[ 2026.04.25 19:19:49 ] (notify) Loading the Capacitor Booster Charge into the Capacitor Booster; this will take approximately 10 seconds.
+[ 2026.04.25 19:19:51 ] (notify) Drones engaging 1
+[ 2026.04.25 19:19:51 ] (combat) <color=0xffffffff><b>Warp scramble attempt</b> <color=0x77ffffff><font size=10>from</font> <color=0xffffffff><b><font size=9><color=0xFFFFFFFF><i>Bobb Bobbington</i></color></font> <font size=12><color=0xFF70FF40><b>Devoter</b></color></font></b> <color=0x77ffffff><font size=10>to <b><color=0xffffffff></font><font size=9><color=0xFFFFFFFF><i>Simo M28 Haya</i></color></font> <font size=12><color=0xFF70FF40><b>Orthrus</b></color></font>
+[ 2026.04.25 19:19:52 ] (notify) Drones engaging 1
+[ 2026.04.25 19:19:52 ] (combat) Your group of Heavy Pulse Laser II misses Simo M28 Haya completely - Heavy Pulse Laser II
+[ 2026.04.25 19:19:52 ] (notify) Drones engaging 1
+[ 2026.04.25 19:19:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>5</b> fleet members.
+[ 2026.04.25 19:19:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>5</b> fleet members.
+[ 2026.04.25 19:19:59 ] (combat) <color=0xff00ffff><b>1353</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Hits
+[ 2026.04.25 19:20:01 ] (combat) <color=0xff00ffff><b>45</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:01 ] (combat) <color=0xff00ffff><b>32</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:01 ] (combat) <color=0xff00ffff><b>29</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:01 ] (combat) <color=0xff00ffff><b>42</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:01 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:01 ] (notify) Drones engaging 1
+[ 2026.04.25 19:20:01 ] (notify) Drones engaging 1
+[ 2026.04.25 19:20:02 ] (combat) <color=0xff00ffff><b>197</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:20:05 ] (combat) <color=0xff00ffff><b>33</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:05 ] (combat) <color=0xff00ffff><b>40</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:05 ] (combat) <color=0xff00ffff><b>31</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:05 ] (combat) <color=0xff00ffff><b>53</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:20:05 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:05 ] (combat) Your group of Heavy Pulse Laser II misses Simo M28 Haya completely - Heavy Pulse Laser II
+[ 2026.04.25 19:20:08 ] (combat) <color=0xff00ffff><b>194</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:20:09 ] (combat) <color=0xff00ffff><b>30</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:09 ] (combat) <color=0xff00ffff><b>40</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:09 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:09 ] (combat) <color=0xff00ffff><b>34</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:09 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:20:11 ] (combat) <color=0xff00ffff><b>1117</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Glances Off
+[ 2026.04.25 19:20:13 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:20:13 ] (combat) <color=0xff00ffff><b>38</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:13 ] (combat) <color=0xff00ffff><b>35</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:13 ] (combat) <color=0xff00ffff><b>40</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:13 ] (combat) <color=0xff00ffff><b>43</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:15 ] (combat) <color=0xff00ffff><b>1864</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Penetrates
+[ 2026.04.25 19:20:17 ] (combat) <color=0xff00ffff><b>51</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:17 ] (combat) <color=0xff00ffff><b>63</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:20:17 ] (combat) <color=0xff00ffff><b>54</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:17 ] (combat) <color=0xff00ffff><b>29</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:17 ] (combat) <color=0xff00ffff><b>38</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:18 ] (combat) <color=0xff00ffff><b>790</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:20:21 ] (combat) <color=0xff00ffff><b>26</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:21 ] (combat) <color=0xff00ffff><b>34</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:21 ] (combat) <color=0xff00ffff><b>44</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:21 ] (combat) <color=0xff00ffff><b>64</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:20:21 ] (combat) <color=0xff00ffff><b>33</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:21 ] (combat) <color=0xff00ffff><b>598</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:20:24 ] (combat) <color=0xff00ffff><b>781</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Simo M28 Haya[ALBH](Orthrus)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Glances Off
+[ 2026.04.25 19:20:38 ] (notify) Drones engaging 1
+[ 2026.04.25 19:20:39 ] (notify) Drones engaging 1
+[ 2026.04.25 19:20:41 ] (combat) <color=0xff00ffff><b>105</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:20:44 ] (combat) Your group of Heavy Pulse Laser II misses Sihcom Repinuj completely - Heavy Pulse Laser II
+[ 2026.04.25 19:20:46 ] (combat) <color=0xffcc0000><b>67</b> <color=0x77ffffff><font size=10>from</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Imperial Navy Acolyte - Penetrates
+[ 2026.04.25 19:20:47 ] (combat) Your group of Heavy Pulse Laser II misses Sihcom Repinuj completely - Heavy Pulse Laser II
+[ 2026.04.25 19:20:50 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:50 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:50 ] (combat) <color=0xff00ffff><b>12</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:50 ] (combat) <color=0xff00ffff><b>11</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:50 ] (combat) <color=0xff00ffff><b>23</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:20:50 ] (combat) Your group of Heavy Pulse Laser II misses Sihcom Repinuj completely - Heavy Pulse Laser II
+[ 2026.04.25 19:20:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:20:53 ] (combat) Your group of Heavy Pulse Laser II misses Sihcom Repinuj completely - Heavy Pulse Laser II
+[ 2026.04.25 19:20:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>6</b> fleet members.
+[ 2026.04.25 19:20:54 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:54 ] (combat) <color=0xff00ffff><b>13</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:20:54 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:54 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:54 ] (combat) <color=0xff00ffff><b>16</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:20:56 ] (combat) Your group of Heavy Pulse Laser II misses Sihcom Repinuj completely - Heavy Pulse Laser II
+[ 2026.04.25 19:20:58 ] (combat) <color=0xff00ffff><b>56</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:20:58 ] (combat) <color=0xff00ffff><b>56</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:20:58 ] (combat) <color=0xff00ffff><b>33</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:58 ] (combat) <color=0xff00ffff><b>38</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:20:58 ] (combat) <color=0xff00ffff><b>48</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:20:59 ] (combat) Your group of Heavy Pulse Laser II misses Sihcom Repinuj completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:01 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:01 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:02 ] (combat) <color=0xff00ffff><b>36</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:21:02 ] (combat) <color=0xff00ffff><b>21</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:21:02 ] (combat) <color=0xff00ffff><b>20</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:21:02 ] (combat) <color=0xff00ffff><b>32</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:21:02 ] (combat) <color=0xff00ffff><b>37</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:21:02 ] (combat) <color=0xff00ffff><b>233</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:21:05 ] (combat) <color=0xff00ffff><b>244</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Grazes
+[ 2026.04.25 19:21:06 ] (combat) <color=0xff00ffff><b>33</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:21:06 ] (combat) <color=0xff00ffff><b>39</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:21:06 ] (combat) <color=0xff00ffff><b>17</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:21:06 ] (combat) <color=0xff00ffff><b>14</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:21:06 ] (combat) <color=0xff00ffff><b>25</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:21:08 ] (combat) <color=0xff00ffff><b>506</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Sihcom Repinuj[ALBH](Scythe)</b><font size=10><color=0x77ffffff> - Heavy Pulse Laser II - Glances Off
+[ 2026.04.25 19:21:16 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:16 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:16 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:18 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:18 ] (notify) Drones engaging 1
+[ 2026.04.25 19:21:28 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:31 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:34 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:37 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:40 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:43 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:43 ] (combat) <color=0xff00ffff><b>33</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:21:43 ] (combat) <color=0xff00ffff><b>24</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:21:43 ] (combat) <color=0xff00ffff><b>30</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:21:43 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:44 ] (combat) <color=0xff00ffff><b>29</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:21:46 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:47 ] (combat) <color=0xff00ffff><b>49</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Smashes
+[ 2026.04.25 19:21:47 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:21:47 ] (combat) <color=0xff00ffff><b>35</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Hits
+[ 2026.04.25 19:21:47 ] (combat) <color=0xff00ffff><b>46</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:21:48 ] (combat) <color=0xff00ffff><b>42</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Penetrates
+[ 2026.04.25 19:21:49 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:51 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:51 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:51 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:51 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:21:52 ] (combat) <color=0xff00ffff><b>27</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Glances Off
+[ 2026.04.25 19:21:52 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:52 ] (notify) Your <b>Information Command Burst II</b> has applied bonuses to <b>5</b> fleet members.
+[ 2026.04.25 19:21:54 ] (notify) Medium F-RX Compact Capacitor Booster has run out of charges
+[ 2026.04.25 19:21:54 ] (notify) Your <b>Armor Command Burst II</b> has applied bonuses to <b>5</b> fleet members.
+[ 2026.04.25 19:21:54 ] (notify) Loading the Capacitor Booster Charge into the Capacitor Booster; this will take approximately 10 seconds.
+[ 2026.04.25 19:21:55 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:55 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:55 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:55 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:56 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:21:56 ] (combat) <color=0xff00ffff><b>19</b> <color=0x77ffffff><font size=10>to</font> <b><color=0xffffffff>Evie Kouvo[ALBH](Maulus)</b><font size=10><color=0x77ffffff> - Caldari Navy Hornet - Grazes
+[ 2026.04.25 19:21:59 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:59 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:59 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:59 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:21:59 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:22:00 ] (combat) Your Caldari Navy Hornet misses Evie Kouvo completely - Caldari Navy Hornet
+[ 2026.04.25 19:22:02 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II
+[ 2026.04.25 19:22:05 ] (combat) Your group of Heavy Pulse Laser II misses Evie Kouvo completely - Heavy Pulse Laser II

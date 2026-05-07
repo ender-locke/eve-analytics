@@ -268,7 +268,8 @@ def generate_pilot_flight_diagrams(
                     xycoords=fig.transFigure,
                     frameon=False,
                     box_alignment=(0.5, 0.5),
-                    zorder=0
+                    zorder=0,
+                    clip_on=True
                 )
 
                 ax_hp.add_artist(ship_ab)
@@ -448,44 +449,44 @@ def generate_pilot_flight_diagrams(
             if scram['direction'] == "incoming":
                 time = datetime.strptime(scram["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
                 img = OffsetImage(being_scrammed_img, zoom=0.5)  # zoom controls size
-                ab = AnnotationBbox(img, (time, 20), frameon=False, xycoords='data')
+                ab = AnnotationBbox(img, (time, 20), frameon=False, xycoords='data', clip_on=True)
                 ax_hp.add_artist(ab)
 
             elif scram['direction'] == "outgoing":
                 time = datetime.strptime(scram["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S') # x-axis coordinate
                 img = OffsetImage(scram_img, zoom=0.5)  # zoom controls size
-                ab = AnnotationBbox(img, (time, 20), frameon=False, xycoords='data')
+                ab = AnnotationBbox(img, (time, 20), frameon=False, xycoords='data', clip_on=True)
                 ax_hp.add_artist(ab)
 
         for jam in jams:
             if jam['direction'] == "outgoing":
                 img_box = OffsetImage(ecm_img, zoom=.5)  # adjust zoom as needed
-                ab = AnnotationBbox(img_box, (datetime.strptime(jam["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 30), frameon=False)
+                ab = AnnotationBbox(img_box, (datetime.strptime(jam["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 30), frameon=False, clip_on=True)
                 ax_hp.add_artist(ab)
 
         for link in links:
             if link['direction'] == "outgoing":
                 img = OffsetImage(links_img, zoom=.5)
-                ab = AnnotationBbox(img, (datetime.strptime(link["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 60), frameon=False)
+                ab = AnnotationBbox(img, (datetime.strptime(link["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 60), frameon=False, clip_on=True)
                 ax_hp.add_artist(ab)
 
         for reload in reloads:
             if reload['direction'] == "outgoing":
                 img = OffsetImage(reload_img, zoom=.5)
-                ab = AnnotationBbox(img, (datetime.strptime(reload["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 60), frameon=False)
+                ab = AnnotationBbox(img, (datetime.strptime(reload["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 60), frameon=False, clip_on=True)
                 ax_hp.add_artist(ab)
 
         for drone in drones:
             if drone['direction'] == "outgoing":
                 img = OffsetImage(drone_img, zoom=.5)
-                ab = AnnotationBbox(img, (datetime.strptime(drone["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 50), frameon=False)
+                ab = AnnotationBbox(img, (datetime.strptime(drone["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S'), 50), frameon=False, clip_on=True)
                 ax_hp.add_artist(ab)
 
         # Cap Warnings
         for warning in cap_warnings:
             time = datetime.strptime(warning["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
             img = OffsetImage(cap_img, zoom=.5)
-            ab = AnnotationBbox(img, (time, cap_warning_marker))
+            ab = AnnotationBbox(img, (time, cap_warning_marker), clip_on=True)
             ax_gj.add_artist(ab)
 
         ax_hp.set_xlim(cd_start, end_dt)
@@ -543,9 +544,6 @@ def generate_pilot_flight_diagrams(
             )
 
         fig.tight_layout()
-
-        print(fig)
-        print(fig.axes)
 
         figures.append({
             "fig": fig,

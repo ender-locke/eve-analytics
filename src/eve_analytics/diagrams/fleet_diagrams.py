@@ -168,6 +168,12 @@ def generate_fleet_diagrams(
         ax_hp.xaxis_date()
         ax_x2.xaxis_date()
 
+        ax_hp.relim()
+        ax_hp.autoscale_view()
+
+        ax_x2.relim()
+        ax_x2.autoscale_view()
+
         fig.subplots_adjust(bottom=0.23)
 
         ax_hp.set_facecolor("#0c0c1a")  # deep space navy
@@ -191,7 +197,6 @@ def generate_fleet_diagrams(
             key=lambda s: (s.get("name").lower(), s["pilot"].lower())
         )
 
-        fleet_dps_by_ts = defaultdict(float)
         fleet_reps_by_ts = defaultdict(float)
         for pilot in unique_pilots:
             color = next(colors)
@@ -280,7 +285,7 @@ def generate_fleet_diagrams(
 
                 for reload in pilot_reloads:
                     img = OffsetImage(ctx.reload_img, zoom=.5)
-                    ab = AnnotationBbox(img, (reload, reload_x), frameon=False, zorder=500)
+                    ab = AnnotationBbox(img, (reload, reload_x), frameon=False, zorder=500, clip_on=True)
                     ax_x2.add_artist(ab)
 
                 reload_x -= 5
@@ -293,7 +298,7 @@ def generate_fleet_diagrams(
 
                 for drone in pilot_drone_engagements:
                     img = OffsetImage(ctx.drone_img, zoom=.5)
-                    ab = AnnotationBbox(img, (drone, drone_engage_x), frameon=False, zorder=500)
+                    ab = AnnotationBbox(img, (drone, drone_engage_x), frameon=False, zorder=500, clip_on=True)
                     ax_x2.add_artist(ab)
 
                 drone_engage_x += 5
@@ -406,7 +411,7 @@ def generate_fleet_diagrams(
 
         for death_ts in death_plots:
             img = OffsetImage(skull_img, zoom=.03)
-            ab = AnnotationBbox(img, (death_ts, death_x), frameon=False, zorder=500, annotation_clip=True)
+            ab = AnnotationBbox(img, (death_ts, death_x), frameon=False, zorder=500, annotation_clip=True, clip_on=True)
             ab.set_clip_on(True)
             ax_x2.add_artist(ab)
 
@@ -425,7 +430,7 @@ def generate_fleet_diagrams(
         ax_x2.set_xlim(cd_start, end_dt)
 
         #ax_hp.set_ylim(0, (max(hp_max, reps_hp_max[dmg_direction]) * 1.1))
-        ax_x2.set_ylim(0, 100)
+        #ax_x2.set_ylim(0, 100)
 
         ax_hp.tick_params(colors="white")
         ax_x2.tick_params(axis="y", labelright=False)
@@ -521,7 +526,8 @@ def generate_fleet_diagrams(
                     xycoords=fig.transFigure,
                     frameon=False,
                     box_alignment=(0.5, 0.5),
-                    zorder=5
+                    zorder=5,
+                    clip_on=True
                 )
                 fig.add_artist(ship_ab)
 

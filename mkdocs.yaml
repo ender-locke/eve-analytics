@@ -2,6 +2,8 @@ site_name: eve-analytics
 
 nav:
   - Home: index.md
+  - How To:
+    - Logs: how_to/logs.md
   - Classes:
     - ParsedLogs: classes/parser.md
     - Database: classes/db.md
@@ -19,8 +21,8 @@ nav:
 
 theme:
   name: material
-  favicon: img/favicon.ico
-  logo: img/ea-logo.png
+  favicon: imgs/favicon.ico
+  logo: imgs/ea-logo.png
   palette:
     - scheme: default
       primary: indigo
