@@ -2,6 +2,7 @@ site_name: eve-analytics
 
 nav:
   - Home: index.md
+  - Current Work in Progress: wip.md
   - How To:
     - Logs: how_to/logs.md
     - Database: how_to/db.md
