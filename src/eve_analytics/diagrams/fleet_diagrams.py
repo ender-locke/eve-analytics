@@ -30,7 +30,7 @@ def generate_fleet_diagrams(
         diagram_type,
         unique_pilots,
         matches,
-        damage_list,
+        damage_df,
         drone_list,
         reload_list,
         first_actions_list,
@@ -75,7 +75,7 @@ def generate_fleet_diagrams(
             - cd_start (str): Countdown start timestamp
             - description (str, optional): Match label
 
-        damage_list (list[dict]): Damage events with rolling DPS values.
+        damage_df (list[dict]): Damage events with rolling DPS values.
 
         drone_list (list[dict]): Drone engagement events.
 
@@ -125,6 +125,13 @@ def generate_fleet_diagrams(
     dmg_stats = pilot_dmg if is_offensive else pilot_dmg_taken
 
     figures = []
+
+    dmg_hp_max = defaultdict(int)
+    reps_hp_max = defaultdict(int)
+
+    dmg_hp_max[dmg_direction] = 0
+    reps_hp_max[dmg_direction] = 0
+
     for match in matches:
         start = match["start"]
         start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
@@ -161,13 +168,17 @@ def generate_fleet_diagrams(
         ax_hp.xaxis_date()
         ax_x2.xaxis_date()
 
+        ax_hp.relim()
+        ax_hp.autoscale_view()
+
+        ax_x2.relim()
+        ax_x2.autoscale_view()
+
         fig.subplots_adjust(bottom=0.23)
 
         ax_hp.set_facecolor("#0c0c1a")  # deep space navy
         fig.patch.set_facecolor("#0c0c1a")  # figure background
         colors = iter(plt.cm.tab10.colors)
-
-        hp_max = 0
 
         match_comp = []
         for pilot in pilots_ships:
@@ -186,34 +197,49 @@ def generate_fleet_diagrams(
             key=lambda s: (s.get("name").lower(), s["pilot"].lower())
         )
 
-        fleet_dps_by_ts = defaultdict(float)
         fleet_reps_by_ts = defaultdict(float)
         for pilot in unique_pilots:
             color = next(colors)
-            dps_by_ts = defaultdict(float)
-            drone_dps_by_ts = defaultdict(float)
+
             pilot_reloads = []
             pilot_drone_engagements = []
             pilot_jammed = []
 
-            # parse out damage,
-            for e in damage_list:
-                action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
-                if (
-                    cd_start <= action_ts <= end_dt
-                    and is_involving_pilot(e, pilot)
-                    and (e["direction"] == dmg_direction or e["direction"] == f"{dmg_direction}-breacher-pods")
-                ):
-                    dps_by_ts[action_ts] += e["rolling_dps"]
-                    hp_max = max(hp_max, e["rolling_dps"], dps_by_ts[action_ts])
+            df = damage_df.copy()
 
-                if (
-                    cd_start <= action_ts <= end_dt
-                    and is_involving_pilot(e, pilot)
-                    and e["direction"] in (f"{dmg_direction}-drones", f"{dmg_direction}-drones-drones")
-                ):
-                    drone_dps_by_ts[action_ts] += e["rolling_dps"]
-                    hp_max = max(hp_max, e["rolling_dps"], drone_dps_by_ts[action_ts])
+            pilot_mask = (
+                df["pilot"].eq(pilot)
+            )
+
+            base_mask = (
+                    (df["ts_sec"] >= cd_start) &
+                    (df["ts_sec"] <= end_dt) &
+                    pilot_mask
+            )
+
+            dmg_mask = (
+                    base_mask &
+                    df["is_drone"].eq(False)
+            )
+
+            drone_mask = (
+                    base_mask &
+                    (df["is_drone"].eq(True))
+            )
+
+            dps_by_ts = (
+                df.loc[dmg_mask]
+                .groupby("ts_sec")["rolling_dps"]
+                .sum()
+                .sort_index()
+            )
+
+            drone_dps_by_ts = (
+                df.loc[drone_mask]
+                .groupby("ts_sec")["rolling_dps"]
+                .sum()
+                .sort_index()
+            )
 
             if is_offensive:
                 # todo add in when we got jams/ incoming jams
@@ -259,7 +285,7 @@ def generate_fleet_diagrams(
 
                 for reload in pilot_reloads:
                     img = OffsetImage(ctx.reload_img, zoom=.5)
-                    ab = AnnotationBbox(img, (reload, reload_x), frameon=False, zorder=500)
+                    ab = AnnotationBbox(img, (reload, reload_x), frameon=False, zorder=500, clip_on=True)
                     ax_x2.add_artist(ab)
 
                 reload_x -= 5
@@ -272,7 +298,7 @@ def generate_fleet_diagrams(
 
                 for drone in pilot_drone_engagements:
                     img = OffsetImage(ctx.drone_img, zoom=.5)
-                    ab = AnnotationBbox(img, (drone, drone_engage_x), frameon=False, zorder=500)
+                    ab = AnnotationBbox(img, (drone, drone_engage_x), frameon=False, zorder=500, clip_on=True)
                     ax_x2.add_artist(ab)
 
                 drone_engage_x += 5
@@ -283,18 +309,18 @@ def generate_fleet_diagrams(
                 if first_actions['pilot'] == pilot:
                     this_pilots_first_action.append(first_actions.get('ts'))
 
-            # sort and get values for dmg
-            ts_sorted = sorted(dps_by_ts.keys())
-            dps_values = [dps_by_ts[ts] for ts in ts_sorted]
+            ts_sorted = dps_by_ts.index.to_list()
+            dps_values = dps_by_ts.values
 
             dps_ems = compute_ema(dps_values, alpha)
 
-            drones_sorted = sorted(drone_dps_by_ts.keys())
-            drone_values = [drone_dps_by_ts[ts] for ts in drones_sorted]
+            drones_sorted = drone_dps_by_ts.index.to_list()
+            drone_values = drone_dps_by_ts.values
 
             drone_ems = compute_ema(drone_values, alpha)
 
-            ts_sorted = [datetime.fromisoformat(str(t)) for t in ts_sorted]            # Guns / pods DPS — solid
+            ts_sorted = [datetime.fromisoformat(str(t)) for t in ts_sorted]
+            drones_sorted = [datetime.fromisoformat(str(t)) for t in drones_sorted]
 
             ax_hp.plot(
                 ts_sorted,
@@ -332,7 +358,7 @@ def generate_fleet_diagrams(
                 action_ts = datetime.strptime(e["action_timestamp"].replace("T", " "), '%Y-%m-%d %H:%M:%S')
                 if cd_start <= action_ts <= end_dt and e["direction"] == "incoming":
                     fleet_reps_by_ts[action_ts] += e["rolling_reps"]
-                    hp_max = max(hp_max, e["rolling_reps"], fleet_reps_by_ts[action_ts])
+                    reps_hp_max[dmg_direction] = max(reps_hp_max[dmg_direction], e["rolling_reps"], fleet_reps_by_ts[action_ts])
 
             fleet_reps_sorted = sorted(fleet_reps_by_ts.keys())
             fleet_reps_values = [fleet_reps_by_ts[ts] for ts in fleet_reps_sorted]
@@ -350,21 +376,31 @@ def generate_fleet_diagrams(
                 alpha=0.95
             )
 
-        for e in fleet_dmg:
-            action_ts = datetime.strptime(e["action_timestamp"], '%Y-%m-%d %H:%M:%S')
+        fleet_mask = (
+                (fleet_dmg["ts_sec"] >= cd_start) &
+                (fleet_dmg["ts_sec"] <= end_dt) &
+                (fleet_dmg["direction"].isin([
+                    dmg_direction,
+                    f"{dmg_direction}-breacher-pods",
+                    f"{dmg_direction}-drones",
+                ]))
+        )
 
-            if (
-                cd_start <= action_ts <= end_dt
-                and (e["direction"] in [dmg_direction, f"{dmg_direction}-breacher-pods", f"{dmg_direction}-drones"])
-            ):
-                ts = e["action_timestamp"]
-                fleet_dps_by_ts[ts] += e["rolling_dps"]
-                hp_max = max(hp_max, e["rolling_dps"], fleet_dps_by_ts[ts])
+        filtered = fleet_dmg.loc[fleet_mask]
+
+        fleet_dps_by_ts = (
+            filtered.groupby("ts_sec")["rolling_dps"]
+            .sum()
+        )
+
+        hp_max = max(
+            filtered["rolling_dps"].max(),
+            fleet_dps_by_ts.max(),
+            dmg_hp_max[dmg_direction]
+        )
 
         fleet_dps_sorted = sorted(fleet_dps_by_ts.keys())
         fleet_dps_values = [fleet_dps_by_ts[ts] for ts in fleet_dps_sorted]
-
-        fleet_dps_sorted = [datetime.fromisoformat(f) for f in fleet_dps_sorted]
 
         ema = compute_ema(fleet_dps_values, alpha)
 
@@ -375,7 +411,7 @@ def generate_fleet_diagrams(
 
         for death_ts in death_plots:
             img = OffsetImage(skull_img, zoom=.03)
-            ab = AnnotationBbox(img, (death_ts, death_x), frameon=False, zorder=500, annotation_clip=True)
+            ab = AnnotationBbox(img, (death_ts, death_x), frameon=False, zorder=500, annotation_clip=True, clip_on=True)
             ab.set_clip_on(True)
             ax_x2.add_artist(ab)
 
@@ -393,8 +429,8 @@ def generate_fleet_diagrams(
         ax_hp.set_xlim(cd_start, end_dt)
         ax_x2.set_xlim(cd_start, end_dt)
 
-        ax_hp.set_ylim(0, (hp_max * 1.1))
-        ax_x2.set_ylim(0, 100)
+        #ax_hp.set_ylim(0, (max(hp_max, reps_hp_max[dmg_direction]) * 1.1))
+        #ax_x2.set_ylim(0, 100)
 
         ax_hp.tick_params(colors="white")
         ax_x2.tick_params(axis="y", labelright=False)
@@ -490,7 +526,8 @@ def generate_fleet_diagrams(
                     xycoords=fig.transFigure,
                     frameon=False,
                     box_alignment=(0.5, 0.5),
-                    zorder=5
+                    zorder=5,
+                    clip_on=True
                 )
                 fig.add_artist(ship_ab)
 
