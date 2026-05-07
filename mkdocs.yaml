@@ -4,6 +4,8 @@ nav:
   - Home: index.md
   - How To:
     - Logs: how_to/logs.md
+    - Database: how_to/db.md
+    - Examples: how_to/examples.md
   - Classes:
     - ParsedLogs: classes/parser.md
     - Database: classes/db.md
