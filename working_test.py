@@ -21,6 +21,7 @@ if __name__ == "__main__":
             "match_id": match_id
         },
     ]
+    # todo get adding matches
     ea.add_match_comp_data(records)
     ea.generate_analytics(match_id)
     # todo save analytics

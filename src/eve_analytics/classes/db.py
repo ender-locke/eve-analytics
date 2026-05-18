@@ -344,9 +344,6 @@ class Database:
         self._load_invgroups()
 
     def __load_user_table(self):
-        self.conn.row_factory = sqlite3.Row
-        self.cursor = self.conn.cursor()
-
 
         # get all unique pilot names from combat_data
         self.cursor.execute("""
@@ -356,7 +353,7 @@ class Database:
                          AND TRIM(pilot) != ''
                        """)
 
-        pilot_names = [row["pilot"] for row in cursor.fetchall()]
+        pilot_names = [row["pilot"] for row in self.cursor.fetchall()]
 
         # get all existing users (lowercased for comparison)
         self.cursor.execute("""
@@ -424,7 +421,7 @@ class Database:
         """
         pilot_record example:
         {
-            "toon": "Ender",
+            "pilot": "Ender",
             "ship_name": Nightmare,
             "match_id": "abc123"
         }
@@ -432,15 +429,12 @@ class Database:
         OR
 
         {
-            "toon": "Bobb",
+            "pilot": "Bobb",
             "ship_name": Mamba,
             "match_ts": "2026-05-18 12:30:00"
         }
         """
-        if not self.users_updated:
-            self.__load_user_table()
-
-        required_fields = ["toon", "ship_name"]
+        required_fields = ["pilot", "ship_name"]
 
         for field in required_fields:
             if field not in pilot_record:
@@ -449,10 +443,11 @@ class Database:
         if "match_id" not in pilot_record and "match_ts" not in pilot_record:
             raise ValueError("pilot_record must contain either match_id or match_ts")
 
-        self.__load_user_table()
-
-        toon = pilot_record["toon"]
+        toon = pilot_record["pilot"]
         ship_name = pilot_record["ship_name"]
+
+        if not self.users_updated:
+            self.__load_user_table()
 
         #
         # get pilot_id
