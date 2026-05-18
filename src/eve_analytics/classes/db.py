@@ -343,6 +343,85 @@ class Database:
         self._load_invcategories()
         self._load_invgroups()
 
+    def __load_user_table(self):
+        self.conn.row_factory = sqlite3.Row
+        self.cursor = self.conn.cursor()
+
+
+        # get all unique pilot names from combat_data
+        self.cursor.execute("""
+                       SELECT DISTINCT pilot
+                       FROM combat_data
+                       WHERE pilot IS NOT NULL
+                         AND TRIM(pilot) != ''
+                       """)
+
+        pilot_names = [row["pilot"] for row in cursor.fetchall()]
+
+        # get all existing users (lowercased for comparison)
+        self.cursor.execute("""
+                       SELECT LOWER(character_name) AS character_name
+                       FROM users
+                       """)
+
+        existing_users = {
+            row["character_name"]
+            for row in self.cursor.fetchall()
+            if row["character_name"]
+        }
+
+        # find current max id
+        self.cursor.execute("""
+               SELECT COALESCE(MAX(id), 0) AS max_id
+               FROM users
+               """)
+
+        next_id = self.cursor.fetchone()["max_id"] + 1
+
+        now_ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
+        users_to_insert = []
+
+        for pilot_name in pilot_names:
+            pilot_name_lower = pilot_name.lower()
+
+            # skip if already exists
+            if pilot_name_lower in existing_users:
+                continue
+
+            users_to_insert.append((
+                next_id,
+                pilot_name,
+                None,       # last_login
+                now_ts,     # create_ts
+                now_ts,     # update_ts
+                0           # retired
+            ))
+
+            existing_users.add(pilot_name_lower)
+            next_id += 1
+
+        if users_to_insert:
+            self.cursor.executemany("""
+                   INSERT INTO users (
+                       id,
+                       character_name,
+                       last_login,
+                       create_ts,
+                       update_ts,
+                       retired
+                   )
+                   VALUES (?, ?, ?, ?, ?, ?)
+                   """, users_to_insert)
+
+        self.conn.commit()
+
+
+    def _insert_pilot_record(self):
+        # todo add in adding ships and pilots
+
+        pass
+
     def _load_invtypes(self):
         """
         Loads invtypes data from SDE YAML into memory.
