@@ -23,3 +23,17 @@ class MissingSDEError(Exception):
         self.message = f"{message} -> {location}"
         super().__init__(self.message)
 
+class NoMatchFoundError(Exception):
+
+    def __init__(self, timestamp, message="no match data"):
+        """
+        Initialize the MissingSDEError.
+
+        Args:
+            location (str): The expected location of the SDE files.
+            message (str, optional): Base error message.
+        """
+
+        self.message = f"{message} for {timestamp}"
+        super().__init__(self.message)
+

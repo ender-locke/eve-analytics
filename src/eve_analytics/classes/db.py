@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from eve_analytics.exceptions.db_errors import MissingSDEError
+from eve_analytics.exceptions.db_errors import MissingSDEError, NoMatchFoundError
 from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from eve_analytics.data.eve_sde import sde_url
@@ -416,11 +416,124 @@ class Database:
 
         self.conn.commit()
 
+    def _insert_pilot_record(self, pilot_record):
+        """
+        pilot_record example:
+        {
+            "toon": "Ender",
+            "ship_name": Nightmare,
+            "match_id": "abc123"
+        }
 
-    def _insert_pilot_record(self):
-        # todo add in adding ships and pilots
+        OR
 
-        pass
+        {
+            "toon": "Bobb",
+            "ship_id": Mamba,
+            "match_ts": "2026-05-18 12:30:00"
+        }
+        """
+
+        required_fields = ["toon", "ship_name"]
+
+        for field in required_fields:
+            if field not in pilot_record:
+                raise ValueError(f"Missing required field: {field}")
+
+        if "match_id" not in pilot_record and "match_ts" not in pilot_record:
+            raise ValueError("pilot_record must contain either match_id or match_ts")
+
+        self.__load_user_table()
+
+        toon = pilot_record["toon"]
+        ship_name = pilot_record["ship_name"]
+
+        #
+        # get pilot_id
+        #
+        self.cursor.execute("""
+                       SELECT id
+                       FROM users
+                       WHERE LOWER(character_name) = LOWER(?)
+                           LIMIT 1
+                       """, (toon,))
+
+        user_row = self.cursor.fetchone()
+
+        if not user_row:
+            raise ValueError(f"Pilot not found in users table: {toon}")
+
+        pilot_id = user_row["id"]
+
+        #
+        # get ship_id from invTypes
+        #
+        self.cursor.execute("""
+                       SELECT typeID
+                       FROM invTypes
+                       WHERE LOWER(typeName) = LOWER(?)
+                           LIMIT 1
+                       """, (ship_name,))
+
+        ship_row = self.cursor.fetchone()
+
+        if not ship_row:
+            raise ValueError(f"Ship not found in invTypes table: {ship_name}")
+
+        ship_id = ship_row["typeID"]
+
+        #
+        # determine match_id
+        #
+        match_id = pilot_record.get("match_id")
+
+        if not match_id:
+            match_ts = pilot_record["match_ts"]
+
+            # adjust this query to match your matches table schema
+            self.cursor.execute("""
+                           SELECT match_id
+                           FROM matches
+                           WHERE start_ts <= ?
+                             AND end_ts >= ?
+                               LIMIT 1
+                           """, (match_ts, match_ts))
+
+            match_row = self.cursor.fetchone()
+
+            if not match_row:
+                raise NoMatchFoundError(
+                    f"No match found for timestamp: {match_ts}"
+                )
+
+            match_id = match_row["match_id"]
+
+        now_ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
+        #
+        # insert bridge record
+        #
+        self.cursor.execute("""
+           INSERT OR IGNORE INTO pilot_to_match_to_ship_bridge (
+                pilot_id,
+                match_id,
+                ship_id,
+                create_ts,
+                update_ts,
+                retired
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+                       """, (
+                           pilot_id,
+                           match_id,
+                           ship_id,
+                           now_ts,
+                           now_ts,
+                           0
+                       ))
+
+        self.conn.commit()
+
 
     def _load_invtypes(self):
         """
