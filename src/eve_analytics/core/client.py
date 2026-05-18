@@ -186,3 +186,7 @@ class EveAnalytics:
         """
         for match_analytics in self._match_analytics:
             match_analytics.save_analytics(save_dir)
+
+    def add_match_comp_data(self, records: list):
+        for record in records:
+            self._db.insert_pilot_record(record=record)

@@ -65,7 +65,7 @@ class Database:
         self.conn.execute("PRAGMA foreign_keys = ON;")
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
-
+        self.users_updated = False
         self.create_tables = [
             create_combat_data_sql,
             create_combat_log_types_sql,
@@ -415,8 +415,12 @@ class Database:
                    """, users_to_insert)
 
         self.conn.commit()
+        self.users_updated = True
 
-    def _insert_pilot_record(self, pilot_record):
+    def insert_pilot_record(self, record):
+        self.__insert_pilot_record(pilot_record=record)
+
+    def __insert_pilot_record(self, pilot_record):
         """
         pilot_record example:
         {
@@ -429,10 +433,12 @@ class Database:
 
         {
             "toon": "Bobb",
-            "ship_id": Mamba,
+            "ship_name": Mamba,
             "match_ts": "2026-05-18 12:30:00"
         }
         """
+        if not self.users_updated:
+            self.__load_user_table()
 
         required_fields = ["toon", "ship_name"]
 
