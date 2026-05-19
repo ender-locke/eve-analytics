@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from eve_analytics.exceptions.db_errors import MissingSDEError
+from eve_analytics.exceptions.db_errors import MissingSDEError, NoMatchFoundError, MissingTimestampError
 from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from eve_analytics.data.eve_sde import sde_url
@@ -65,7 +65,7 @@ class Database:
         self.conn.execute("PRAGMA foreign_keys = ON;")
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
-
+        self.users_updated = False
         self.create_tables = [
             create_combat_data_sql,
             create_combat_log_types_sql,
@@ -210,6 +210,36 @@ class Database:
 
         return None
 
+    def _get_matches(self, start_ts, end_ts, all: bool):
+        if not all:
+            if not start_ts or not end_ts:
+                raise MissingTimestampError()
+
+            match_start_ts = start_ts
+            match_end_ts = end_ts
+
+            self.cursor.execute("""
+                                SELECT id
+                                FROM matches
+                                WHERE match_start_ts >= ?
+                                  AND match_end_ts <= ?
+                                """, (match_start_ts, match_end_ts))
+        else:
+            self.cursor.execute("""
+                                SELECT id
+                                FROM matches
+                                """)
+
+        match_rows = self.cursor.fetchall()
+
+        if not match_rows:
+            raise NoMatchFoundError(
+                f"No matches found between {match_start_ts} and {match_end_ts}"
+            )
+
+        match_ids = [row["id"] for row in match_rows]
+        return match_ids
+
     def process_json_record(self, record):
         """
         Normalizes a parsed combat log record for database insertion.
@@ -342,6 +372,199 @@ class Database:
         self._load_invtypes()
         self._load_invcategories()
         self._load_invgroups()
+
+    def __load_user_table(self):
+
+        # get all unique pilot names from combat_data
+        self.cursor.execute("""
+                       SELECT DISTINCT pilot
+                       FROM combat_data
+                       WHERE pilot IS NOT NULL
+                         AND TRIM(pilot) != ''
+                       """)
+
+        pilot_names = [row["pilot"] for row in self.cursor.fetchall()]
+
+        # get all existing users (lowercased for comparison)
+        self.cursor.execute("""
+                       SELECT LOWER(character_name) AS character_name
+                       FROM users
+                       """)
+
+        existing_users = {
+            row["character_name"]
+            for row in self.cursor.fetchall()
+            if row["character_name"]
+        }
+
+        # find current max id
+        self.cursor.execute("""
+               SELECT COALESCE(MAX(id), 0) AS max_id
+               FROM users
+               """)
+
+        next_id = self.cursor.fetchone()["max_id"] + 1
+
+        now_ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
+        users_to_insert = []
+
+        for pilot_name in pilot_names:
+            pilot_name_lower = pilot_name.lower()
+
+            # skip if already exists
+            if pilot_name_lower in existing_users:
+                continue
+
+            users_to_insert.append((
+                next_id,
+                pilot_name,
+                None,       # last_login
+                now_ts,     # create_ts
+                now_ts,     # update_ts
+                0           # retired
+            ))
+
+            existing_users.add(pilot_name_lower)
+            next_id += 1
+
+        if users_to_insert:
+            self.cursor.executemany("""
+                   INSERT INTO users (
+                       id,
+                       character_name,
+                       last_login,
+                       create_ts,
+                       update_ts,
+                       retired
+                   )
+                   VALUES (?, ?, ?, ?, ?, ?)
+                   """, users_to_insert)
+
+        self.conn.commit()
+        self.users_updated = True
+
+    def insert_pilot_record(self, record):
+        self.__insert_pilot_record(pilot_record=record)
+
+    def __insert_pilot_record(self, pilot_record):
+        """
+        pilot_record example:
+        {
+            "pilot": "Ender",
+            "ship_name": Nightmare,
+            "match_id": "abc123"
+        }
+
+        OR
+
+        {
+            "pilot": "Bobb",
+            "ship_name": Mamba,
+            "match_ts": "2026-05-18 12:30:00"
+        }
+        """
+        required_fields = ["pilot", "ship_name"]
+
+        for field in required_fields:
+            if field not in pilot_record:
+                raise ValueError(f"Missing required field: {field}")
+
+        if "match_id" not in pilot_record and "match_ts" not in pilot_record:
+            raise ValueError("pilot_record must contain either match_id or match_ts")
+
+        toon = pilot_record["pilot"]
+        ship_name = pilot_record["ship_name"]
+
+        if not self.users_updated:
+            self.__load_user_table()
+
+        #
+        # get pilot_id
+        #
+        self.cursor.execute("""
+                       SELECT id
+                       FROM users
+                       WHERE LOWER(character_name) = LOWER(?)
+                           LIMIT 1
+                       """, (toon,))
+
+        user_row = self.cursor.fetchone()
+
+        if not user_row:
+            raise ValueError(f"Pilot not found in users table: {toon}")
+
+        pilot_id = user_row["id"]
+
+        #
+        # get ship_id from invTypes
+        #
+        self.cursor.execute("""
+                       SELECT typeID
+                       FROM invTypes
+                       WHERE LOWER(typeName) = LOWER(?)
+                           LIMIT 1
+                       """, (ship_name,))
+
+        ship_row = self.cursor.fetchone()
+
+        if not ship_row:
+            raise ValueError(f"Ship not found in invTypes table: {ship_name}")
+
+        ship_id = ship_row["typeID"]
+
+        #
+        # determine match_id
+        #
+        match_id = pilot_record.get("match_id")
+
+        if not match_id:
+            match_ts = pilot_record["match_ts"]
+
+            # adjust this query to match your matches table schema
+            self.cursor.execute("""
+                           SELECT match_id
+                           FROM matches
+                           WHERE match_start_ts <= ?
+                             AND match_end_ts >= ?
+                               LIMIT 1
+                           """, (match_ts, match_ts))
+
+            match_row = self.cursor.fetchone()
+
+            if not match_row:
+                raise NoMatchFoundError(
+                    f"No match found for timestamp: {match_ts}"
+                )
+
+            match_id = match_row["match_id"]
+
+        now_ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
+        #
+        # insert bridge record
+        #
+        self.cursor.execute("""
+           INSERT OR IGNORE INTO pilot_to_match_to_ship_bridge (
+                pilot_id,
+                match_id,
+                ship_id,
+                create_ts,
+                update_ts,
+                retired
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+                       """, (
+                           pilot_id,
+                           match_id,
+                           ship_id,
+                           now_ts,
+                           now_ts,
+                           0
+                       ))
+
+        self.conn.commit()
+
 
     def _load_invtypes(self):
         """

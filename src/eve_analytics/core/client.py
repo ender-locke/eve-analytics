@@ -186,3 +186,16 @@ class EveAnalytics:
         """
         for match_analytics in self._match_analytics:
             match_analytics.save_analytics(save_dir)
+
+    def add_match_comp_data(self, records: list):
+        for record in records:
+            self._db.insert_pilot_record(record=record)
+
+    def get_match_ids(self, start_ts = None, end_ts = None, all: bool = True):
+        if start_ts and end_ts:
+            all = False
+        match_ids = self.db._get_matches(start_ts=start_ts,
+                                         end_ts=end_ts,
+                                         all=all)
+        return match_ids
+
