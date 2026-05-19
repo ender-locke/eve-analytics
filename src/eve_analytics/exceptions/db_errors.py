@@ -27,13 +27,19 @@ class NoMatchFoundError(Exception):
 
     def __init__(self, timestamp, message="no match data"):
         """
-        Initialize the MissingSDEError.
-
-        Args:
-            location (str): The expected location of the SDE files.
-            message (str, optional): Base error message.
         """
 
         self.message = f"{message} for {timestamp}"
         super().__init__(self.message)
 
+
+class MissingTimestampError(Exception):
+
+    def __init__(self,):
+        """
+        Initialize the MissingTimestampError.
+
+        """
+
+        self.message = f"missing a timestamp "
+        super().__init__(self.message)

@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from eve_analytics.exceptions.db_errors import MissingSDEError, NoMatchFoundError
+from eve_analytics.exceptions.db_errors import MissingSDEError, NoMatchFoundError, MissingTimestampError
 from eve_analytics.db.schema.schemas import *
 from eve_analytics.data.logs import log_types, keys_to_remove
 from eve_analytics.data.eve_sde import sde_url
@@ -209,6 +209,36 @@ class Database:
             return datetime.fromtimestamp(value / 1000, tz=timezone.utc).isoformat()
 
         return None
+
+    def _get_matches(self, start_ts, end_ts, all: bool):
+        if not all:
+            if not start_ts or not end_ts:
+                raise MissingTimestampError()
+
+            match_start_ts = start_ts
+            match_end_ts = end_ts
+
+            self.cursor.execute("""
+                                SELECT id
+                                FROM matches
+                                WHERE match_start_ts >= ?
+                                  AND match_end_ts <= ?
+                                """, (match_start_ts, match_end_ts))
+        else:
+            self.cursor.execute("""
+                                SELECT id
+                                FROM matches
+                                """)
+
+        match_rows = self.cursor.fetchall()
+
+        if not match_rows:
+            raise NoMatchFoundError(
+                f"No matches found between {match_start_ts} and {match_end_ts}"
+            )
+
+        match_ids = [row["id"] for row in match_rows]
+        return match_ids
 
     def process_json_record(self, record):
         """
@@ -495,8 +525,8 @@ class Database:
             self.cursor.execute("""
                            SELECT match_id
                            FROM matches
-                           WHERE start_ts <= ?
-                             AND end_ts >= ?
+                           WHERE match_start_ts <= ?
+                             AND match_end_ts >= ?
                                LIMIT 1
                            """, (match_ts, match_ts))
 
