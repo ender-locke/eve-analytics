@@ -1,7 +1,8 @@
 # eve-analytics
 
 [![Docs](https://img.shields.io/badge/docs-EVE_Analytics-blue?style=flat)](https://ender-locke.github.io/eve-analytics/)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ender-locke/eve-analytics/deploy.yaml)
+![Deploy](https://github.com/ender-locke/eve-analytics/actions/workflows/deploy.yaml/badge.svg)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/ender-locke/eve-analytics/dev)
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/eve-analytics)
 ![PyPI - Version](https://img.shields.io/pypi/v/eve-analytics)
